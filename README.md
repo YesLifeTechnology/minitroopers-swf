@@ -14,12 +14,12 @@ This is the repository for Minitroopers !
 
 ## Contributing
 
-### Automated setup (linux only)
+<!-- ### Automated setup (linux only)
 
 Requires docker and docker compose (see [here](https://docs.docker.com/engine/install/))
 
 ```bash
-bash <(curl -fsSL https://gitlab.com/eternaltwin/minitroopers/minitroopers/-/raw/main/setup.sh?ref_type=heads)   
+bash <(curl -fsSL https://gitlab.com/eternaltwin/minitroopers/minitroopers/-/raw/main/setup.sh?ref_type=heads)    -->
 ```
 
 ### Manual setup
