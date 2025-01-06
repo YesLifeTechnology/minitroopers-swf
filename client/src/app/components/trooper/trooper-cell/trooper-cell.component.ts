@@ -16,11 +16,10 @@ import { TrooperService } from 'src/app/services/trooper.service';
 import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
-  selector: 'app-trooper-cell',
-  standalone: true,
-  imports: [CommonModule, SkillsComponent],
-  templateUrl: './trooper-cell.component.html',
-  styleUrl: './trooper-cell.component.scss',
+    selector: 'app-trooper-cell',
+    imports: [CommonModule, SkillsComponent],
+    templateUrl: './trooper-cell.component.html',
+    styleUrl: './trooper-cell.component.scss'
 })
 export class TrooperCellComponent implements AfterViewInit, OnChanges {
   @ViewChild('insert') element!: ElementRef;

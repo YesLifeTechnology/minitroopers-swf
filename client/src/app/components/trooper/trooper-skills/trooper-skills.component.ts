@@ -37,17 +37,16 @@ const TROOPER_STATS_SKILL_ORDER = [
 ];
 
 @Component({
-  selector: 'app-trooper-skills',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TrooperCellComponent,
-    CommandButtonComponent,
-    ReactiveFormsModule,
-    TooltipDirective,
-  ],
-  templateUrl: './trooper-skills.component.html',
-  styleUrl: './trooper-skills.component.scss',
+    selector: 'app-trooper-skills',
+    imports: [
+        CommonModule,
+        TrooperCellComponent,
+        CommandButtonComponent,
+        ReactiveFormsModule,
+        TooltipDirective,
+    ],
+    templateUrl: './trooper-skills.component.html',
+    styleUrl: './trooper-skills.component.scss'
 })
 export class TrooperSkillsComponent implements OnChanges {
   @Input() selectedTrooper!: Trooper;

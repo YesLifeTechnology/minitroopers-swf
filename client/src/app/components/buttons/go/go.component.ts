@@ -2,11 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonState } from '@minitroopers/shared';
 
 @Component({
-  selector: 'app-go',
-  standalone: true,
-  imports: [],
-  templateUrl: './go.component.html',
-  styleUrl: './go.component.scss',
+    selector: 'app-go',
+    imports: [],
+    templateUrl: './go.component.html',
+    styleUrl: './go.component.scss'
 })
 export class GoComponent implements OnInit {
   @Input() state: ButtonState = 'pending';

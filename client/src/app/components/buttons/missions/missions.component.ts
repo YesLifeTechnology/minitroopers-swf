@@ -5,12 +5,11 @@ import { FightComponent } from '../fight/fight.component';
 import { GoComponent } from '../go/go.component';
 
 @Component({
-  selector: 'app-missions',
-  standalone: true,
-  imports: [CommonModule, GoComponent],
-  providers: [DecimalPipe],
-  templateUrl: './../fight/fight.component.html',
-  styleUrls: ['./../fight/fight.component.scss', './missions.component.scss'],
+    selector: 'app-missions',
+    imports: [CommonModule, GoComponent],
+    providers: [DecimalPipe],
+    templateUrl: './../fight/fight.component.html',
+    styleUrls: ['./../fight/fight.component.scss', './missions.component.scss']
 })
 export class MissionsComponent extends FightComponent {
   override getButtonState() {

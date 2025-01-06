@@ -12,17 +12,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PrefixArmy } from '../signup/signup.component';
 
 @Component({
-  selector: 'app-view-upgrade',
-  standalone: true,
-  imports: [
-    IconContainerComponent,
-    TroopersBlockComponent,
-    TrooperSkillsComponent,
-    TrooperChoiceComponent,
-    CommonModule,
-  ],
-  templateUrl: './view-upgrade.component.html',
-  styleUrl: './view-upgrade.component.scss',
+    selector: 'app-view-upgrade',
+    imports: [
+        IconContainerComponent,
+        TroopersBlockComponent,
+        TrooperSkillsComponent,
+        TrooperChoiceComponent,
+        CommonModule,
+    ],
+    templateUrl: './view-upgrade.component.html',
+    styleUrl: './view-upgrade.component.scss'
 })
 export class ViewUpgradeComponent {
   public prefixs = PrefixArmy;

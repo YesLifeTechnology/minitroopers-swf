@@ -15,11 +15,10 @@ import { TrooperService } from 'src/app/services/trooper.service';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
 @Component({
-  selector: 'app-trooper-choice',
-  standalone: true,
-  imports: [TrooperCellComponent, CommonModule, TooltipDirective],
-  templateUrl: './trooper-choice.component.html',
-  styleUrl: './trooper-choice.component.scss',
+    selector: 'app-trooper-choice',
+    imports: [TrooperCellComponent, CommonModule, TooltipDirective],
+    templateUrl: './trooper-choice.component.html',
+    styleUrl: './trooper-choice.component.scss'
 })
 export class TrooperChoiceComponent implements OnInit {
   @Input() selectedTrooper!: Trooper;

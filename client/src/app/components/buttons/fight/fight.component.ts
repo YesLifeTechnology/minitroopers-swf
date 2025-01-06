@@ -11,12 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GoComponent } from '../go/go.component';
 
 @Component({
-  selector: 'app-fight',
-  standalone: true,
-  imports: [CommonModule, GoComponent],
-  providers: [DecimalPipe],
-  templateUrl: './fight.component.html',
-  styleUrl: './fight.component.scss',
+    selector: 'app-fight',
+    imports: [CommonModule, GoComponent],
+    providers: [DecimalPipe],
+    templateUrl: './fight.component.html',
+    styleUrl: './fight.component.scss'
 })
 export class FightComponent implements OnChanges, OnDestroy {
   @Input() isOwner: boolean = false;

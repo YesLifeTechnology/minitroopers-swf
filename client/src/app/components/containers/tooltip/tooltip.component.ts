@@ -4,11 +4,10 @@ import { SkillContent, Skills, Weapons } from '@minitroopers/shared';
 import { GetSkillAttributePipe } from 'src/app/pipes/getSkillAttribute.pipe';
 
 @Component({
-  selector: 'app-tooltip',
-  standalone: true,
-  imports: [CommonModule, GetSkillAttributePipe],
-  templateUrl: './tooltip.component.html',
-  styleUrl: './tooltip.component.scss',
+    selector: 'app-tooltip',
+    imports: [CommonModule, GetSkillAttributePipe],
+    templateUrl: './tooltip.component.html',
+    styleUrl: './tooltip.component.scss'
 })
 export class TooltipComponent implements OnInit {
   @Input() skillId: number | undefined = undefined;

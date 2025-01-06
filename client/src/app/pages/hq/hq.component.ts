@@ -16,16 +16,13 @@ import { IconContainerComponent } from 'src/app/components/containers/container-
 import { ContainerReferralComponent } from 'src/app/components/containers/container-referral/container-referral.component';
 import { TodayFightComponent } from 'src/app/components/containers/today-fight/today-fight.component';
 import { TroopersBlockComponent } from 'src/app/components/trooper/troopers-block/troopers-block.component';
-import { ContainerComponent } from 'src/app/layouts/container/container.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { BackendService } from 'src/app/services/backend.service';
 
 @Component({
   selector: 'app-hq',
-  standalone: true,
   imports: [
     CommonModule,
-    ContainerComponent,
     IconContainerComponent,
     TroopersBlockComponent,
     TodayFightComponent,

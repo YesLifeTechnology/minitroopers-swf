@@ -9,7 +9,6 @@ import { CommandButtonComponent } from 'src/app/components/buttons/command-butto
 import { IconContainerComponent } from 'src/app/components/containers/container-icon/container-icon.component';
 import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-trooper/choose-trooper.component';
 import { TroopersBlockComponent } from 'src/app/components/trooper/troopers-block/troopers-block.component';
-import { ContainerComponent } from 'src/app/layouts/container/container.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -17,9 +16,7 @@ import { TrooperService } from 'src/app/services/trooper.service';
 
 @Component({
   selector: 'app-add',
-  standalone: true,
   imports: [
-    ContainerComponent,
     IconContainerComponent,
     TroopersBlockComponent,
     ChooseTrooperComponent,

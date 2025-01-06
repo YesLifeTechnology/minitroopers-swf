@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TrooperDay } from '@minitroopers/prisma';
 import { PartialUserExtended, statusAvailability } from '@minitroopers/shared';
 import { Subject, debounceTime, switchMap, take, takeUntil } from 'rxjs';
-import { ArmyNameComponent } from 'src/app/components/containers/army-name/army-name.component';
 import { ContainerBlueLargeComponent } from 'src/app/components/containers/container-blue-large/container-blue-large.component';
 import { ContainerBlueComponent } from 'src/app/components/containers/container-blue/container-blue.component';
 import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-trooper/choose-trooper.component';
@@ -20,7 +19,6 @@ import { BackendService } from 'src/app/services/backend.service';
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -28,7 +26,7 @@ import { BackendService } from 'src/app/services/backend.service';
     ContainerBlueComponent,
     ContainerBlueLargeComponent,
     ChooseTrooperComponent,
-    ArmyNameComponent,
+    // ArmyNameComponent,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',

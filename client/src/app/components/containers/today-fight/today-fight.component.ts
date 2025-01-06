@@ -6,11 +6,10 @@ import { MissionsComponent } from '../../buttons/missions/missions.component';
 import { RaidComponent } from '../../buttons/raid/raid.component';
 
 @Component({
-  selector: 'app-today-fight',
-  standalone: true,
-  imports: [CommonModule, FightComponent, MissionsComponent, RaidComponent],
-  templateUrl: './today-fight.component.html',
-  styleUrl: './today-fight.component.scss',
+    selector: 'app-today-fight',
+    imports: [CommonModule, FightComponent, MissionsComponent, RaidComponent],
+    templateUrl: './today-fight.component.html',
+    styleUrl: './today-fight.component.scss'
 })
 export class TodayFightComponent implements OnInit {
   @Input() type: 'fight' | 'mission' | 'raid' = 'fight';

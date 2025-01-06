@@ -4,12 +4,11 @@ import { GoComponent } from '../go/go.component';
 import { Subject, interval, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-raid',
-  standalone: true,
-  imports: [CommonModule, GoComponent],
-  providers: [DecimalPipe],
-  templateUrl: './raid.component.html',
-  styleUrl: './raid.component.scss',
+    selector: 'app-raid',
+    imports: [CommonModule, GoComponent],
+    providers: [DecimalPipe],
+    templateUrl: './raid.component.html',
+    styleUrl: './raid.component.scss'
 })
 export class RaidComponent implements OnDestroy {
   timeLeft: string = '';

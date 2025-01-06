@@ -8,19 +8,18 @@ import {
 } from 'src/app/services/notification.service';
 
 @Component({
-  selector: 'app-notification',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './notification.component.html',
-  styleUrl: './notification.component.scss',
-  animations: [
-    trigger('fadeOut', [
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('0.5s', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+    selector: 'app-notification',
+    imports: [CommonModule],
+    templateUrl: './notification.component.html',
+    styleUrl: './notification.component.scss',
+    animations: [
+        trigger('fadeOut', [
+            transition(':leave', [
+                style({ opacity: 1 }),
+                animate('0.5s', style({ opacity: 0 })),
+            ]),
+        ]),
+    ]
 })
 export class NotificationComponent implements OnInit {
   notifications: AnimatedNotification[] = [];

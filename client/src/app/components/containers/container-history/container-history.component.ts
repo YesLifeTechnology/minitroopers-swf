@@ -12,9 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-container-history',
-  standalone: true,
   providers: [DecimalPipe],
-  imports: [CommonModule, DecimalPipe],
+  imports: [CommonModule],
   templateUrl: './container-history.component.html',
   styleUrl: './container-history.component.scss',
 })

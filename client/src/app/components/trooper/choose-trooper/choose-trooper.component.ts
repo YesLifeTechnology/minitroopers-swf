@@ -5,11 +5,10 @@ import { TrooperDay } from '@minitroopers/prisma';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
 @Component({
-  selector: 'app-choose-trooper',
-  standalone: true,
-  imports: [CommonModule, TrooperCellComponent],
-  templateUrl: './choose-trooper.component.html',
-  styleUrl: './choose-trooper.component.scss',
+    selector: 'app-choose-trooper',
+    imports: [CommonModule, TrooperCellComponent],
+    templateUrl: './choose-trooper.component.html',
+    styleUrl: './choose-trooper.component.scss'
 })
 export class ChooseTrooperComponent {
   @Input() troopers: TrooperDay[] = [];

@@ -3,11 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-container-referral',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './container-referral.component.html',
-  styleUrl: './container-referral.component.scss',
+    selector: 'app-container-referral',
+    imports: [FormsModule],
+    templateUrl: './container-referral.component.html',
+    styleUrl: './container-referral.component.scss'
 })
 export class ContainerReferralComponent implements OnInit {
   referralLink: string = '';

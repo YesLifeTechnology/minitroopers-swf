@@ -3,11 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-container',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './container.component.html',
-  styleUrl: './container.component.scss',
+    selector: 'app-container',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './container.component.html',
+    styleUrl: './container.component.scss'
 })
 export class ContainerComponent implements OnInit {
   ads: Ad[] = [];

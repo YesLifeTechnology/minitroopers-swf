@@ -7,11 +7,10 @@ import { CommandButtonComponent } from '../../buttons/command-button/command-but
 import { TroopersGridComponent } from '../troopers-grid/troopers-grid.component';
 
 @Component({
-  selector: 'app-troopers-block',
-  standalone: true,
-  imports: [TroopersGridComponent, CommandButtonComponent, CommonModule],
-  templateUrl: './troopers-block.component.html',
-  styleUrl: './troopers-block.component.scss',
+    selector: 'app-troopers-block',
+    imports: [TroopersGridComponent, CommandButtonComponent, CommonModule],
+    templateUrl: './troopers-block.component.html',
+    styleUrl: './troopers-block.component.scss'
 })
 export class TroopersBlockComponent {
   @Input() troopers: Trooper[] = [];

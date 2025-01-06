@@ -11,17 +11,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FightService } from 'src/app/services/fight.service';
 
 @Component({
-  selector: 'app-opponents',
-  standalone: true,
-  imports: [
-    IconContainerComponent,
-    TroopersBlockComponent,
-    TrooperOpponentComponent,
-    ArmyNameComponent,
-    CommonModule,
-  ],
-  templateUrl: './opponents.component.html',
-  styleUrl: './opponents.component.scss',
+    selector: 'app-opponents',
+    imports: [
+        IconContainerComponent,
+        TroopersBlockComponent,
+        TrooperOpponentComponent,
+        ArmyNameComponent,
+        CommonModule,
+    ],
+    templateUrl: './opponents.component.html',
+    styleUrl: './opponents.component.scss'
 })
 export class OpponentsComponent implements OnInit {
   opponents: PartialUserExtended[] = [];

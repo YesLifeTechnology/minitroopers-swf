@@ -9,11 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FightService } from 'src/app/services/fight.service';
 
 @Component({
-  selector: 'app-view-fight',
-  standalone: true,
-  imports: [ArmyNameComponent, CommonModule],
-  templateUrl: './view-fight.component.html',
-  styleUrl: './view-fight.component.scss',
+    selector: 'app-view-fight',
+    imports: [ArmyNameComponent, CommonModule],
+    templateUrl: './view-fight.component.html',
+    styleUrl: './view-fight.component.scss'
 })
 export class ViewFightComponent {
   @ViewChild('insert') element!: ElementRef;

@@ -16,11 +16,10 @@ import { Trooper } from '@minitroopers/prisma';
 import { TrooperService } from 'src/app/services/trooper.service';
 
 @Component({
-  selector: 'app-troopers-grid',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './troopers-grid.component.html',
-  styleUrl: './troopers-grid.component.scss',
+    selector: 'app-troopers-grid',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './troopers-grid.component.html',
+    styleUrl: './troopers-grid.component.scss'
 })
 export class TroopersGridComponent implements AfterViewInit, OnChanges {
   @ViewChild('insert') element!: ElementRef;
