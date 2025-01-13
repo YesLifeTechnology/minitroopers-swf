@@ -3,9 +3,11 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { PartialUserExtended } from '@minitroopers/shared';
 import { take } from 'rxjs';
@@ -35,7 +37,7 @@ import { BackendService } from 'src/app/services/backend.service';
   templateUrl: './hq.component.html',
   styleUrl: './hq.component.scss',
 })
-export class HqComponent implements OnChanges {
+export class HqComponent implements OnInit, OnChanges {
   @Input() army?: string;
 
   public authService = inject(AuthService);
@@ -55,6 +57,18 @@ export class HqComponent implements OnChanges {
     link: 'https://google.fr',
   };
 
+  ngOnInit(): void {
+    this.authService.onConnected$
+      .pipe(takeUntilDestroyed())
+      .subscribe((user) => {
+        if (user && this.authService.user?.armyName == this.army) {
+          this.isOwner = true;
+        } else {
+          this.isOwner = false;
+        }
+      });
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['army']) {
       this.isOwner = false;
@@ -62,10 +76,6 @@ export class HqComponent implements OnChanges {
         if (this.authService.user?.armyName == this.army) {
           this.user = this.authService.user;
           this.isOwner = true;
-        } else if (this.authService.isSignable()) {
-          this.authService.signIn().then(() => {
-            this.getCurrentArmy();
-          });
         } else {
           this.getCurrentArmy();
         }

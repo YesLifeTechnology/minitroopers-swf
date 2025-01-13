@@ -85,6 +85,11 @@ export const IncludeAllUserData = {
   },
   fights: {
     take: 3,
+    select: {
+      id: true,
+      result: true,
+      ts: true,
+    },
     orderBy: {
       ts: "desc" as Prisma.SortOrder,
     },

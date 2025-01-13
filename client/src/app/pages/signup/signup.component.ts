@@ -99,9 +99,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       .getTodayTroopers()
       .pipe(take(1))
       .subscribe((troopers: TrooperDay[]) => {
-        // let trooper = troopers[0];
-        // trooper.seed = 20299718;
-        // this.displayedTroopers = [trooper];
         this.displayedTroopers = troopers;
       });
 
@@ -176,6 +173,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   init(): void {
     this.checkAvailability$
       .pipe(takeUntil(this.destroyed$))

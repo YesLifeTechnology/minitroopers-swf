@@ -1,29 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Trooper } from '@minitroopers/prisma';
 import { PartialUserExtended } from '@minitroopers/shared';
-import { Subject, filter, takeUntil } from 'rxjs';
+import { filter, Subject, take, takeUntil } from 'rxjs';
 import { IconContainerComponent } from 'src/app/components/containers/container-icon/container-icon.component';
 import { TrooperChoiceComponent } from 'src/app/components/trooper/trooper-choice/trooper-choice.component';
 import { TrooperSkillsComponent } from 'src/app/components/trooper/trooper-skills/trooper-skills.component';
 import { TroopersBlockComponent } from 'src/app/components/trooper/troopers-block/troopers-block.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { BackendService } from 'src/app/services/backend.service';
 import { PrefixArmy } from '../signup/signup.component';
 
 @Component({
-    selector: 'app-view-upgrade',
-    imports: [
-        IconContainerComponent,
-        TroopersBlockComponent,
-        TrooperSkillsComponent,
-        TrooperChoiceComponent,
-        CommonModule,
-    ],
-    templateUrl: './view-upgrade.component.html',
-    styleUrl: './view-upgrade.component.scss'
+  selector: 'app-view-upgrade',
+  imports: [
+    IconContainerComponent,
+    TroopersBlockComponent,
+    TrooperSkillsComponent,
+    TrooperChoiceComponent,
+    CommonModule,
+  ],
+  templateUrl: './view-upgrade.component.html',
+  styleUrl: './view-upgrade.component.scss',
 })
-export class ViewUpgradeComponent {
+export class ViewUpgradeComponent implements OnInit {
   public prefixs = PrefixArmy;
   public selectedTrooper: Trooper | undefined = undefined;
   public displaySkill: boolean = true;
@@ -36,6 +38,7 @@ export class ViewUpgradeComponent {
   public authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private backendService = inject(BackendService);
 
   constructor() {
     this.onNav();
@@ -50,21 +53,34 @@ export class ViewUpgradeComponent {
       });
   }
 
+  ngOnInit(): void {
+    this.authService.onConnected$
+      .pipe(takeUntilDestroyed())
+      .subscribe((user) => {
+        this.checkOwner();
+      });
+  }
+
   onNav() {
     let trooperId: string | undefined = undefined;
+    let army: string | undefined = undefined;
     if (
       this.route.snapshot.params['army'] != null &&
       this.route.snapshot.params['trooper'] != null
     ) {
       trooperId = this.route.snapshot.params['trooper'];
-      this.init(trooperId);
+      army = this.route.snapshot.params['army'];
+      this.init(army, trooperId);
     }
   }
 
-  init(trooperId?: string | undefined, byUrl: boolean = false) {
+  init(army?: string | undefined, trooperId?: string | undefined) {
     this.reset();
+    this.isEdtiable = false;
 
-    if (trooperId) {
+    if (army && trooperId) {
+      this.checkOwner();
+
       if (
         this.authService.user &&
         this.authService.user.armyName == this.route.snapshot.params['army']
@@ -75,8 +91,36 @@ export class ViewUpgradeComponent {
         );
         this.isEdtiable = true;
       } else {
-        // not logued get army + trooper
+        this.getCurrentArmy(army, trooperId);
       }
+    }
+  }
+
+  getCurrentArmy(army: string, trooperId: string) {
+    if (army != null) {
+      this.backendService
+        .getArmy(army, true)
+        .pipe(take(1))
+        .subscribe((army) => {
+          if (army) {
+            this.user = army;
+            this.selectedTrooper = this.user.troopers.find(
+              (x) => x.id == trooperId,
+            );
+            this.checkOwner();
+          }
+        });
+    }
+  }
+
+  checkOwner() {
+    if (
+      this.authService.user &&
+      this.authService.user.armyName == this.route.snapshot.params['army']
+    ) {
+      this.isEdtiable = true;
+    } else {
+      this.isEdtiable = false;
     }
   }
 

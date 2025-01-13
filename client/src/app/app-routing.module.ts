@@ -20,8 +20,8 @@ const routes: Routes = [
     path: '',
     canActivate: [signupGuard],
     component: SignupComponent,
-  }, // +invite ?invite=toto
-  { path: 'maintenance', component: MaintenanceComponent }, // +canactivate if no ping
+  },
+  { path: 'maintenance', component: MaintenanceComponent },
   {
     path: 'oauth/callback',
     canActivate: [signupGuard],
@@ -29,7 +29,6 @@ const routes: Routes = [
   },
   {
     path: 'invite/:army',
-    // canActivate: [signupGuard], //keep guard commented
     component: SignupComponent,
   },
   // { path: 'welcome', component: SignupComponent }, // gsap presentation later
@@ -54,11 +53,11 @@ const routes: Routes = [
     canActivate: [armyExistGuard, checkLoggedGuard],
     component: AddComponent,
   },
-  {
-    path: ':army/edit',
-    canActivate: [armyExistGuard, checkLoggedGuard],
-    component: ViewUpgradeComponent,
-  },
+  // {
+  //   path: ':army/edit',
+  //   canActivate: [armyExistGuard, checkLoggedGuard],
+  //   component: ViewUpgradeComponent,
+  // },
   {
     path: ':army/war',
     canActivate: [armyExistGuard, checkLoggedGuard],

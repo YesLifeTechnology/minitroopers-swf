@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UserExtended } from '@minitroopers/shared';
-import { map, take, tap } from 'rxjs';
+import { map, Subject, take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from './language.service';
 import { NotificationService } from './notification.service';
@@ -11,6 +11,7 @@ import { NotificationService } from './notification.service';
 })
 export class AuthService {
   public user: UserExtended | null = null;
+  public onConnected$ = new Subject<UserExtended | null>();
   private authing_: boolean = false;
 
   get authing() {
@@ -76,6 +77,7 @@ export class AuthService {
                 'success',
                 'Connected as ' + this.user.name,
               );
+              this.onConnected$.next(this.user);
               resolve(true);
               // +catch
             });
@@ -110,6 +112,7 @@ export class AuthService {
           );
           this.authing = false;
           this.user = response;
+          this.onConnected$.next(this.user);
           this.notificationService.notify(
             'success',
             'Connected as ' + this.user.name,
@@ -120,6 +123,7 @@ export class AuthService {
 
   disconnect() {
     this.user = null;
+    this.onConnected$.next(null);
     this.clearLocalStorage();
     this.notificationService.notify('success', 'Disconnected');
   }

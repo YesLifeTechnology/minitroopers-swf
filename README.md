@@ -6,53 +6,36 @@ This is the repository for Minitroopers !
 
 ## Frontend
 
-> Made with [Angular 18](https://angular.dev/) and [TailwindCSS](https://tailwindcss.com/).
+> Made with [Angular 19](https://angular.dev/) and [TailwindCSS](https://tailwindcss.com/).
 
 ## Backend
 
 > Made with [Node.js](https://nodejs.org/en/), [ExpressJS](https://expressjs.com/), [Prisma](https://prisma.io/), written in [Typescript](https://www.typescriptlang.org/).
 
 ## Contributing
-
-<!-- ### Automated setup (linux only)
-
-Requires docker and docker compose (see [here](https://docs.docker.com/engine/install/))
-
-```bash
-bash <(curl -fsSL https://gitlab.com/eternaltwin/minitroopers/minitroopers/-/raw/main/setup.sh?ref_type=heads)    -->
 ```
 
 ### Manual setup
 
 - Fork this project
 
-- Make sure your NodeJS version are up to date (v22.x.x)
+- Make sure your NodeJS version are up to date (v22.1x.x)
 
 - Setup your local Postgres databases (minitroopers + [eternaltwin](https://gitlab.com/eternaltwin/eternaltwin/-/blob/master/docs/db.md))
 
-- Copy `/server/.env.sample` to `/server/.env` and adapt the variables
+- Copy `.env.sample` to `.env` and adapt the variables
 
-- Copy `eternaltwin.toml.example` to `eternaltwin.toml`
+- Copy `eternaltwin.toml.example` to `eternaltwin.toml` and adapt the variables
 
 - Install dependencies: `npm install`
 
-- Run db migration with `npm run prisma` (then manually copy content from /prisma/package.reference.json to /prisma/package.json)
+- Run db migration with `npm run prisma` (additional for windows only : then manually copy content from /prisma/package.reference.json to /prisma/package.json)
 
 - Start the server, client and etwin local server with `npm run dev`
 
 - Commit and push your changes
 
 - Create a pull request to merge your fork into `main`
-
-## Documentation
-
-Every
-
-- Component
-- Method
-- Callback
-
-Should have a corresponding documentation.
 
 ## File Structure
 

@@ -1,5 +1,4 @@
 import { Trooper } from "@minitroopers/prisma";
-import { BasicWeapons, Skills } from "./skills.model";
 import {
   BodyLoc,
   MoveSystem,
@@ -7,7 +6,8 @@ import {
   TargetSystem,
   TargetType,
   WeaponEnum,
-} from "./swfData.model";
+} from "./helperSerial/enum";
+import { BasicWeapons, Skills } from "./skills.model";
 
 export const getUpgradeCost = (level: number): number => {
   return Math.floor(Math.sqrt(Math.pow(level, 5)));

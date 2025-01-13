@@ -11,11 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GoComponent } from '../go/go.component';
 
 @Component({
-    selector: 'app-fight',
-    imports: [CommonModule, GoComponent],
-    providers: [DecimalPipe],
-    templateUrl: './fight.component.html',
-    styleUrl: './fight.component.scss'
+  selector: 'app-fight',
+  imports: [CommonModule, GoComponent],
+  providers: [DecimalPipe],
+  templateUrl: './fight.component.html',
+  styleUrl: './fight.component.scss',
 })
 export class FightComponent implements OnChanges, OnDestroy {
   @Input() isOwner: boolean = false;
@@ -51,6 +51,7 @@ export class FightComponent implements OnChanges, OnDestroy {
   }
 
   getButtonState() {
+    //FightPartial
     return getFightState(this.user.fights);
   }
 
@@ -73,15 +74,17 @@ export class FightComponent implements OnChanges, OnDestroy {
   }
 
   onClick(event: MouseEvent, state: ButtonState, index: number) {
+    event.stopPropagation();
+
     switch (state) {
       case 'win':
       case 'lose':
-        // if (this.authService.user?.fights?.length) {
-        //   const fight = [...this.authService.user?.fights].reverse()[index];
-        //   this.router.navigate(['/war', fight.id], {
-        //     state: { fight: fight },
-        //   });
-        // }
+        if (this.authService.user?.fights?.length) {
+          const fight = [...this.user?.fights].reverse()[index];
+          this.router.navigate(['/war', fight.id], {
+            state: { fight: fight },
+          });
+        }
         break;
       case 'pending':
         if (this.isOwner) {

@@ -111,10 +111,8 @@ model Fight {
   ts                DateTime    @default(now()) @db.Timestamptz()
   userName          String
   userPrefix        Int
-  userColor         Int
   opponentName      String
   opponentPrefix    Int
-  opponentColor     Int
   fightInputSWFData String
   result            FightResult
 }

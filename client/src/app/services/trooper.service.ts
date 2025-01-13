@@ -200,7 +200,7 @@ export class TrooperService {
         xmax: col,
         ymax,
       }),
-      gfx: `http://localhost:4200/assets/swf/mini.swf`,
+      gfx: 'http://localhost:4200/assets/swf/mini.swf',
     };
 
     // Obfuscate the data

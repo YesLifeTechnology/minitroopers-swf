@@ -6,7 +6,9 @@ export type ButtonState = "pending" | "lose" | "win";
 
 export const PowerDiff: number = 10;
 
-export const getFightState = (fightHistories: Fight[]) => {
+export const getFightState = (
+  fightHistories: Pick<Fight, "ts" | "result">[],
+) => {
   let states: ButtonState[] = ["pending", "pending", "pending"];
 
   const isSameDay = (date1: Date, date2: Date) => {
