@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  inject,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
-  inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { PartialUserExtended } from '@minitroopers/shared';
+import { checkNameValide, PartialUserExtended } from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { ArmyNameComponent } from 'src/app/components/containers/army-name/army-name.component';
 import { ContainerAdComponent } from 'src/app/components/containers/container-ad/container-ad.component';
@@ -85,6 +85,10 @@ export class HqComponent implements OnInit, OnChanges {
 
   getCurrentArmy() {
     if (this.army != null) {
+      if (!checkNameValide(this.army)) {
+        this.router.navigate(['/']);
+      }
+
       this.backendService
         .getArmy(this.army, true)
         .pipe(take(1))
