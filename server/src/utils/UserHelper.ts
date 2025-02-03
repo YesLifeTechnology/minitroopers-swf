@@ -79,6 +79,11 @@ export const IncludeAllUserData = {
   },
   history: {
     take: 5,
+    select: {
+      options: true,
+      type: true,
+      ts: true,
+    },
     orderBy: {
       ts: "desc" as Prisma.SortOrder,
     },

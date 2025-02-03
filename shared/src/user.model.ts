@@ -1,8 +1,8 @@
-import { FightResult, HistoryUser, Trooper, User } from "@minitroopers/prisma";
+import { FightResult, HistoryType, Trooper, User } from "@minitroopers/prisma";
 
 export interface UserExtended extends User {
   troopers: Trooper[];
-  history: HistoryUser[];
+  history: { type: HistoryType; options: any; ts: Date }[];
   fights: { id: string; result: FightResult; ts: Date }[];
   ipAddressUser: { ip: string }[];
 }
