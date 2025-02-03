@@ -55,7 +55,7 @@ app.use(
 
 app.use(
   cors({
-    origin: [Env.SELF_URL],
+    origin: Env.SELF_URL,
     credentials: true,
   }),
 );

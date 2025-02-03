@@ -15,6 +15,7 @@
     "prisma:migrate": "cd ./server && dotenv -e ../.env -- npx prisma migrate dev",
     "prisma:reset": "cd ./server && dotenv -e ../.env -- npx prisma migrate reset --skip-generate",
     "eternaltwin:start": "eternaltwin start",
+    "eternaltwin": "eternaltwin",
     "shared:compile": "cd ./shared && npm run compile",
     "shared:start": "cd ./shared && npm run start:watch",
     "audit": "npm audit --recursive --all --environment production",
@@ -35,5 +36,9 @@
       "./prisma",
       "./server"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "dotenv-cli": "^8.0.0"
   }
 }

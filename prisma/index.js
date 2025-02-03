@@ -228,7 +228,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\yes\\Minitroopers\\prisma",
+      "value": "C:\\Users\\fanba\\Documents\\minitroopers-swf\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -253,7 +253,7 @@ const config = {
       "nativeDistinct",
       "relationJoins"
     ],
-    "sourceFilePath": "D:\\yes\\Minitroopers\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\fanba\\Documents\\minitroopers-swf\\server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
