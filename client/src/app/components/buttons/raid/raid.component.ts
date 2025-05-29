@@ -1,11 +1,11 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { GoComponent } from '../go/go.component';
 import { Subject, interval, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-raid',
-    imports: [CommonModule, GoComponent],
+    imports: [GoComponent],
     providers: [DecimalPipe],
     templateUrl: './raid.component.html',
     styleUrl: './raid.component.scss'

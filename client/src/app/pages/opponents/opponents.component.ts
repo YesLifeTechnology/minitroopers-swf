@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PartialUserExtended } from '@minitroopers/shared';
@@ -13,12 +13,11 @@ import { FightService } from 'src/app/services/fight.service';
 @Component({
     selector: 'app-opponents',
     imports: [
-        IconContainerComponent,
-        TroopersBlockComponent,
-        TrooperOpponentComponent,
-        ArmyNameComponent,
-        CommonModule,
-    ],
+    IconContainerComponent,
+    TroopersBlockComponent,
+    TrooperOpponentComponent,
+    ArmyNameComponent
+],
     templateUrl: './opponents.component.html',
     styleUrl: './opponents.component.scss'
 })

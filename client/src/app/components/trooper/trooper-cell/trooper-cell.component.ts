@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   Component,
@@ -17,7 +17,7 @@ import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
     selector: 'app-trooper-cell',
-    imports: [CommonModule, SkillsComponent],
+    imports: [SkillsComponent],
     templateUrl: './trooper-cell.component.html',
     styleUrl: './trooper-cell.component.scss'
 })

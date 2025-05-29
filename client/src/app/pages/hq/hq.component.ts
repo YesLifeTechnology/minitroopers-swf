@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   inject,
@@ -24,7 +24,6 @@ import { BackendService } from 'src/app/services/backend.service';
 @Component({
   selector: 'app-hq',
   imports: [
-    CommonModule,
     IconContainerComponent,
     TroopersBlockComponent,
     TodayFightComponent,
@@ -32,8 +31,8 @@ import { BackendService } from 'src/app/services/backend.service';
     ContainerReferralComponent,
     ContainerHistoryComponent,
     ArmyNameComponent,
-    RouterLink,
-  ],
+    RouterLink
+],
   templateUrl: './hq.component.html',
   styleUrl: './hq.component.scss',
 })

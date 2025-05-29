@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -39,12 +39,11 @@ const TROOPER_STATS_SKILL_ORDER = [
 @Component({
     selector: 'app-trooper-skills',
     imports: [
-        CommonModule,
-        TrooperCellComponent,
-        CommandButtonComponent,
-        ReactiveFormsModule,
-        TooltipDirective,
-    ],
+    TrooperCellComponent,
+    CommandButtonComponent,
+    ReactiveFormsModule,
+    TooltipDirective
+],
     templateUrl: './trooper-skills.component.html',
     styleUrl: './trooper-skills.component.scss'
 })

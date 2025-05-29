@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TrooperService } from 'src/app/services/trooper.service';
 
 @Component({
   selector: 'app-debug',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './container-debug.component.html',
   styleUrl: './container-debug.component.scss',
 })

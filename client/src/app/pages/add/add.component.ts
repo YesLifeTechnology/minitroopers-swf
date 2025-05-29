@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -20,9 +20,8 @@ import { TrooperService } from 'src/app/services/trooper.service';
     IconContainerComponent,
     TroopersBlockComponent,
     ChooseTrooperComponent,
-    CommandButtonComponent,
-    CommonModule,
-  ],
+    CommandButtonComponent
+],
   templateUrl: './add.component.html',
   styleUrl: './add.component.scss',
 })

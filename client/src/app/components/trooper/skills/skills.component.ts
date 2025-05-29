@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 
 @Component({
     selector: 'app-skills',
-    imports: [CommonModule, TooltipDirective],
+    imports: [TooltipDirective],
     templateUrl: './skills.component.html',
     styleUrl: './skills.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

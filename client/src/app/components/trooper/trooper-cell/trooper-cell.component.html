@@ -3,24 +3,25 @@
   [class.allowHover]="!disabledForm"
   [class.selected]="selected"
   [class.minified]="!withSkills"
->
+  >
   <div #insert class="h-[71px]"></div>
 
-  <div
-    *ngIf="withSkills"
-    class="flex justify-evenly rounded-b-[4px] bg-[#66749e] py-[2px]"
-  >
-    <div>
-      <app-skills
-        [skillId]="firstSkill"
-        [trooperName]="trooper?.name"
-      ></app-skills>
+  @if (withSkills) {
+    <div
+      class="flex justify-evenly rounded-b-[4px] bg-[#66749e] py-[2px]"
+      >
+      <div>
+        <app-skills
+          [skillId]="firstSkill"
+          [trooperName]="trooper?.name"
+        ></app-skills>
+      </div>
+      <div>
+        <app-skills
+          [skillId]="secondSkill"
+          [trooperName]="trooper?.name"
+        ></app-skills>
+      </div>
     </div>
-    <div>
-      <app-skills
-        [skillId]="secondSkill"
-        [trooperName]="trooper?.name"
-      ></app-skills>
-    </div>
-  </div>
+  }
 </div>

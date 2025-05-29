@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -19,9 +19,8 @@ import { PrefixArmy } from '../signup/signup.component';
     IconContainerComponent,
     TroopersBlockComponent,
     TrooperSkillsComponent,
-    TrooperChoiceComponent,
-    CommonModule,
-  ],
+    TrooperChoiceComponent
+],
   templateUrl: './view-upgrade.component.html',
   styleUrl: './view-upgrade.component.scss',
 })

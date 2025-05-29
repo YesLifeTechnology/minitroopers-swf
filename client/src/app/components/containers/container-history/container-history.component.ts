@@ -1,4 +1,4 @@
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-container-history',
   providers: [DecimalPipe],
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './container-history.component.html',
   styleUrl: './container-history.component.scss',
 })

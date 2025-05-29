@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormControl,
@@ -20,14 +20,12 @@ import { BackendService } from 'src/app/services/backend.service';
 @Component({
   selector: 'app-signup',
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ContainerBlueComponent,
     ContainerBlueLargeComponent,
-    ChooseTrooperComponent,
-    // ArmyNameComponent,
-  ],
+    ChooseTrooperComponent
+],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })

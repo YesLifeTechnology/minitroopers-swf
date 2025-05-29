@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PartialUserExtended } from '@minitroopers/shared';
 import { ArmyNameComponent } from '../../containers/army-name/army-name.component';
@@ -6,7 +6,7 @@ import { TroopersGridComponent } from '../troopers-grid/troopers-grid.component'
 
 @Component({
     selector: 'app-trooper-opponent',
-    imports: [CommonModule, ArmyNameComponent, TroopersGridComponent],
+    imports: [ArmyNameComponent, TroopersGridComponent],
     templateUrl: './trooper-opponent.component.html',
     styleUrl: './trooper-opponent.component.scss'
 })

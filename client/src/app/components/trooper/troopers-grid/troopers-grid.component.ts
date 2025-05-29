@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   Component,
@@ -17,7 +17,7 @@ import { TrooperService } from 'src/app/services/trooper.service';
 
 @Component({
     selector: 'app-troopers-grid',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './troopers-grid.component.html',
     styleUrl: './troopers-grid.component.scss'
 })

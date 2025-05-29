@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
@@ -9,7 +9,7 @@ import {
 
 @Component({
     selector: 'app-notification',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './notification.component.html',
     styleUrl: './notification.component.scss',
     animations: [

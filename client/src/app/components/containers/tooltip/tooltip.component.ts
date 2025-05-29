@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { SkillContent, Skills, Weapons } from '@minitroopers/shared';
 import { GetSkillAttributePipe } from 'src/app/pipes/getSkillAttribute.pipe';
 
 @Component({
     selector: 'app-tooltip',
-    imports: [CommonModule, GetSkillAttributePipe],
+    imports: [GetSkillAttributePipe],
     templateUrl: './tooltip.component.html',
     styleUrl: './tooltip.component.scss'
 })

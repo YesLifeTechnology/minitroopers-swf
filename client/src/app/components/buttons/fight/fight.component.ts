@@ -1,4 +1,4 @@
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -12,7 +12,7 @@ import { GoComponent } from '../go/go.component';
 
 @Component({
   selector: 'app-fight',
-  imports: [CommonModule, GoComponent],
+  imports: [GoComponent],
   providers: [DecimalPipe],
   templateUrl: './fight.component.html',
   styleUrl: './fight.component.scss',

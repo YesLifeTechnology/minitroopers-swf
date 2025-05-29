@@ -1,12 +1,14 @@
 <div class="flex flex-col items-center">
   <div class="relative mt-16">
-    <ng-container *ngIf="loadingFight"> LOADING PLEASE WAIT </ng-container>
+    @if (loadingFight) {
+      LOADING PLEASE WAIT
+    }
     <div>
       <img src="/assets/images/swfframe2.webp" alt="" draggable="false" />
 
       <h1
         class="shadow-title absolute left-1/2 top-1 -translate-x-1/2 text-nowrap text-lg font-bold text-white"
-      >
+        >
         <app-army-name [user]="userArmy"></app-army-name> VS
         <app-army-name [user]="userOpponent"></app-army-name>
       </h1>

@@ -1,8 +1,8 @@
-<ng-container *ngIf="authService.user; let user">
+@if (authService.user; as user) {
   <div class="flex flex-col-reverse flex-nowrap lg:flex-row">
     <div
       class="mt-6 flex w-full justify-center px-2 lg:mt-10 lg:w-[255px] lg:justify-around"
-    >
+      >
       <app-container-icon
         [icon]="'/assets/images/money.webp'"
         [value]="user.gold"
@@ -13,54 +13,50 @@
         [value]="user.power"
       ></app-container-icon>
     </div>
-
     <div class="relative ml-4 mr-4 lg:ml-auto lg:mr-20">
       <img
         src="/assets/images/title.webp"
         alt=""
         class="m-auto"
         draggable="false"
-      />
-      <h1
-        class="shadow-title absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white lg:mt-[-6px]"
-      >
-        Add a trooper
-      </h1>
-    </div>
-  </div>
-
-  <div class="flex flex-col items-center lg:flex-row lg:items-start">
-    <div class="mb-6 mt-2 flex flex-col items-center lg:mb-0 lg:w-[255px]">
-      <app-troopers-block
-        [troopers]="user.troopers"
-        [armyColor]="user.color"
-        [context]="'navigation'"
-      ></app-troopers-block>
-    </div>
-
-    <div class="mx-10 mt-1 flex flex-col">
-      <div class="text-textdescription mb-8">
-        Sélectionne un trooper à ajouter à ton armée. Chaque jour de nouveaux
-        troopers sont disponibles. Choisis ton trooper avec soin :
-      </div>
-
-      <div class="mx-10 mb-8">
-        <app-choose-trooper
-          [troopers]="displayedTroopers"
-          [groupColor]="authService.user.color"
-          [formGroup]="addForm"
-        ></app-choose-trooper>
-      </div>
-
-      <div class="mx-auto w-80">
-        <app-command-button
-          *ngIf="addCost > 0"
-          [type]="'blue'"
-          [text]="'Add for ' + addCost"
-          [icon]="'/assets/images/token.webp'"
-          (clicked)="addNewTrooper()"
-        ></app-command-button>
+        />
+        <h1
+          class="shadow-title absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white lg:mt-[-6px]"
+          >
+          Add a trooper
+        </h1>
       </div>
     </div>
-  </div>
-</ng-container>
+    <div class="flex flex-col items-center lg:flex-row lg:items-start">
+      <div class="mb-6 mt-2 flex flex-col items-center lg:mb-0 lg:w-[255px]">
+        <app-troopers-block
+          [troopers]="user.troopers"
+          [armyColor]="user.color"
+          [context]="'navigation'"
+        ></app-troopers-block>
+      </div>
+      <div class="mx-10 mt-1 flex flex-col">
+        <div class="text-textdescription mb-8">
+          Sélectionne un trooper à ajouter à ton armée. Chaque jour de nouveaux
+          troopers sont disponibles. Choisis ton trooper avec soin :
+        </div>
+        <div class="mx-10 mb-8">
+          <app-choose-trooper
+            [troopers]="displayedTroopers"
+            [groupColor]="authService.user.color"
+            [formGroup]="addForm"
+          ></app-choose-trooper>
+        </div>
+        <div class="mx-auto w-80">
+          @if (addCost > 0) {
+            <app-command-button
+              [type]="'blue'"
+              [text]="'Add for ' + addCost"
+              [icon]="'/assets/images/token.webp'"
+              (clicked)="addNewTrooper()"
+            ></app-command-button>
+          }
+        </div>
+      </div>
+    </div>
+  }

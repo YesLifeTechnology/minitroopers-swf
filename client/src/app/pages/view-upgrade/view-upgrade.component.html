@@ -1,8 +1,8 @@
-<ng-container *ngIf="user">
+@if (user) {
   <div class="flex flex-col-reverse flex-nowrap lg:flex-row">
     <div
       class="mt-6 flex w-full justify-center px-2 lg:mt-10 lg:w-[255px] lg:justify-around"
-    >
+      >
       <app-container-icon
         [icon]="'/assets/images/money.webp'"
         [value]="user.gold"
@@ -13,53 +13,51 @@
         [value]="user.power"
       ></app-container-icon>
     </div>
-
-    <div *ngIf="selectedTrooper" class="relative ml-4 mr-4 lg:ml-auto lg:mr-20">
-      <img
-        src="/assets/images/title.webp"
-        class="m-auto"
-        alt=""
-        draggable="false"
-      />
-      <h1
-        class="shadow-title absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white lg:mt-[-6px]"
-      >
-        {{
-          displaySkill
+    @if (selectedTrooper) {
+      <div class="relative ml-4 mr-4 lg:ml-auto lg:mr-20">
+        <img
+          src="/assets/images/title.webp"
+          class="m-auto"
+          alt=""
+          draggable="false"
+          />
+          <h1
+            class="shadow-title absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white lg:mt-[-6px]"
+            >
+            {{
+            displaySkill
             ? "Fiche de " + selectedTrooper.name
             : "Choisir une compétence"
-        }}
-      </h1>
+            }}
+          </h1>
+        </div>
+      }
     </div>
-  </div>
-
-  <div class="flex flex-col items-center lg:flex-row lg:items-start">
-    <div
-      class="mb-6 mt-2 flex w-[255px] min-w-[255px] flex-col items-center lg:mb-0"
-    >
-      <app-troopers-block
-        [troopers]="user.troopers"
-        [armyColor]="user.color"
-        [context]="'navigation'"
-      ></app-troopers-block>
+    <div class="flex flex-col items-center lg:flex-row lg:items-start">
+      <div
+        class="mb-6 mt-2 flex w-[255px] min-w-[255px] flex-col items-center lg:mb-0"
+        >
+        <app-troopers-block
+          [troopers]="user.troopers"
+          [armyColor]="user.color"
+          [context]="'navigation'"
+        ></app-troopers-block>
+      </div>
+      @if (displaySkill && selectedTrooper) {
+        <!-- editbale if user == auth user -->
+        <app-trooper-skills
+          [selectedTrooper]="selectedTrooper"
+          [isEditable]="true"
+          (switchButton)="switchButton()"
+          (updatedTrooper)="updatedTrooper($event)"
+        ></app-trooper-skills>
+      }
+      @if (!displaySkill && selectedTrooper) {
+        <app-trooper-choice
+          [selectedTrooper]="selectedTrooper"
+          (returnChoice)="onReturn()"
+          (updatedTrooper)="updatedTrooper($event)"
+        ></app-trooper-choice>
+      }
     </div>
-
-    <ng-container *ngIf="displaySkill && selectedTrooper">
-      <!-- editbale if user == auth user -->
-      <app-trooper-skills
-        [selectedTrooper]="selectedTrooper"
-        [isEditable]="true"
-        (switchButton)="switchButton()"
-        (updatedTrooper)="updatedTrooper($event)"
-      ></app-trooper-skills>
-    </ng-container>
-
-    <ng-container *ngIf="!displaySkill && selectedTrooper">
-      <app-trooper-choice
-        [selectedTrooper]="selectedTrooper"
-        (returnChoice)="onReturn()"
-        (updatedTrooper)="updatedTrooper($event)"
-      ></app-trooper-choice>
-    </ng-container>
-  </div>
-</ng-container>
+  }

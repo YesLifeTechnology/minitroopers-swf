@@ -15,17 +15,17 @@
     <img src="/assets/images/box2bottom.webp" alt="" class="" />
 
     <div class="absolute top-1 w-full px-[6px]">
-      <ng-container [ngSwitch]="type">
-        <ng-container *ngSwitchCase="'fight'">
+      @switch (type) {
+        @case ('fight') {
           <app-fight [user]="user" [isOwner]="isOwner"></app-fight>
-        </ng-container>
-        <ng-container *ngSwitchCase="'mission'">
+        }
+        @case ('mission') {
           <app-missions [user]="user" [isOwner]="isOwner"></app-missions>
-        </ng-container>
-        <ng-container *ngSwitchCase="'raid'">
+        }
+        @case ('raid') {
           <app-raid> </app-raid>
-        </ng-container>
-      </ng-container>
+        }
+      }
     </div>
   </div>
 </div>

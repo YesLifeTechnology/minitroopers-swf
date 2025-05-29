@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fight } from '@minitroopers/prisma';
@@ -10,7 +10,7 @@ import { FightService } from 'src/app/services/fight.service';
 
 @Component({
     selector: 'app-view-fight',
-    imports: [ArmyNameComponent, CommonModule],
+    imports: [ArmyNameComponent],
     templateUrl: './view-fight.component.html',
     styleUrl: './view-fight.component.scss'
 })

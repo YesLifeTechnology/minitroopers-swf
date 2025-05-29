@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-command-button',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './command-button.component.html',
     styleUrl: './command-button.component.scss'
 })

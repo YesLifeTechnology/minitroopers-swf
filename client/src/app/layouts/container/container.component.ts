@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-container',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './container.component.html',
     styleUrl: './container.component.scss'
 })

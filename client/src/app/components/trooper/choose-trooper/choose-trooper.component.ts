@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TrooperDay } from '@minitroopers/prisma';
@@ -6,7 +6,7 @@ import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
 @Component({
     selector: 'app-choose-trooper',
-    imports: [CommonModule, TrooperCellComponent],
+    imports: [TrooperCellComponent],
     templateUrl: './choose-trooper.component.html',
     styleUrl: './choose-trooper.component.scss'
 })

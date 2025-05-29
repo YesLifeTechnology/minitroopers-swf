@@ -1,5 +1,5 @@
 <div class="flex flex-wrap justify-center lg:justify-between">
-  <ng-container *ngFor="let trooper of troopers">
+  @for (trooper of troopers; track trooper) {
     <app-trooper-cell
       [trooper]="trooper"
       [groupColor]="groupColor"
@@ -8,5 +8,5 @@
       [disabledForm]="formGroup.disabled"
       (click)="onSelect(trooper.id)"
     ></app-trooper-cell>
-  </ng-container>
+  }
 </div>
