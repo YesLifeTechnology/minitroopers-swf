@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Fight } from '@minitroopers/prisma';
 import { PartialUserExtended } from '@minitroopers/shared';
 import { take } from 'rxjs';
-import { ArmyNameComponent } from 'src/app/components/containers/army-name/army-name.component';
+import { GetArmyNamePipe } from 'src/app/pipes/getArmyName.pipe';
 import { FightService } from 'src/app/services/fight.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
   selector: 'app-view-fight',
-  imports: [ArmyNameComponent],
+  imports: [GetArmyNamePipe],
   templateUrl: './view-fight.component.html',
   styleUrl: './view-fight.component.scss',
 })

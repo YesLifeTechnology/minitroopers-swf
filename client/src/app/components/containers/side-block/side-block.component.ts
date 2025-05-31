@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { ArmyStore } from 'src/app/stores/army.store';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { TroopersBlockComponent } from '../../trooper/troopers-block/troopers-block.component';
-import { ArmyNameComponent } from '../army-name/army-name.component';
 import { ContainerHistoryComponent } from '../container-history/container-history.component';
 import { IconContainerComponent } from '../container-icon/container-icon.component';
 
@@ -15,7 +14,6 @@ import { IconContainerComponent } from '../container-icon/container-icon.compone
     IconContainerComponent,
     TroopersBlockComponent,
     ContainerHistoryComponent,
-    ArmyNameComponent,
   ],
   templateUrl: './side-block.component.html',
   styleUrl: './side-block.component.scss',

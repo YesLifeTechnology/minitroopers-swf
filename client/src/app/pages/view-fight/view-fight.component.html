@@ -8,9 +8,8 @@
 
       <h1
         class="shadow-title absolute left-1/2 top-1 -translate-x-1/2 text-nowrap text-lg font-bold text-white"
-        >
-        <app-army-name [user]="userArmy"></app-army-name> VS
-        <app-army-name [user]="userOpponent"></app-army-name>
+      >
+        {{ userArmy | getArmyName }} vs {{ userOpponent | getArmyName }}
       </h1>
     </div>
     <div

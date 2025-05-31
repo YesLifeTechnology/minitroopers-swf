@@ -10,16 +10,19 @@ import {
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { distinctUntilChanged, filter, of, pipe, switchMap, tap } from 'rxjs';
+import { GetArmyNamePipe } from '../pipes/getArmyName.pipe';
 import { BackendService } from '../services/backend.service';
 import { AuthStore } from './auth.store';
 
 interface ArmyState {
   army: PartialUserExtended | null;
+  displayedTitle: string | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: ArmyState = {
+  displayedTitle: null,
   army: null,
   loading: false,
   error: null,
@@ -42,6 +45,7 @@ export const ArmyStore = signalStore(
       store,
       backendService = inject(BackendService),
       authStore = inject(AuthStore),
+      getArmyNamePipe = inject(GetArmyNamePipe),
     ) => ({
       loadByRoute: rxMethod<string | null>(
         pipe(
@@ -63,6 +67,7 @@ export const ArmyStore = signalStore(
                   next: (user) =>
                     patchState(store, {
                       army: user,
+                      displayedTitle: getArmyNamePipe.transform(user),
                       loading: false,
                       error: null,
                     }),
@@ -79,6 +84,20 @@ export const ArmyStore = signalStore(
           }),
         ),
       ),
+
+      setTitle(title: string) {
+        if (title == 'reset') {
+          return patchState(store, {
+            displayedTitle: getArmyNamePipe.transform(
+              store.army() ?? undefined,
+            ),
+          });
+        } else {
+          return patchState(store, {
+            displayedTitle: title,
+          });
+        }
+      },
     }),
   ),
 );

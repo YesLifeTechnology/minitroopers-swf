@@ -8,7 +8,11 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrooperDay } from '@minitroopers/prisma';
-import { PartialUserExtended, statusAvailability } from '@minitroopers/shared';
+import {
+  PartialUserExtended,
+  checkNameValide,
+  statusAvailability,
+} from '@minitroopers/shared';
 import { Subject, debounceTime, switchMap, take, takeUntil } from 'rxjs';
 import { ContainerBlueLargeComponent } from 'src/app/components/containers/container-blue-large/container-blue-large.component';
 import { ContainerBlueComponent } from 'src/app/components/containers/container-blue/container-blue.component';
@@ -25,7 +29,6 @@ import { AuthStore } from 'src/app/stores/auth.store';
     ContainerBlueComponent,
     ContainerBlueLargeComponent,
     ChooseTrooperComponent,
-    // ArmyNameComponent,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -104,11 +107,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     let referralArmy: string = this.route.snapshot.params['army'];
 
-    if (!referralArmy && localStorage.getItem('referral') != null) {
-      referralArmy = localStorage.getItem('referral') as string;
+    const referralInStorage = localStorage.getItem('referral');
+    if (!referralArmy && referralInStorage !== null) {
+      referralArmy = referralInStorage;
     }
 
-    if (referralArmy) {
+    if (referralArmy && checkNameValide(referralArmy)) {
       this.backendService
         .getArmy(referralArmy)
         .pipe(take(1))

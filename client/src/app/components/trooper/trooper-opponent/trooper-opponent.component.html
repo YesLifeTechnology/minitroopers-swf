@@ -19,7 +19,7 @@
   </div>
 
   <h2 class="mb-3 mt-2 text-center text-sm font-bold text-[#6b4320]">
-    <app-army-name [user]="opponent"></app-army-name>
+    {{ opponent | getArmyName }}
   </h2>
 
   <div class="flex justify-between">

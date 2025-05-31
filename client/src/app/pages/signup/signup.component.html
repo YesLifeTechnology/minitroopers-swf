@@ -10,17 +10,18 @@
     @if (referralUser) {
       <div class="pt-4 lg:ml-auto lg:mr-6 lg:w-[575px]">
         <div class="text-center text-2xl text-black">
-          UNCOMMENT ARMY NAME IN HTML
-          <!-- <app-army-name [user]="referralUser"></app-army-name> -->
-          recrute !
+          <!-- {{ referralUser | getArmyName }}  -->
+          xxx recrute !
         </div>
       </div>
     }
 
     <div class="mb-7 lg:ml-auto lg:mr-6 lg:w-[575px]">
-      <div class="py-5 text-black">
+      <div class="pt-5 text-black">
         @if (authStore.isAuthenticated()) {
           <div class="mx-auto w-fit">[connecté avec EternalTwin ✅]</div>
+        } @else {
+          <div class="mx-auto w-fit">Connecte toi :</div>
         }
       </div>
 
@@ -28,7 +29,7 @@
         <div class="flex flex-col items-center gap-4 py-4">
           <div class="mb-5 grid w-full grid-cols-2 gap-4">
             <button
-              class="flex w-full items-center rounded-full bg-white px-4 py-2 font-bold text-gray-700 shadow-md transition duration-300 hover:shadow-lg"
+              class="disabled-btn flex w-full items-center rounded-full bg-white px-4 py-2 font-bold text-gray-700 shadow-md transition duration-300 hover:shadow-lg"
             >
               <img
                 src="assets/images/logo/google-logo.webp"
@@ -38,7 +39,7 @@
               <div class="m-auto">Sign in with Google</div>
             </button>
             <button
-              class="flex w-full items-center rounded-full bg-[#3d47a9] px-4 py-2 font-bold text-white shadow-md transition duration-300 hover:shadow-lg"
+              class="disabled-btn flex w-full items-center rounded-full bg-[#3d47a9] px-4 py-2 font-bold text-white shadow-md transition duration-300 hover:shadow-lg"
             >
               <img
                 src="assets/images/logo/discord-logo.webp"
@@ -48,7 +49,7 @@
               <div class="m-auto">Sign in with Discord</div>
             </button>
             <button
-              class="flex w-full items-center rounded-full bg-[#9146FF] px-4 py-2 font-bold text-white shadow-md transition duration-300 hover:shadow-lg"
+              class="disabled-btn flex w-full items-center rounded-full bg-[#9146FF] px-4 py-2 font-bold text-white shadow-md transition duration-300 hover:shadow-lg"
             >
               <img
                 src="assets/images/logo/twitch-logo.webp"
@@ -179,7 +180,6 @@
         </div>
 
         <div class="mx-4 mt-5">
-          <!-- [style.pointerEvents]="authService.user ? 'initial' : 'none'" -->
           <app-choose-trooper
             [troopers]="displayedTroopers"
             [formGroup]="signupForm"
