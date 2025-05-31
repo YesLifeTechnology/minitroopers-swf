@@ -2,16 +2,21 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { checkNameValide } from '@minitroopers/shared';
 import { map, take } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { BackendService } from '../services/backend.service';
+import { ArmyStore } from '../stores/army.store';
+import { AuthStore } from '../stores/auth.store';
 
 export const armyExistGuard: CanActivateFn = (route, state) => {
   const backendService = inject(BackendService);
   const router = inject(Router);
-  const authService = inject(AuthService);
+  const authStore = inject(AuthStore);
+  const armyStore = inject(ArmyStore);
 
   if (route.params['army']) {
-    if (route.params['army'] == authService.user?.armyName) {
+    if (
+      route.params['army'] == authStore.user()?.armyName ||
+      route.params['army'] == armyStore.currentArmyName()
+    ) {
       return true;
     }
 

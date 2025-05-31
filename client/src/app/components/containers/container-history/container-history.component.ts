@@ -1,14 +1,8 @@
 import { DecimalPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialUserExtended, getAddCost } from '@minitroopers/shared';
-import { AuthService } from 'src/app/services/auth.service';
+import { getAddCost } from '@minitroopers/shared';
+import { ArmyStore } from 'src/app/stores/army.store';
 
 @Component({
   selector: 'app-container-history',
@@ -17,19 +11,15 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './container-history.component.html',
   styleUrl: './container-history.component.scss',
 })
-export class ContainerHistoryComponent implements OnChanges {
-  @Input() user!: PartialUserExtended;
-
-  histories: any = [];
-
+export class ContainerHistoryComponent {
   private decimalPipe = inject(DecimalPipe);
-  private authService = inject(AuthService);
+  private armyStore = inject(ArmyStore);
   private router = inject(Router);
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.histories =
-      this.user?.history?.map((history) => {
-        let newHist: (typeof this.histories)[number] = { ...history };
+  public histories = computed(() => {
+    let hist =
+      this.armyStore.army()?.history?.map((history) => {
+        let newHist = { ...history } as any;
         newHist.date = this.tsToDate(new Date(history.ts).getTime());
         if (newHist.type == 'recruit') {
           if (!newHist.options) {
@@ -49,22 +39,26 @@ export class ContainerHistoryComponent implements OnChanges {
         return newHist;
       }) ?? [];
 
-    if (this.user && this.user.gold >= getAddCost(this.user.troopers.length)) {
-      this.histories.unshift({
+    if (
+      this.armyStore.army() &&
+      this.armyStore.army()!.gold >=
+        getAddCost(this.armyStore.army()!.troopers.length)
+    ) {
+      hist.unshift({
         ts: new Date(),
         type: 'trooperAvailable',
         id: '',
         date: this.tsToDate(Date.now()),
         options: {
-          clickable:
-            this.authService.user != null &&
-            this.user?.armyName == this.authService.user?.armyName,
-          url: this.authService.user?.armyName + '/add',
+          clickable: this.armyStore.isOwner(),
+          url: this.armyStore.currentArmyName() + '/add',
         },
         userId: '',
       });
     }
-  }
+
+    return hist;
+  });
 
   tsToDate(ts: number): string {
     let date = new Date(ts);

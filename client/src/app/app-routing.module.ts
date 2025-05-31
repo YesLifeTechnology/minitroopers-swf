@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SideBlockComponent } from './components/containers/side-block/side-block.component';
 import { armyExistGuard } from './guards/army-exist.guard';
 import { checkLoggedGuard } from './guards/check-logged.guard';
 import { signupGuard } from './guards/signup.guard';
@@ -18,6 +19,7 @@ import { ViewUpgradeComponent } from './pages/view-upgrade/view-upgrade.componen
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     canActivate: [signupGuard],
     component: SignupComponent,
   },
@@ -42,33 +44,44 @@ const routes: Routes = [
     component: AdminComponent,
   },
 
-  { path: ':army', canActivate: [armyExistGuard], component: HqComponent },
   {
-    path: ':army/army',
-    canActivate: [armyExistGuard, checkLoggedGuard],
-    component: ArmyComponent,
-  },
-  {
-    path: ':army/add',
-    canActivate: [armyExistGuard, checkLoggedGuard],
-    component: AddComponent,
-  },
-  // {
-  //   path: ':army/edit',
-  //   canActivate: [armyExistGuard, checkLoggedGuard],
-  //   component: ViewUpgradeComponent,
-  // },
-  {
-    path: ':army/war',
-    canActivate: [armyExistGuard, checkLoggedGuard],
-    component: OpponentsComponent,
+    path: ':army',
+    component: SideBlockComponent,
+    canActivate: [armyExistGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: HqComponent,
+      },
+      {
+        path: 'army',
+        canActivate: [checkLoggedGuard],
+        component: ArmyComponent,
+      },
+      {
+        path: 'add',
+        canActivate: [checkLoggedGuard],
+        component: AddComponent,
+      },
+      {
+        path: 'war',
+        canActivate: [checkLoggedGuard],
+        component: OpponentsComponent,
+      },
+      // {
+      //   path: ':army/edit',
+      //   canActivate: [armyExistGuard, checkLoggedGuard],
+      //   component: ViewUpgradeComponent,
+      // },
+      {
+        path: ':trooper',
+        canActivate: [], // + trooper exist guard
+        component: ViewUpgradeComponent,
+      },
+    ],
   },
 
-  {
-    path: ':army/:trooper',
-    canActivate: [armyExistGuard], // + trooper exist guard
-    component: ViewUpgradeComponent,
-  },
   { path: '**', redirectTo: '' },
 ];
 

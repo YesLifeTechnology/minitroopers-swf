@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { PartialUserExtended } from '@minitroopers/shared';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { ArmyStore } from 'src/app/stores/army.store';
 import { FightComponent } from '../../buttons/fight/fight.component';
 import { MissionsComponent } from '../../buttons/missions/missions.component';
 import { RaidComponent } from '../../buttons/raid/raid.component';
 
 @Component({
-    selector: 'app-today-fight',
-    imports: [CommonModule, FightComponent, MissionsComponent, RaidComponent],
-    templateUrl: './today-fight.component.html',
-    styleUrl: './today-fight.component.scss'
+  selector: 'app-today-fight',
+  imports: [CommonModule, FightComponent, MissionsComponent, RaidComponent],
+  templateUrl: './today-fight.component.html',
+  styleUrl: './today-fight.component.scss',
 })
 export class TodayFightComponent implements OnInit {
   @Input() type: 'fight' | 'mission' | 'raid' = 'fight';
-  @Input() isOwner: boolean = false;
-  @Input() user!: PartialUserExtended;
   title: string = '';
   image: string = '';
+
+  public armyStore = inject(ArmyStore);
 
   ngOnInit(): void {
     switch (this.type) {

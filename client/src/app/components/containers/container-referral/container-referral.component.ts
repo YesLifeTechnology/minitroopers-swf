@@ -1,24 +1,24 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-    selector: 'app-container-referral',
-    imports: [FormsModule],
-    templateUrl: './container-referral.component.html',
-    styleUrl: './container-referral.component.scss'
+  selector: 'app-container-referral',
+  imports: [FormsModule],
+  templateUrl: './container-referral.component.html',
+  styleUrl: './container-referral.component.scss',
 })
 export class ContainerReferralComponent implements OnInit {
   referralLink: string = '';
   nextGoldReferral: number = 0;
   twitterLink: string = '';
 
-  private authService = inject(AuthService);
+  private authStore = inject(AuthStore);
 
   ngOnInit(): void {
-    if (this.authService.user) {
-      this.nextGoldReferral = this.authService.user.referralGold;
-      this.buildLinks(this.authService.user.armyName.toLowerCase());
+    if (this.authStore.user()) {
+      this.nextGoldReferral = this.authStore.user()!.referralGold;
+      this.buildLinks(this.authStore.user()!.armyName.toLowerCase());
     }
   }
 

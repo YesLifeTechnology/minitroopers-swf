@@ -1,29 +1,27 @@
-
 import { Component, Input, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Trooper } from '@minitroopers/prisma';
-import { AuthService } from 'src/app/services/auth.service';
+import { ArmyStore } from 'src/app/stores/army.store';
+import { AuthStore } from 'src/app/stores/auth.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
 import { TroopersGridComponent } from '../troopers-grid/troopers-grid.component';
 
 @Component({
-    selector: 'app-troopers-block',
-    imports: [TroopersGridComponent, CommandButtonComponent],
-    templateUrl: './troopers-block.component.html',
-    styleUrl: './troopers-block.component.scss'
+  selector: 'app-troopers-block',
+  imports: [TroopersGridComponent, CommandButtonComponent],
+  templateUrl: './troopers-block.component.html',
+  styleUrl: './troopers-block.component.scss',
 })
 export class TroopersBlockComponent {
-  @Input() troopers: Trooper[] = [];
-  @Input() context: 'global' | 'globalOwner' | 'navigation' = 'global';
-  @Input() armyColor: number | undefined = undefined;
+  @Input() allowBack: boolean = false;
 
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  public authService = inject(AuthService);
+  public authStore = inject(AuthStore);
+  public armyStore = inject(ArmyStore);
 
   backClicked() {
-    if (this.authService.user) {
-      this.router.navigate(['/' + this.authService.user.armyName]);
+    if (this.armyStore.currentArmyName()) {
+      this.router.navigate(['/' + this.armyStore.currentArmyName()]);
     } else {
       this.router.navigate(['/']);
     }
@@ -32,7 +30,7 @@ export class TroopersBlockComponent {
   trooperClicked(id: string | null) {
     if (id != null) {
       if (this.route.snapshot.params['army']) {
-        this.router.navigate([this.route.snapshot.params['army'] + '/' + id]);
+        this.router.navigate([this.armyStore.currentArmyName() + '/' + id]);
       }
     } else {
       this.trooperAdd();
@@ -40,12 +38,8 @@ export class TroopersBlockComponent {
   }
 
   trooperAdd() {
-    if (
-      this.authService.user &&
-      (this.context == 'globalOwner' ||
-        this.authService.user.armyName == this.route.snapshot.params['army'])
-    ) {
-      this.router.navigate([this.authService.user.armyName + '/add']);
+    if (this.armyStore.isOwner()) {
+      this.router.navigate([this.armyStore.currentArmyName() + '/add']);
     }
   }
 
@@ -54,6 +48,6 @@ export class TroopersBlockComponent {
   }
 
   disconnect() {
-    this.authService.disconnect();
+    this.authStore.logout();
   }
 }

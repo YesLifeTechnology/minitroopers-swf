@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { ContainerComponent } from './layouts/container/container.component';
-import { HeaderInterceptor } from './interceptors/header-interceptor.interceptor';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { NotificationComponent } from './components/containers/notification/notification.component';
 import { ErrorInterceptor } from './interceptors/error-interceptor.interceptor';
+import { HeaderInterceptor } from './interceptors/header-interceptor.interceptor';
+import { ContainerComponent } from './layouts/container/container.component';
 
 @NgModule({
   declarations: [AppComponent],

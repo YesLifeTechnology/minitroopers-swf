@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -19,9 +18,9 @@ import { Trooper } from '@minitroopers/prisma';
 import { getUpgradeCost, TrooperSkill } from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { TooltipDirective } from 'src/app/directives/tooltip.directive';
-import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
+import { AuthStore } from 'src/app/stores/auth.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
@@ -37,15 +36,15 @@ const TROOPER_STATS_SKILL_ORDER = [
 ];
 
 @Component({
-    selector: 'app-trooper-skills',
-    imports: [
+  selector: 'app-trooper-skills',
+  imports: [
     TrooperCellComponent,
     CommandButtonComponent,
     ReactiveFormsModule,
-    TooltipDirective
-],
-    templateUrl: './trooper-skills.component.html',
-    styleUrl: './trooper-skills.component.scss'
+    TooltipDirective,
+  ],
+  templateUrl: './trooper-skills.component.html',
+  styleUrl: './trooper-skills.component.scss',
 })
 export class TrooperSkillsComponent implements OnChanges {
   @Input() selectedTrooper!: Trooper;
@@ -113,7 +112,7 @@ export class TrooperSkillsComponent implements OnChanges {
   public upgradeCost: number = 0;
   public lock: boolean = false;
 
-  public authService = inject(AuthService);
+  public authStore = inject(AuthStore);
   private trooperService = inject(TrooperService);
   private notificationService = inject(NotificationService);
   private route = inject(ActivatedRoute);
@@ -155,8 +154,8 @@ export class TrooperSkillsComponent implements OnChanges {
 
   payUpgrade() {
     if (
-      this.authService.user &&
-      this.authService.user.gold >= this.upgradeCost &&
+      this.authStore.user() &&
+      this.authStore.user()!.gold >= this.upgradeCost &&
       !this.lock
     ) {
       this.switchButton.emit(true);

@@ -1,18 +1,17 @@
-
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fight } from '@minitroopers/prisma';
 import { PartialUserExtended } from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { ArmyNameComponent } from 'src/app/components/containers/army-name/army-name.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { FightService } from 'src/app/services/fight.service';
+import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-    selector: 'app-view-fight',
-    imports: [ArmyNameComponent],
-    templateUrl: './view-fight.component.html',
-    styleUrl: './view-fight.component.scss'
+  selector: 'app-view-fight',
+  imports: [ArmyNameComponent],
+  templateUrl: './view-fight.component.html',
+  styleUrl: './view-fight.component.scss',
 })
 export class ViewFightComponent {
   @ViewChild('insert') element!: ElementRef;
@@ -25,7 +24,7 @@ export class ViewFightComponent {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private authService = inject(AuthService);
+  private authStore = inject(AuthStore);
   private fightService = inject(FightService);
 
   constructor() {
@@ -54,8 +53,8 @@ export class ViewFightComponent {
   onReturn(event: MouseEvent) {
     event.stopPropagation();
 
-    if (this.authService.user) {
-      this.router.navigate(['/' + this.authService.user.armyName]);
+    if (this.authStore.user()) {
+      this.router.navigate(['/' + this.authStore.user()!.armyName]);
     } else {
       this.router.navigate(['/']);
     }

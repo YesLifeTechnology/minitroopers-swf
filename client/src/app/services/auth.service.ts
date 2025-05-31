@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UserExtended } from '@minitroopers/shared';
-import { map, Subject, take, tap } from 'rxjs';
+import { map, take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from './language.service';
 import { NotificationService } from './notification.service';
@@ -10,18 +10,6 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class AuthService {
-  public user: UserExtended | null = null;
-  public onConnected$ = new Subject<UserExtended | null>();
-  private authing_: boolean = false;
-
-  get authing() {
-    return this.authing_;
-  }
-
-  set authing(boolean: boolean) {
-    this.authing_ = boolean;
-  }
-
   private http = inject(HttpClient);
   private languageService = inject(LanguageService);
   private notificationService = inject(NotificationService);
@@ -35,25 +23,11 @@ export class AuthService {
       });
   }
 
-  isSignable(): boolean {
-    const userId = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    const expires = localStorage.getItem('expires');
-
-    return (
-      userId != null &&
-      token != null &&
-      expires != null &&
-      Number(expires) > Date.now()
-    );
-  }
-
-  signIn(): Promise<boolean> {
-    return new Promise<boolean>((resolve) => {
+  signIn(): Promise<UserExtended | null> {
+    return new Promise<UserExtended | null>((resolve) => {
       const userId = localStorage.getItem('user');
       const token = localStorage.getItem('token');
       const expires = localStorage.getItem('expires');
-      this.authing = true;
 
       if (userId && token) {
         if (expires && Number(expires) > Date.now()) {
@@ -64,31 +38,25 @@ export class AuthService {
               map((resp) => {
                 if ((resp as any).status === 'error') {
                   this.clearLocalStorage();
-                  this.authing = false;
-                  resolve(false);
+                  resolve(null);
                 }
                 return resp;
               }),
             )
             .subscribe((response) => {
-              this.user = response;
-              this.authing = false;
               this.notificationService.notify(
                 'success',
-                'Connected as ' + this.user.name,
+                'Connected as ' + response.name,
               );
-              this.onConnected$.next(this.user);
-              resolve(true);
+              resolve(response);
               // +catch
             });
         } else {
           this.clearLocalStorage();
-          this.authing = false;
-          resolve(false);
+          resolve(null);
         }
       } else {
-        this.authing = false;
-        resolve(false);
+        resolve(null);
       }
     });
   }
@@ -103,32 +71,29 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
-          this.languageService.setLanguage(response.lang);
-          localStorage.setItem('user', response.id);
-          localStorage.setItem('token', response.connexionToken);
-          localStorage.setItem(
-            'expires',
-            Date.now() + 24 * 7 * 60 * 60 * 1000 + '',
-          );
-          this.authing = false;
-          this.user = response;
-          this.onConnected$.next(this.user);
-          this.notificationService.notify(
-            'success',
-            'Connected as ' + this.user.name,
-          );
+          if (response) {
+            this.languageService.setLanguage(response.lang);
+            localStorage.setItem('user', response.id);
+            localStorage.setItem('token', response.connexionToken);
+            localStorage.setItem(
+              'expires',
+              Date.now() + 24 * 7 * 60 * 60 * 1000 + '',
+            );
+            this.notificationService.notify(
+              'success',
+              'Connected as ' + response.name,
+            );
+          }
         }),
       );
   }
 
   disconnect() {
-    this.user = null;
-    this.onConnected$.next(null);
     this.clearLocalStorage();
     this.notificationService.notify('success', 'Disconnected');
   }
 
-  clearLocalStorage() {
+  private clearLocalStorage() {
     if (localStorage.getItem('user')) {
       localStorage.removeItem('user');
     }

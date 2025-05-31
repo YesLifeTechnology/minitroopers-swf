@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormControl,
@@ -16,6 +15,7 @@ import { ContainerBlueComponent } from 'src/app/components/containers/container-
 import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-trooper/choose-trooper.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { BackendService } from 'src/app/services/backend.service';
+import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
   selector: 'app-signup',
@@ -24,8 +24,9 @@ import { BackendService } from 'src/app/services/backend.service';
     ReactiveFormsModule,
     ContainerBlueComponent,
     ContainerBlueLargeComponent,
-    ChooseTrooperComponent
-],
+    ChooseTrooperComponent,
+    // ArmyNameComponent,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -89,6 +90,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   public authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  public authStore = inject(AuthStore);
 
   private destroyed$: Subject<void> = new Subject();
 
@@ -118,30 +120,29 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
     }
 
-    if (
-      !referralArmy &&
-      this.authService.user &&
-      this.authService.user.troopers?.length
-    ) {
-      this.router.navigate(['/' + this.authService.user.armyName]);
+    if (!referralArmy && this.authStore.user()?.troopers?.length) {
+      this.router.navigate(['/' + this.authStore.user()!.armyName]);
     } else if (
-      !this.authService.user ||
-      (this.authService.user &&
+      this.authStore.isAuthenticated() == false ||
+      (this.authStore.isAuthenticated() &&
         referralArmy &&
         referralArmy?.toLowerCase() ==
-          this.authService.user?.armyName.toLowerCase())
+          this.authStore.user()!.armyName.toLowerCase())
     ) {
       this.signupForm.disable();
     }
 
     const codeUrl = this.route.snapshot.queryParamMap.get('code');
-    if (codeUrl && !this.authService.user && !this.authService.authing) {
-      this.authService.authing = true;
-
+    if (
+      codeUrl &&
+      this.authStore.isAuthenticated() == false &&
+      this.authStore.loading() == false
+    ) {
       this.authService
         .getFromToken(codeUrl)
         .pipe(take(1))
         .subscribe((user) => {
+          this.authStore.setUser(user);
           this.signupForm.get('userId')?.setValue(user.id);
           this.signupForm.enable();
 
@@ -151,24 +152,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
 
       this.init();
-    } else {
-      this.authService.signIn().then((result) => {
-        if (result && this.authService.user?.troopers?.length) {
-          //&& !referralArmy
-          this.router.navigate(['/' + this.authService.user.armyName]);
-        }
-        // else if (
-        //   referralArmy &&
-        //   referralArmy?.toLowerCase() ===
-        //     this.authService.user?.armyName.toLowerCase()
-        // ) {
-        //   //allow view but disabled
-        // }
-        else {
-          // this.signupForm.enable();
-          // this.init();
-        }
-      });
+    } else if (!this.authStore.isAuthenticated()) {
+      this.authStore.login(true);
     }
   }
 
@@ -235,7 +220,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((user) => {
         if (user.armyName) {
-          this.authService.user = user;
+          this.authStore.setUser(user);
           this.router.navigate(['/' + user.armyName]);
           this.lockSubmit = false;
         }

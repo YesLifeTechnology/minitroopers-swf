@@ -1,12 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { TrooperDay } from '@minitroopers/prisma';
 import {
   PartialUserExtended,
   UserExtended,
+  checkNameValide,
   statusAvailability,
 } from '@minitroopers/shared';
-import { Observable, catchError, map, of, tap, timeout } from 'rxjs';
+import { Observable, catchError, map, of, take, tap, timeout } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,12 +16,12 @@ import { environment } from 'src/environments/environment';
 })
 export class BackendService {
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   isServerUp: boolean = false;
 
   checkServerUp() {
     return this.http.get<boolean>(environment.apiUrl + '/api/is-ready').pipe(
-      // Timeout après 8 secondes
       timeout(8000),
       catchError(() => {
         return of(false);
@@ -78,16 +80,19 @@ export class BackendService {
     );
   }
 
-  getArmy(army: string, full: boolean = false) {
+  getArmy(armyName: string, full: boolean = false) {
+    if (!checkNameValide(armyName)) {
+      this.router.navigate(['/']);
+    }
+
     let queryParams = new HttpParams();
-    queryParams = queryParams.append('army', army);
+    queryParams = queryParams.append('army', armyName);
     queryParams = queryParams.append('full', full);
 
-    return this.http.get<PartialUserExtended>(
-      environment.apiUrl + '/api/user/get',
-      {
+    return this.http
+      .get<PartialUserExtended>(environment.apiUrl + '/api/user/get', {
         params: queryParams,
-      },
-    );
+      })
+      .pipe(take(1));
   }
 }

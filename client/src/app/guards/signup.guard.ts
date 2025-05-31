@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthStore } from '../stores/auth.store';
 
 export const signupGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  if (authService.user && authService.user.armyName) {
-    return router.parseUrl(`/${authService.user.armyName}`);
+  if (authStore.isAuthenticated() && authStore.user()?.armyName) {
+    return router.parseUrl(`/${authStore.user()!.armyName}`);
   } else {
     return true;
   }

@@ -7,7 +7,7 @@ import {
   getFightState,
 } from '@minitroopers/shared';
 import { Subject, interval, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthStore } from 'src/app/stores/auth.store';
 import { GoComponent } from '../go/go.component';
 
 @Component({
@@ -29,7 +29,7 @@ export class FightComponent implements OnChanges, OnDestroy {
 
   private decimalPipe = inject(DecimalPipe);
   private router = inject(Router);
-  private authService = inject(AuthService);
+  private authStore = inject(AuthStore);
   private destroyed$: Subject<void> = new Subject();
 
   ngOnChanges(): void {
@@ -79,7 +79,7 @@ export class FightComponent implements OnChanges, OnDestroy {
     switch (state) {
       case 'win':
       case 'lose':
-        if (this.authService.user?.fights?.length) {
+        if (this.authStore.user()?.fights?.length) {
           const fight = [...this.user?.fights].reverse()[index];
           this.router.navigate(['/war', fight.id], {
             state: { fight: fight },
