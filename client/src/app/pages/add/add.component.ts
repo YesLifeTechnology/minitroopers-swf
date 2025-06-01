@@ -6,7 +6,6 @@ import { getAddCost } from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { CommandButtonComponent } from 'src/app/components/buttons/command-button/command-button.component';
 import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-trooper/choose-trooper.component';
-import { TroopersBlockComponent } from 'src/app/components/trooper/troopers-block/troopers-block.component';
 import { BackendService } from 'src/app/services/backend.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
@@ -14,11 +13,7 @@ import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
   selector: 'app-add',
-  imports: [
-    TroopersBlockComponent,
-    ChooseTrooperComponent,
-    CommandButtonComponent,
-  ],
+  imports: [ChooseTrooperComponent, CommandButtonComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.scss',
 })

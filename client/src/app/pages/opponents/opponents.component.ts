@@ -14,15 +14,17 @@ import { OpponentsStore } from 'src/app/stores/opponents.store';
   styleUrl: './opponents.component.scss',
 })
 export class OpponentsComponent {
-  loadingOpponents: boolean = true;
   lockOpponents: boolean = false;
 
-  // public authStore = inject(AuthStore);
   public armyStore = inject(ArmyStore);
   public authStore = inject(AuthStore);
   public opponentsStore = inject(OpponentsStore);
   private fightService = inject(FightService);
   private router = inject(Router);
+
+  constructor() {
+    this.opponentsStore.loadOpponents();
+  }
 
   onOpponentSelected(opponent: string) {
     this.lockOpponents = true;

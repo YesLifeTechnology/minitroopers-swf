@@ -1,30 +1,27 @@
-@if (armyStore.army()) {
-  <div class="flex flex-col items-center lg:flex-row lg:items-start">
-    <div
-      class="mt-2 grid auto-rows-min grid-cols-1 gap-x-5 gap-y-6 lg:grid-cols-2"
-    >
-      <app-today-fight [type]="'fight'"></app-today-fight>
-      <div class="relative">
-        <app-today-fight [type]="'mission'"></app-today-fight>
-        <div class="overlay-disable"></div>
-      </div>
-      <div class="relative">
-        <app-today-fight [type]="'raid'"></app-today-fight>
-        <div class="overlay-disable"></div>
-      </div>
-      <app-container-ad
-        [image]="ad1.image"
-        [link]="ad1.link"
-      ></app-container-ad>
-      @if (armyStore.isOwner()) {
-        <app-container-referral></app-container-referral>
-      } @else {
-        <div></div>
-      }
-      <app-container-ad
-        [image]="ad2.image"
-        [link]="ad2.link"
-      ></app-container-ad>
+<div class="flex flex-col items-center lg:flex-row lg:items-start">
+  <div
+    class="mt-2 grid auto-rows-min grid-cols-1 gap-x-5 gap-y-6 lg:grid-cols-2"
+  >
+    <app-today-fight [type]="'fight'"></app-today-fight>
+
+    <div class="relative">
+      <app-today-fight [type]="'mission'"></app-today-fight>
+      <div class="overlay-disable"></div>
     </div>
+
+    <div class="relative">
+      <app-today-fight [type]="'raid'"></app-today-fight>
+      <div class="overlay-disable"></div>
+    </div>
+
+    <app-container-ad [image]="ad1.image" [link]="ad1.link"></app-container-ad>
+
+    @if (armyStore.isOwner()) {
+      <app-container-referral></app-container-referral>
+    } @else {
+      <div></div>
+    }
+
+    <app-container-ad [image]="ad2.image" [link]="ad2.link"></app-container-ad>
   </div>
-}
+</div>

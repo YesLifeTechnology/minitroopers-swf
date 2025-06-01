@@ -57,6 +57,7 @@ export const ArmyStore = signalStore(
               return of(
                 patchState(store, {
                   army: authStore.user()!,
+                  displayedTitle: getArmyNamePipe.transform(authStore.user()!),
                   loading: false,
                   error: null,
                 }),

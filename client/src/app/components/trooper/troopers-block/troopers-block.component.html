@@ -18,6 +18,9 @@
 
     <div class="pb-7 pt-9" [class.pointer-events-none]="false">
       <app-troopers-grid
+        [troopers]="armyStore.army()!.troopers"
+        [armyColor]="armyStore.army()!.color"
+        [isOwnerArmy]="armyStore.isOwner()"
         (clickTrooper)="trooperClicked($event)"
       ></app-troopers-grid>
     </div>

@@ -181,7 +181,7 @@ export class TrooperService {
           seed: trooper.seed,
           type: TrooperType.HUMAN,
           id: index,
-          choices: trooper.choices || [],
+          choices: trooper.choices ?? [],
           force: [],
           pref: {
             __CBody: null,

@@ -17,7 +17,7 @@ import { ArmyStore } from 'src/app/stores/army.store';
 export class HqComponent {
   armyStore = inject(ArmyStore);
 
-  // debug
+  // tmp
   ad1: { image: string; link: string } = {
     image: '/assets/images/ads/mush_2.webp',
     link: 'https://google.fr',

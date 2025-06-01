@@ -1,5 +1,5 @@
 <div class="relative flex">
-  @for (state of states; track state; let idx = $index) {
+  @for (state of states; track $index; let idx = $index) {
     <div class="flex-1">
       <app-go
         [state]="state"
@@ -9,28 +9,28 @@
   }
 </div>
 
-<div class="flex items-center text-xs mt-1">
+<div class="mt-1 flex items-center text-xs">
   <img
     src="/assets/images/info.webp"
     alt=""
-    class="w-[10px] h-[10px] mr-[6px]"
+    class="mr-[6px] h-[10px] w-[10px]"
+  />
+  @if (pendingLeft > 0) {
+    <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
+      {{ tryLeft }}
+    </p>
+  }
+  @if (pendingLeft == 0) {
+    <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
+      Prochain combat dans
+    </p>
+    <img
+      src="/assets/images/anim_small_chrono.gif"
+      alt=""
+      class="mx-1 h-[14px] w-[14px]"
     />
-    @if (pendingLeft > 0) {
-      <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
-        {{ tryLeft }}
-      </p>
-    }
-    @if (pendingLeft == 0) {
-      <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
-        Prochain combat dans
-      </p>
-      <img
-        src="/assets/images/anim_small_chrono.gif"
-        alt=""
-        class="mx-1 w-[14px] h-[14px]"
-        />
-        <p class="text-white font-bold" style="text-shadow: 1px 1px 1px black">
-          {{ timeLeft }}
-        </p>
-      }
-    </div>
+    <p class="font-bold text-white" style="text-shadow: 1px 1px 1px black">
+      {{ timeLeft }}
+    </p>
+  }
+</div>
