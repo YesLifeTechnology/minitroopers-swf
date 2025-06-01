@@ -4,6 +4,12 @@ export class Enum extends Array {
   }
 
   static resolve(): void {
+    Object.defineProperty(this, "name", {
+      value: (this as any).__name__,
+      configurable: false,
+      writable: false,
+    });
+
     if (typeof window !== "undefined") {
       const win = window;
       if (!(win as any).__enum__) {
@@ -25,6 +31,7 @@ export class Enum extends Array {
 }
 
 export class ClientMode extends Enum {
+  static __name__ = "ClientMode";
   static __construct__ = ["BATTLE", "BLOCKS"];
 
   static BATTLE(arg0: any, arg1: any) {
@@ -38,6 +45,7 @@ export class ClientMode extends Enum {
 ClientMode.resolve();
 
 export class TrooperType extends Enum {
+  static __name__ = "TrooperType";
   static __construct__ = ["HUMAN", "RAT"];
   static HUMAN = new this("HUMAN", 0);
   static RAT = new this("RAT", 2);
@@ -45,6 +53,7 @@ export class TrooperType extends Enum {
 TrooperType.resolve();
 
 export class MoveSystem extends Enum {
+  static __name__ = "MoveSystem";
   static __construct__ = ["HUNTER", "STANDARD", "DEFENDER"];
   static HUNTER = new this("HUNTER", 0);
   static STANDARD = new this("STANDARD", 1);
@@ -53,6 +62,7 @@ export class MoveSystem extends Enum {
 MoveSystem.resolve();
 
 export class BodyLoc extends Enum {
+  static __name__ = "BodyLoc";
   static __construct__ = [
     "HEAD",
     "TORSO_LEFT",
@@ -75,6 +85,7 @@ export class BodyLoc extends Enum {
 BodyLoc.resolve();
 
 export class TargetType extends Enum {
+  static __name__ = "TargetType";
   static __construct__ = ["DEFAULT", "SPECIFIC_CLASS"];
   static DEFAULT = new this("DEFAULT", 0);
 
@@ -85,6 +96,7 @@ export class TargetType extends Enum {
 TargetType.resolve();
 
 export class ReloadSystem extends Enum {
+  static __name__ = "ReloadSystem";
   static __construct__ = ["RISKY", "CAUTIOUS", "DEFAULT", "FULL"];
   static RISKY = new this("RISKY", 0);
   static CAUTIOUS = new this("CAUTIOUS", 1);
@@ -94,6 +106,7 @@ export class ReloadSystem extends Enum {
 ReloadSystem.resolve();
 
 export class TargetSystem extends Enum {
+  static __name__ = "TargetSystem";
   static __construct__ = ["CLOSEST", "EASIEST", "WEAKEST", "STRONGEST"];
   static CLOSEST = new this("CLOSEST", 0);
   static EASIEST = new this("EASIEST", 1);
@@ -103,6 +116,7 @@ export class TargetSystem extends Enum {
 TargetSystem.resolve();
 
 export class BackgroundType extends Enum {
+  static __name__ = "BackgroundType";
   static __construct__ = [
     "BG_GARDEN",
     "BG_ATTIC",
@@ -119,6 +133,7 @@ export class BackgroundType extends Enum {
 BackgroundType.resolve();
 
 export class WeaponEnum extends Enum {
+  static __name__ = "WeaponEnum";
   static __construct__ = [
     "WEAPON_00",
     "WEAPON_01",
