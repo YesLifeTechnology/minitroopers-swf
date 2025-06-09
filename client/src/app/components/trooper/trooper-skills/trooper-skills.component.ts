@@ -20,6 +20,7 @@ import { take } from 'rxjs';
 import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
+import { ArmyStore } from 'src/app/stores/army.store';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
@@ -113,6 +114,7 @@ export class TrooperSkillsComponent implements OnChanges {
   public lock: boolean = false;
 
   public authStore = inject(AuthStore);
+  public armyStore = inject(ArmyStore);
   private trooperService = inject(TrooperService);
   private notificationService = inject(NotificationService);
   private route = inject(ActivatedRoute);
@@ -180,7 +182,7 @@ export class TrooperSkillsComponent implements OnChanges {
   share() {
     const url =
       'https://minitroopers.com/' +
-      this.route.snapshot.params['army'] +
+      this.armyStore.currentArmyName() +
       '/' +
       this.selectedTrooper.id;
     navigator.clipboard.writeText(url);

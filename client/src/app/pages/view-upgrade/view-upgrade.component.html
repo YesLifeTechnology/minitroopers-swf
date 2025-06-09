@@ -1,25 +1,4 @@
 @if (armyStore.army()) {
-  <div class="flex flex-col-reverse flex-nowrap lg:flex-row">
-    @if (selectedTrooper()) {
-      <div class="relative ml-4 mr-4 lg:ml-auto lg:mr-20">
-        <img
-          src="/assets/images/title.webp"
-          class="m-auto"
-          alt=""
-          draggable="false"
-        />
-        <h1
-          class="shadow-title absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white lg:mt-[-6px]"
-        >
-          {{
-            displaySkill
-              ? "Fiche de " + selectedTrooper()!.name
-              : "Choisir une compétence"
-          }}
-        </h1>
-      </div>
-    }
-  </div>
   <div class="flex flex-col items-center lg:flex-row lg:items-start">
     @if (displaySkill && selectedTrooper()) {
       <!-- editbale if user == auth user -->

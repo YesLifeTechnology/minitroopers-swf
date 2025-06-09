@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  effect,
   ElementRef,
   EventEmitter,
   inject,
@@ -23,7 +24,8 @@ export class TroopersGridComponent implements AfterViewInit {
 
   troopers = input.required<Trooper[]>();
   armyColor = input.required<number>();
-  isOwnerArmy = input<boolean>(false);
+  withAdd = input<boolean>(true);
+  columnNumber = input<number>(3);
 
   @Output() clickTrooper: EventEmitter<string | null> = new EventEmitter();
 
@@ -33,14 +35,18 @@ export class TroopersGridComponent implements AfterViewInit {
 
   private trooperService = inject(TrooperService);
 
+  constructor() {
+    effect(() => {
+      this.generateTroopers();
+    });
+  }
+
   ngAfterViewInit(): void {
     this.generateTroopers();
 
-    if (this.isOwnerArmy()) {
-      (window as any).selectTrooper = (data: any) => {
-        this.selectTrooper(data);
-      };
-    }
+    (window as any).selectTrooper = (data: any) => {
+      this.selectTrooper(data);
+    };
   }
 
   selectTrooper(index: number) {
@@ -48,18 +54,18 @@ export class TroopersGridComponent implements AfterViewInit {
   }
 
   generateTroopers() {
-    if (this.troopers().length > 0) {
-      const col = this.isOwnerArmy() ? 3 : 4;
+    if (this.troopers().length > 0 && this.element?.nativeElement) {
+      const col = this.columnNumber();
 
       this.height = 0;
-      if (this.isOwnerArmy()) {
+      if (this.withAdd()) {
         this.height = Math.ceil((this.troopers().length + 1) / col) * 72;
       } else {
         this.height = Math.ceil(this.troopers().length / col) * 72;
       }
 
       this.arrayTroopers = this.troopers().map((x) => x.id);
-      this.arrayAdds = this.isOwnerArmy()
+      this.arrayAdds = this.withAdd()
         ? new Array(col - Math.ceil(this.troopers().length % col)).fill(true)
         : [];
 

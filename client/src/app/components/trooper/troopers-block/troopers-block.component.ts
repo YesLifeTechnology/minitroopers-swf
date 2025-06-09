@@ -1,5 +1,6 @@
-import { Component, Input, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { ArmyStore } from 'src/app/stores/army.store';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
@@ -12,12 +13,24 @@ import { TroopersGridComponent } from '../troopers-grid/troopers-grid.component'
   styleUrl: './troopers-block.component.scss',
 })
 export class TroopersBlockComponent {
-  @Input() allowBack: boolean = false;
-
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   public authStore = inject(AuthStore);
   public armyStore = inject(ArmyStore);
+
+  public allowedBack = signal<boolean>(this.router.url.split('/').length > 2);
+
+  constructor() {
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd,
+        ),
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.allowedBack.set(event.url.split('/').length > 2);
+      });
+  }
 
   backClicked() {
     if (this.armyStore.currentArmyName()) {

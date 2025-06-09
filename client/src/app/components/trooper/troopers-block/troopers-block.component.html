@@ -20,7 +20,7 @@
       <app-troopers-grid
         [troopers]="armyStore.army()!.troopers"
         [armyColor]="armyStore.army()!.color"
-        [isOwnerArmy]="armyStore.isOwner()"
+        [withAdd]="true"
         (clickTrooper)="trooperClicked($event)"
       ></app-troopers-grid>
     </div>
@@ -69,7 +69,7 @@
         ></app-command-button>
       </div>
     }
-    @if (allowBack) {
+    @if (allowedBack()) {
       <div class="-mx-1 mb-4">
         <app-command-button
           [type]="'blue'"
@@ -97,7 +97,7 @@
           class="mb-[2px] mr-[6px] inline h-[12px] w-[12px]"
         />
         <span class="font-bold">INFO: </span>
-        <span>description</span>
+        <span>Minitroopers</span>
       </div>
     </div>
 

@@ -16,14 +16,14 @@ import {
 } from '@minitroopers/shared';
 import { take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthStore } from '../stores/auth.store';
+import { ArmyStore } from '../stores/army.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TrooperService {
   private http = inject(HttpClient);
-  private authStore = inject(AuthStore);
+  private armyStore = inject(ArmyStore);
 
   upgradeTrooper(trooperId: string) {
     return this.http
@@ -33,7 +33,7 @@ export class TrooperService {
       .pipe(
         tap((response) => {
           if (response?.troopers?.length) {
-            this.authStore.setUser(response);
+            this.armyStore.updateArmy(response);
           }
         }),
       );
@@ -57,7 +57,7 @@ export class TrooperService {
       .pipe(
         tap((response) => {
           if (response?.troopers?.length) {
-            this.authStore.setUser(response);
+            this.armyStore.updateArmy(response);
           }
         }),
       );
@@ -71,7 +71,7 @@ export class TrooperService {
       .pipe(
         tap((response) => {
           if (response?.troopers?.length) {
-            this.authStore.setUser(response);
+            this.armyStore.updateArmy(response);
           }
         }),
       );

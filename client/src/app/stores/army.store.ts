@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import { PartialUserExtended } from '@minitroopers/shared';
+import { PartialUserExtended, UserExtended } from '@minitroopers/shared';
 import { tapResponse } from '@ngrx/operators';
 import {
   patchState,
@@ -98,6 +98,22 @@ export const ArmyStore = signalStore(
             displayedTitle: title,
           });
         }
+      },
+
+      resetTitle() {
+        return patchState(store, {
+          displayedTitle: getArmyNamePipe.transform(store.army() ?? undefined),
+        });
+      },
+
+      updateArmy(army: UserExtended) {
+        if (store.isOwner()) {
+          authStore.setUser(army);
+        }
+
+        return patchState(store, {
+          army: army,
+        });
       },
     }),
   ),

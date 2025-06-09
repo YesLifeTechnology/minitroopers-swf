@@ -7,14 +7,14 @@ import {
 } from '@minitroopers/shared';
 import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthStore } from '../stores/auth.store';
+import { ArmyStore } from '../stores/army.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FightService {
   private http = inject(HttpClient);
-  private authStore = inject(AuthStore);
+  private armyStore = inject(ArmyStore);
 
   getOpponents() {
     return this.http
@@ -39,7 +39,7 @@ export class FightService {
       .pipe(
         tap((response) => {
           if (response?.user) {
-            this.authStore.setUser(response.user);
+            this.armyStore.updateArmy(response.user);
           }
         }),
       );
