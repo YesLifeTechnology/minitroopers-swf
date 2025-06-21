@@ -11,13 +11,17 @@ import {
 import { AuthService } from '../services/auth.service';
 
 interface AuthState {
-  user: UserExtended | null;
+  armyName: string | null;
+  hasTroopers: boolean;
+  referralGold: number;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  user: null,
+  armyName: null,
+  hasTroopers: false,
+  referralGold: 0,
   loading: false,
   error: null,
 };
@@ -26,7 +30,7 @@ export const AuthStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withComputed((store) => ({
-    isAuthenticated: computed(() => !!store.user()),
+    isAuthenticated: computed(() => !!store.armyName()),
   })),
   withMethods(
     (store, authService = inject(AuthService), router = inject(Router)) => ({
@@ -35,7 +39,12 @@ export const AuthStore = signalStore(
         try {
           const user = await authService.signIn();
           if (user) {
-            patchState(store, (state) => ({ user: user, loading: false }));
+            patchState(store, (state) => ({
+              armyName: user.armyName,
+              hasTroopers: !!user.troopers?.length,
+              referralGold: user.referralGold,
+              loading: false,
+            }));
 
             if (redirect && user.troopers?.length) {
               router.navigate(['/' + user.armyName]);
@@ -55,7 +64,9 @@ export const AuthStore = signalStore(
       },
       setUser(user: UserExtended) {
         patchState(store, (state) => ({
-          user: user,
+          armyName: user.armyName,
+          hasTroopers: !!user.troopers?.length,
+          referralGold: user.referralGold,
           loading: false,
           error: null,
         }));

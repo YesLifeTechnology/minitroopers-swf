@@ -16,9 +16,9 @@ export class ContainerReferralComponent implements OnInit {
   private authStore = inject(AuthStore);
 
   ngOnInit(): void {
-    if (this.authStore.user()) {
-      this.nextGoldReferral = this.authStore.user()!.referralGold;
-      this.buildLinks(this.authStore.user()!.armyName.toLowerCase());
+    if (this.authStore.armyName()) {
+      this.nextGoldReferral = this.authStore.referralGold();
+      this.buildLinks(this.authStore.armyName()?.toLowerCase() as string);
     }
   }
 

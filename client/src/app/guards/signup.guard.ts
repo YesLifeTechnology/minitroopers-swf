@@ -6,8 +6,8 @@ export const signupGuard: CanActivateFn = (route, state) => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  if (authStore.isAuthenticated() && authStore.user()?.armyName) {
-    return router.parseUrl(`/${authStore.user()!.armyName}`);
+  if (authStore.isAuthenticated() && authStore.armyName()) {
+    return router.parseUrl(`/${authStore.armyName()}`);
   } else {
     return true;
   }

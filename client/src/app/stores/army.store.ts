@@ -10,7 +10,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { distinctUntilChanged, filter, of, pipe, switchMap, tap } from 'rxjs';
+import { distinctUntilChanged, filter, pipe, switchMap, tap } from 'rxjs';
 import { GetArmyNamePipe } from '../pipes/getArmyName.pipe';
 import { BackendService } from '../services/backend.service';
 import { AuthStore } from './auth.store';
@@ -37,8 +37,8 @@ export const ArmyStore = signalStore(
     notExist: computed(() => store.army === null && !store.loading),
     isOwner: computed(
       () =>
-        authStore.user()?.armyName != null &&
-        store.army()?.armyName === authStore.user()?.armyName,
+        authStore.armyName() != null &&
+        store.army()?.armyName === authStore.armyName(),
     ),
   })),
   withMethods(
@@ -54,35 +54,35 @@ export const ArmyStore = signalStore(
           filter((armyName) => armyName !== null),
           tap(() => patchState(store, { loading: true, error: null })),
           switchMap((armyName: string) => {
-            if (armyName === authStore.user()?.armyName) {
-              return of(
-                patchState(store, {
-                  army: authStore.user()!,
-                  displayedTitle: getArmyNamePipe.transform(authStore.user()!),
-                  loading: false,
-                  error: null,
-                }),
-              );
-            } else {
-              return backendService.getArmy(armyName, true).pipe(
-                tapResponse({
-                  next: (user) =>
-                    patchState(store, {
-                      army: user,
-                      displayedTitle: getArmyNamePipe.transform(user),
-                      loading: false,
-                      error: null,
-                    }),
-                  error: (err) => {
-                    patchState(store, {
-                      loading: false,
-                      error: 'get army failed',
-                    });
-                    console.error(err);
-                  },
-                }),
-              );
-            }
+            // if (armyName === authStore.armyName()) {
+            //   return of(
+            //     patchState(store, {
+            //       army: authStore.user()!,
+            //       displayedTitle: getArmyNamePipe.transform(authStore.user()!),
+            //       loading: false,
+            //       error: null,
+            //     }),
+            //   );
+            // } else {
+            return backendService.getArmy(armyName, true).pipe(
+              tapResponse({
+                next: (user) =>
+                  patchState(store, {
+                    army: user,
+                    displayedTitle: getArmyNamePipe.transform(user),
+                    loading: false,
+                    error: null,
+                  }),
+                error: (err) => {
+                  patchState(store, {
+                    loading: false,
+                    error: 'get army failed',
+                  });
+                  console.error(err);
+                },
+              }),
+            );
+            // }
           }),
         ),
       ),

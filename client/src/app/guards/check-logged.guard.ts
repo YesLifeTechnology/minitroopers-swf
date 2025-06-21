@@ -8,12 +8,11 @@ export const checkLoggedGuard: CanActivateFn = (route, state) => {
 
   if (
     authStore.isAuthenticated() &&
-    authStore.user() &&
-    authStore.user()!.armyName == route.parent?.paramMap.get('army')
+    authStore.armyName() == route.parent?.paramMap.get('army')
   ) {
     return true;
-  } else if (authStore.user() && authStore.user()!.armyName) {
-    return router.parseUrl('/' + authStore.user()!.armyName);
+  } else if (authStore.armyName()) {
+    return router.parseUrl('/' + authStore.armyName());
   } else {
     return router.parseUrl('/');
   }

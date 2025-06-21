@@ -1,4 +1,4 @@
-@if (authStore.user(); as user) {
+@if (armyStore.army(); as user) {
   <!-- <div class="flex flex-col-reverse flex-nowrap lg:flex-row">
     
     <div class="relative ml-4 mr-4 lg:ml-auto lg:mr-20">
@@ -24,7 +24,7 @@
       <div class="mx-10 mb-8">
         <app-choose-trooper
           [troopers]="displayedTroopers"
-          [groupColor]="authStore.user()!.color"
+          [groupColor]="user.color"
           [formGroup]="addForm"
         ></app-choose-trooper>
       </div>

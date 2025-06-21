@@ -7,7 +7,7 @@ import {
   getFightState,
 } from '@minitroopers/shared';
 import { Subject, interval, takeUntil } from 'rxjs';
-import { AuthStore } from 'src/app/stores/auth.store';
+import { ArmyStore } from 'src/app/stores/army.store';
 import { GoComponent } from '../go/go.component';
 
 @Component({
@@ -18,18 +18,23 @@ import { GoComponent } from '../go/go.component';
   styleUrl: './fight.component.scss',
 })
 export class FightComponent implements OnChanges, OnDestroy {
-  @Input() isOwner: boolean = false;
   @Input() user!: PartialUserExtended;
 
-  states: ButtonState[] = ['pending', 'pending', 'pending'];
+  states: ButtonState[] = [
+    'pending',
+    'pending',
+    'pending',
+    'pending',
+    'pending',
+  ];
 
-  pendingLeft: number = 3;
+  pendingLeft: number = this.states.length;
   timeLeft: string = '';
   tryLeft: string = '';
 
   private decimalPipe = inject(DecimalPipe);
   private router = inject(Router);
-  private authStore = inject(AuthStore);
+  private armyStore = inject(ArmyStore);
   private destroyed$: Subject<void> = new Subject();
 
   ngOnChanges(): void {
@@ -79,7 +84,7 @@ export class FightComponent implements OnChanges, OnDestroy {
     switch (state) {
       case 'win':
       case 'lose':
-        if (this.authStore.user()?.fights?.length) {
+        if (this.armyStore.army()?.fights?.length) {
           const fight = [...this.user?.fights].reverse()[index];
           this.router.navigate(['/war', fight.id], {
             state: { fight: fight },
@@ -87,7 +92,7 @@ export class FightComponent implements OnChanges, OnDestroy {
         }
         break;
       case 'pending':
-        if (this.isOwner) {
+        if (this.armyStore.isOwner()) {
           this.router.navigate(['/' + this.user.armyName, 'war']);
         }
         break;

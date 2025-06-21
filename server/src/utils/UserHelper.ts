@@ -89,7 +89,7 @@ export const IncludeAllUserData = {
     },
   },
   fights: {
-    take: 3,
+    take: 5,
     select: {
       id: true,
       result: true,

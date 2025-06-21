@@ -4,7 +4,6 @@ import { take } from 'rxjs';
 import { TrooperOpponentComponent } from 'src/app/components/trooper/trooper-opponent/trooper-opponent.component';
 import { FightService } from 'src/app/services/fight.service';
 import { ArmyStore } from 'src/app/stores/army.store';
-import { AuthStore } from 'src/app/stores/auth.store';
 import { OpponentsStore } from 'src/app/stores/opponents.store';
 
 @Component({
@@ -17,7 +16,6 @@ export class OpponentsComponent {
   lockOpponents: boolean = false;
 
   public armyStore = inject(ArmyStore);
-  public authStore = inject(AuthStore);
   public opponentsStore = inject(OpponentsStore);
   private fightService = inject(FightService);
   private router = inject(Router);

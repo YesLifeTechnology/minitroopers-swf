@@ -14,7 +14,7 @@ export const armyExistGuard: CanActivateFn = (route, state) => {
 
   if (route.params['army']) {
     if (
-      route.params['army'] == authStore.user()?.armyName ||
+      route.params['army'] == authStore.armyName() ||
       route.params['army'] == armyStore.currentArmyName()
     ) {
       return true;

@@ -26,7 +26,8 @@
       [type]="'blue'"
       [disabled]="
         !isEditable ||
-        (authStore.user() != null && authStore.user()!.gold < this.upgradeCost)
+        !armyStore.isOwner() ||
+        (armyStore.army() != null && armyStore.army()!.gold < this.upgradeCost)
       "
       [text]="'Améliorer pour ' + upgradeCost"
       [icon]="'/assets/images/token.webp'"

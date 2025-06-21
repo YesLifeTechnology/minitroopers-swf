@@ -13,7 +13,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Trooper } from '@minitroopers/prisma';
 import {
   getUpgradeCost,
@@ -26,7 +25,6 @@ import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
 import { ArmyStore } from 'src/app/stores/army.store';
-import { AuthStore } from 'src/app/stores/auth.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
@@ -122,11 +120,9 @@ export class TrooperSkillsComponent implements OnChanges {
   public upgradeCost: number = 0;
   public lock: boolean = false;
 
-  public authStore = inject(AuthStore);
   public armyStore = inject(ArmyStore);
   private trooperService = inject(TrooperService);
   private notificationService = inject(NotificationService);
-  private route = inject(ActivatedRoute);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedTrooper']?.currentValue != null) {
@@ -198,9 +194,10 @@ export class TrooperSkillsComponent implements OnChanges {
 
   payUpgrade() {
     if (
-      this.authStore.user() &&
-      this.authStore.user()!.gold >= this.upgradeCost &&
-      !this.lock
+      (this.armyStore.army() && this,
+      this.armyStore.isOwner() &&
+        this.armyStore.army()!.gold >= this.upgradeCost &&
+        !this.lock)
     ) {
       this.switchButton.emit(true);
 

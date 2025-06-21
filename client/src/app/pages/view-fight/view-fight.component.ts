@@ -5,7 +5,7 @@ import { PartialUserExtended } from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { GetArmyNamePipe } from 'src/app/pipes/getArmyName.pipe';
 import { FightService } from 'src/app/services/fight.service';
-import { AuthStore } from 'src/app/stores/auth.store';
+import { ArmyStore } from 'src/app/stores/army.store';
 
 @Component({
   selector: 'app-view-fight',
@@ -24,7 +24,7 @@ export class ViewFightComponent {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private authStore = inject(AuthStore);
+  private armyStore = inject(ArmyStore);
   private fightService = inject(FightService);
 
   constructor() {
@@ -53,8 +53,8 @@ export class ViewFightComponent {
   onReturn(event: MouseEvent) {
     event.stopPropagation();
 
-    if (this.authStore.user()) {
-      this.router.navigate(['/' + this.authStore.user()!.armyName]);
+    if (this.armyStore.army()) {
+      this.router.navigate(['/' + this.armyStore.army()!.armyName]);
     } else {
       this.router.navigate(['/']);
     }

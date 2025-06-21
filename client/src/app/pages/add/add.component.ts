@@ -9,6 +9,7 @@ import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-troope
 import { BackendService } from 'src/app/services/backend.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
+import { ArmyStore } from 'src/app/stores/army.store';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
@@ -28,6 +29,7 @@ export class AddComponent implements OnInit {
   private trooperService = inject(TrooperService);
   private router = inject(Router);
   public authStore = inject(AuthStore);
+  public armyStore = inject(ArmyStore);
   private notificationService = inject(NotificationService);
 
   addCost: number = 0;
@@ -41,8 +43,8 @@ export class AddComponent implements OnInit {
         this.displayedTroopers = troopers;
       });
 
-    if (this.authStore.isAuthenticated()) {
-      this.addCost = getAddCost(this.authStore.user()!.troopers.length);
+    if (this.armyStore.isOwner()) {
+      this.addCost = getAddCost(this.armyStore.army()!.troopers.length);
     }
   }
 
@@ -50,12 +52,12 @@ export class AddComponent implements OnInit {
     if (
       !this.lock &&
       this.addForm.get('trooper')?.value &&
-      this.authStore.isAuthenticated()
+      this.armyStore.isOwner()
     ) {
       if (this.addCost <= 0) {
         this.notificationService.notify('error', 'Limit troopers');
       }
-      if (this.addCost > 0 && this.authStore.user()!.gold >= this.addCost) {
+      if (this.addCost > 0 && this.armyStore.army()!.gold >= this.addCost) {
         this.lock = true;
 
         this.trooperService
@@ -63,11 +65,11 @@ export class AddComponent implements OnInit {
           .pipe(take(1))
           .subscribe(() => {
             if (this.authStore.isAuthenticated()) {
-              this.router.navigate(['/' + this.authStore.user()!.armyName]);
+              this.router.navigate(['/' + this.authStore.armyName()]);
             }
           });
       } else if (
-        this.authStore.user()!.gold >= this.addCost &&
+        this.armyStore.army()!.gold >= this.addCost &&
         this.addCost > 0
       ) {
         this.notificationService.notify('error', 'Not enought gold');

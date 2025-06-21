@@ -124,14 +124,13 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
     }
 
-    if (!referralArmy && this.authStore.user()?.troopers?.length) {
-      this.router.navigate(['/' + this.authStore.user()!.armyName]);
+    if (!referralArmy && this.authStore.hasTroopers()) {
+      this.router.navigate(['/' + this.authStore.armyName()]);
     } else if (
       this.authStore.isAuthenticated() == false ||
       (this.authStore.isAuthenticated() &&
         referralArmy &&
-        referralArmy?.toLowerCase() ==
-          this.authStore.user()!.armyName.toLowerCase())
+        referralArmy?.toLowerCase() == this.authStore.armyName()?.toLowerCase())
     ) {
       this.signupForm.disable();
     }

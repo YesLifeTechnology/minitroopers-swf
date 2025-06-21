@@ -67,11 +67,8 @@ export class TroopersBlockComponent {
   }
 
   goToArmy() {
-    if (
-      this.authStore.isAuthenticated() &&
-      this.authStore.user()?.troopers?.length
-    ) {
-      this.router.navigate([this.authStore.user()?.armyName]);
+    if (this.authStore.isAuthenticated() && this.authStore.hasTroopers()) {
+      this.router.navigate([this.authStore.armyName()]);
     }
   }
 }
