@@ -42,7 +42,8 @@ export class ContainerHistoryComponent {
     if (
       this.armyStore.army() &&
       this.armyStore.army()!.gold >=
-        getAddCost(this.armyStore.army()!.troopers.length)
+        getAddCost(this.armyStore.army()!.troopers.length) &&
+      this.armyStore.isOwner()
     ) {
       hist.unshift({
         ts: new Date(),

@@ -18,7 +18,7 @@
 
     <div class="pb-7 pt-9" [class.pointer-events-none]="false">
       <app-troopers-grid
-        [troopers]="armyStore.army()!.troopers"
+        [troopers]="troopers()"
         [armyColor]="armyStore.army()!.color"
         [withAdd]="true"
         (clickTrooper)="trooperClicked($event)"
@@ -69,12 +69,23 @@
         ></app-command-button>
       </div>
     }
+
     @if (allowedBack()) {
       <div class="-mx-1 mb-4">
         <app-command-button
           [type]="'blue'"
           [text]="'Retour'"
           (clicked)="backClicked()"
+        ></app-command-button>
+      </div>
+    }
+
+    @if (authStore.isAuthenticated() && !armyStore.isOwner()) {
+      <div class="-mx-1 mb-4">
+        <app-command-button
+          [type]="'blue'"
+          [text]="'Mon armée'"
+          (clicked)="goToArmy()"
         ></app-command-button>
       </div>
     }

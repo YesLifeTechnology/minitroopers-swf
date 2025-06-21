@@ -15,7 +15,12 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Trooper } from '@minitroopers/prisma';
-import { getUpgradeCost, TrooperSkill } from '@minitroopers/shared';
+import {
+  getUpgradeCost,
+  Skills,
+  TrooperSkill,
+  Weapons,
+} from '@minitroopers/shared';
 import { take } from 'rxjs';
 import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -61,6 +66,7 @@ export class TrooperSkillsComponent implements OnChanges {
     CWeapon: new FormControl(null),
     CBody: new FormControl(null),
     targetSystem: new FormControl(0, Validators.required),
+    targetType: new FormControl(0),
     moveSystem: new FormControl(1, Validators.required),
     name: new FormControl('', { validators: Validators.required }), //check allowed
   });
@@ -69,11 +75,12 @@ export class TrooperSkillsComponent implements OnChanges {
     value: string;
     label: string;
     options: { name: string; value: number }[];
+    defaultValue?: any;
   }[] = [
     {
       value: 'CWeapon',
       label: 'Prefered Weapon',
-      options: [{ name: '0', value: 0 }],
+      options: [],
     },
     {
       value: 'CBody',
@@ -98,6 +105,7 @@ export class TrooperSkillsComponent implements OnChanges {
         { name: 'WEAKEST', value: 2 },
         { name: 'STRONGEST', value: 3 },
       ],
+      defaultValue: 0,
     },
     {
       value: 'moveSystem',
@@ -107,6 +115,7 @@ export class TrooperSkillsComponent implements OnChanges {
         { name: 'STANDARD', value: 1 },
         { name: 'DEFENDER', value: 2 },
       ],
+      defaultValue: 1,
     },
   ];
 
@@ -121,12 +130,16 @@ export class TrooperSkillsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedTrooper']?.currentValue != null) {
-      this.unlockedSkills = {};
-
-      for (const skill of new TrooperSkill(
+      const trooperSkill = new TrooperSkill(
         this.selectedTrooper.seed,
         this.selectedTrooper.choices,
-      ).getSkills()) {
+      );
+
+      this.buildAvailableWeapons(trooperSkill);
+
+      this.unlockedSkills = {};
+
+      for (const skill of trooperSkill.getSkills()) {
         this.unlockedSkills[skill] = true;
       }
       this.upgradeCost = getUpgradeCost(
@@ -144,13 +157,42 @@ export class TrooperSkillsComponent implements OnChanges {
     }
   }
 
+  buildAvailableWeapons(trooperSkill: TrooperSkill) {
+    let idx = this.updateAttributes.findIndex(
+      (attribute) => attribute.value === 'CWeapon',
+    );
+
+    if (idx !== -1) {
+      this.updateAttributes[idx].options = trooperSkill
+        .getAvailableWeapons()
+        .map((skillId) => {
+          return {
+            name: Skills[skillId].name,
+            value: Weapons[2 + skillId - 9].id[1] as number,
+          };
+        });
+    }
+  }
+
   buildForm() {
     this.updateForm.get('name')?.setValue(this.selectedTrooper.name);
 
     for (const elementUpdate of this.updateAttributes) {
       this.updateForm
         .get(elementUpdate.value)
-        ?.setValue(this.selectedTrooper[elementUpdate.value as keyof Trooper]);
+        ?.setValue(
+          this.selectedTrooper[elementUpdate.value as keyof Trooper] ??
+            elementUpdate.defaultValue,
+        );
+    }
+
+    if (
+      this.updateForm.get('CWeapon')?.value == null &&
+      this.updateAttributes[0].options.length
+    ) {
+      this.updateForm
+        .get('CWeapon')
+        ?.setValue(this.updateAttributes[0].options[0].value);
     }
   }
 
@@ -217,6 +259,8 @@ export class TrooperSkillsComponent implements OnChanges {
             this.lock = false;
             this.updateForm.enable();
             this.notificationService.notify('success', 'Saved');
+            this.selectedTrooper = { ...this.selectedTrooper, ...values };
+            this.armyStore.updateTrooper(this.selectedTrooper);
           }
         });
     }

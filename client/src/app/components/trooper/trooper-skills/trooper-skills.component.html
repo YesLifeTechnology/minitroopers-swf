@@ -61,7 +61,7 @@
             [formControlName]="updateAttribute.value"
             class="mr-1 h-[26px] w-full rounded border border-[#7c8999] bg-gray-50 p-[2px] font-normal text-black"
           >
-            @for (option of updateAttribute.options; track option) {
+            @for (option of updateAttribute.options; track $index) {
               <option [value]="option.value">
                 {{ option.name }}
               </option>

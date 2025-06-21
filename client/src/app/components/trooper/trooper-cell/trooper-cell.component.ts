@@ -1,4 +1,3 @@
-
 import {
   AfterViewInit,
   Component,
@@ -16,10 +15,10 @@ import { TrooperService } from 'src/app/services/trooper.service';
 import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
-    selector: 'app-trooper-cell',
-    imports: [SkillsComponent],
-    templateUrl: './trooper-cell.component.html',
-    styleUrl: './trooper-cell.component.scss'
+  selector: 'app-trooper-cell',
+  imports: [SkillsComponent],
+  templateUrl: './trooper-cell.component.html',
+  styleUrl: './trooper-cell.component.scss',
 })
 export class TrooperCellComponent implements AfterViewInit, OnChanges {
   @ViewChild('insert') element!: ElementRef;
@@ -72,6 +71,13 @@ export class TrooperCellComponent implements AfterViewInit, OnChanges {
           this.trooper.seed,
           this.groupColor ?? (this.trooper as Trooper).group,
           this.trooper.name,
+          {
+            CWeapon: (this.trooper as Trooper).CWeapon,
+            CBody: (this.trooper as Trooper).CBody,
+            targetSystem: (this.trooper as Trooper).targetSystem,
+            targetType: (this.trooper as Trooper).targetType,
+            moveSystem: (this.trooper as Trooper).moveSystem,
+          },
           this.trooper.choices,
         );
       }

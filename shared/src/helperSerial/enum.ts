@@ -32,7 +32,7 @@ export class Enum extends Array {
 
 export class ClientMode extends Enum {
   static __name__ = "ClientMode";
-  static __construct__ = ["BATTLE", "BLOCKS"];
+  static __construct__ = ["BATTLE", "BLOCKS", "NEW_TROOPER"];
 
   static BATTLE(arg0: any, arg1: any) {
     return new this("BATTLE", 0, arg0, arg1);
@@ -40,6 +40,10 @@ export class ClientMode extends Enum {
 
   static BLOCKS(arg0: any) {
     return new this("BLOCKS", 4, arg0);
+  }
+
+  static NEW_TROOPER(arg0: any, arg1: any) {
+    return new this("NEW_TROOPER", 2, arg0, arg1);
   }
 }
 ClientMode.resolve();
@@ -133,7 +137,7 @@ export class BackgroundType extends Enum {
 BackgroundType.resolve();
 
 export class WeaponEnum extends Enum {
-  static __name__ = "WeaponEnum";
+  static __name__ = "Weapon";
   static __construct__ = [
     "WEAPON_00",
     "WEAPON_01",

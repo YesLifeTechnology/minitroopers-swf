@@ -263,12 +263,22 @@ export class TrooperSkill {
     // console.log(Skills.map((skill, i) => "Skill #" + i + " --> " + skill.name));
     return this.Skills;
   }
+
+  getAvailableWeapons(): number[] {
+    return this.Skills.filter(
+      (skillId) =>
+        Skills[skillId].type &&
+        Skills[skillId].type[0] === "WEAPON" &&
+        Skills[skillId].type[1] === 2,
+    );
+  }
 }
 
 export type TrooperConfig = {
   CWeapon: number | null;
   CBody: number | null;
   targetSystem: number;
+  targetType: number;
   moveSystem: number;
   name: string;
 };

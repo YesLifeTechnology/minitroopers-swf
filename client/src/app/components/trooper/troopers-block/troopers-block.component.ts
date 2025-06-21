@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { ArmyStore } from 'src/app/stores/army.store';
@@ -19,6 +19,8 @@ export class TroopersBlockComponent {
   public armyStore = inject(ArmyStore);
 
   public allowedBack = signal<boolean>(this.router.url.split('/').length > 2);
+
+  troopers = computed(() => this.armyStore.army()?.troopers ?? []);
 
   constructor() {
     this.router.events
@@ -62,5 +64,14 @@ export class TroopersBlockComponent {
 
   disconnect() {
     this.authStore.logout();
+  }
+
+  goToArmy() {
+    if (
+      this.authStore.isAuthenticated() &&
+      this.authStore.user()?.troopers?.length
+    ) {
+      this.router.navigate([this.authStore.user()?.armyName]);
+    }
   }
 }

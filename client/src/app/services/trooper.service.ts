@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Trooper } from '@minitroopers/prisma';
 import {
+  BodyLoc,
   ClientMode,
   MoveSystem,
   objectObfuscator,
@@ -13,6 +14,7 @@ import {
   TrooperSkill,
   TrooperType,
   UserExtended,
+  WeaponEnum,
 } from '@minitroopers/shared';
 import { take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -82,6 +84,7 @@ export class TrooperService {
     seed: number,
     groupColor: number,
     name: string,
+    pref: Partial<TrooperConfig>,
     choices: number[],
   ) {
     container.innerHTML = '';
@@ -102,7 +105,7 @@ export class TrooperService {
 
     player.load({
       url: '/assets/swf/client_fr_edit.swf',
-      parameters: this.embededUrlTrooper(seed, groupColor, name, choices),
+      parameters: this.embededUrlTrooper(seed, groupColor, name, pref, choices),
     });
   }
 
@@ -144,26 +147,65 @@ export class TrooperService {
     seed: number,
     group: number,
     name: string,
+    pref: Partial<TrooperConfig>,
     choices: number[] = [],
   ) {
-    let buildChoices: string = '';
-    if (choices.length > 0) {
-      buildChoices = 'i' + choices.join('i');
-    }
+    const data = {
+      mode: ClientMode.NEW_TROOPER(
+        {
+          name: name,
+          seed: seed,
+          type: TrooperType.HUMAN,
+          id: 0,
+          choices: choices || [],
+          force: [],
+          pref: {
+            moveSystem:
+              pref.moveSystem == null
+                ? null
+                : new MoveSystem(
+                    MoveSystem.__construct__[pref.moveSystem],
+                    pref.moveSystem,
+                  ),
+            reloadSystem: ReloadSystem.DEFAULT,
+            leftOver: [],
+            __CBody:
+              pref.CBody == null
+                ? null
+                : new BodyLoc(
+                    BodyLoc.__construct__[pref.CBody ?? 0],
+                    pref.CBody ?? 0,
+                  ),
+            __CWeapon:
+              pref.CWeapon == null
+                ? null
+                : new WeaponEnum(
+                    WeaponEnum.__construct__[pref.CWeapon],
+                    pref.CWeapon,
+                  ),
+            targetSystem: new TargetSystem(
+              TargetSystem.__construct__[pref.targetSystem ?? 0],
+              pref.targetSystem ?? 0,
+            ),
+            targetType:
+              pref.targetType == 0 || pref.targetType == null
+                ? TargetType.DEFAULT
+                : TargetType.SPECIFIC_CLASS(pref.targetType),
+          },
+        },
+        group,
+      ),
+      gfx: 'http://localhost:4200/assets/swf/mini.swf',
+    };
 
-    return (
-      'data=oy10%3A%253B%2501%250CZjy10%3AClientMode%3A2%3A2oy8%3A%25032%251A4y' +
-      name.length +
-      '%3A' +
-      name +
-      'y8%3AV%251BE%257Cny6%3A%250CA2ci' +
-      seed +
-      'y6%3AAn%25256jy11%3ATrooperType%3A0%3A0y8%3A%250Az%250Ava' +
-      buildChoices +
-      'hy5%3A7X%2501i1000y13%3A%257D%2526%2516Y%2501ahgi' +
-      group +
-      'y8%3A%2524PS%2501y55%3Ahttp%253A%252F%252Flocalhost%253A4200%252Fassets%252Fswf%252Fmini.swfg'
-    );
+    // Obfuscate the data
+    const obfuscatedData = objectObfuscator(data);
+
+    // Serialize the data
+    const serialized = Serializer.serialize(obfuscatedData);
+
+    // URI encode the serialized data
+    return 'data=' + encodeURIComponent(serialized);
   }
 
   private embededUrlArmy(
@@ -184,13 +226,37 @@ export class TrooperService {
           choices: trooper.choices ?? [],
           force: [],
           pref: {
-            __CBody: null,
-            __CWeapon: null,
-            leftOver: [],
-            moveSystem: MoveSystem.STANDARD,
+            moveSystem:
+              trooper.moveSystem == null
+                ? null
+                : new MoveSystem(
+                    MoveSystem.__construct__[trooper.moveSystem],
+                    trooper.moveSystem,
+                  ),
             reloadSystem: ReloadSystem.DEFAULT,
-            targetSystem: TargetSystem.CLOSEST,
-            tagerType: TargetType.DEFAULT,
+            leftOver: [],
+            __CBody:
+              trooper.CBody == null
+                ? null
+                : new BodyLoc(
+                    BodyLoc.__construct__[trooper.CBody ?? 0],
+                    trooper.CBody ?? 0,
+                  ),
+            __CWeapon:
+              trooper.CWeapon == null
+                ? null
+                : new WeaponEnum(
+                    WeaponEnum.__construct__[trooper.CWeapon],
+                    trooper.CWeapon,
+                  ),
+            targetSystem: new TargetSystem(
+              TargetSystem.__construct__[trooper.targetSystem ?? 0],
+              trooper.targetSystem ?? 0,
+            ),
+            targetType:
+              trooper.targetType == 0 || trooper.targetType == null
+                ? TargetType.DEFAULT
+                : TargetType.SPECIFIC_CLASS(trooper.targetType),
           },
         })),
         action: isOpponent ? null : 'on',

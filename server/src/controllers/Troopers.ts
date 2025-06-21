@@ -47,11 +47,14 @@ const Troopers = {
           throw new Error();
         }
 
+        const trooperSkill = new TrooperSkill(trooper.seed, trooper.choices);
+
         if (
           req.body.config.CWeapon != null &&
           (typeof req.body.config.CWeapon != "number" ||
             req.body.config.CWeapon < 0 ||
-            req.body.config.CWeapon > 30) // todo sup number weapon trooper
+            req.body.config.CWeapon > 30) && // todo sup number weapon trooper
+          trooperSkill.getAvailableWeapons().includes(req.body.config.CWeapon)
         ) {
           throw new Error();
         }
@@ -61,10 +64,11 @@ const Troopers = {
             id: trooper.id,
           },
           data: {
-            CWeapon: req.body.CWeapon,
-            CBody: req.body.CBody,
-            targetSystem: req.body.targetSystem,
-            moveSystem: req.body.moveSystem,
+            CWeapon: req.body.config.CWeapon,
+            CBody: req.body.config.CBody,
+            targetSystem: req.body.config.targetSystem,
+            targetType: 0, //req.body.config.targetType,
+            moveSystem: req.body.config.moveSystem,
           },
         });
 

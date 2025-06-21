@@ -1,4 +1,5 @@
 import { computed, inject } from '@angular/core';
+import { Trooper } from '@minitroopers/prisma';
 import { PartialUserExtended, UserExtended } from '@minitroopers/shared';
 import { tapResponse } from '@ngrx/operators';
 import {
@@ -114,6 +115,20 @@ export const ArmyStore = signalStore(
         return patchState(store, {
           army: army,
         });
+      },
+
+      updateTrooper(updatedTrooper: Trooper) {
+        const troopers = store.army()?.troopers ?? [];
+        const index = troopers.findIndex((x) => x.id === updatedTrooper.id);
+        if (index !== -1) {
+          troopers[index] = updatedTrooper;
+          return patchState(store, {
+            army: {
+              ...(store.army() as UserExtended),
+              troopers: [...troopers],
+            },
+          });
+        }
       },
     }),
   ),
