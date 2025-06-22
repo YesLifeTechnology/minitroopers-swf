@@ -188,6 +188,10 @@ const generateFight = async (
           type: "war",
           options: {
             result: generatedFight.result,
+            opponent: {
+              armyName: opponent.armyName,
+              prefix: opponent.prefix,
+            },
             fightId: fight.id,
           },
         },

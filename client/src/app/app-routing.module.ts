@@ -91,6 +91,7 @@ const routes: Routes = [
       bindToComponentInputs: true,
       onSameUrlNavigation: 'reload',
       anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'top',
     }),
   ],
   exports: [RouterModule],

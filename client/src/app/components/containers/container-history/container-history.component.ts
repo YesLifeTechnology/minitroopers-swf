@@ -2,12 +2,13 @@ import { DecimalPipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAddCost } from '@minitroopers/shared';
+import { GetArmyNamePipe } from 'src/app/pipes/getArmyName.pipe';
 import { ArmyStore } from 'src/app/stores/army.store';
 
 @Component({
   selector: 'app-container-history',
-  providers: [DecimalPipe],
-  imports: [],
+  providers: [DecimalPipe, GetArmyNamePipe],
+  imports: [GetArmyNamePipe],
   templateUrl: './container-history.component.html',
   styleUrl: './container-history.component.scss',
 })
@@ -27,14 +28,9 @@ export class ContainerHistoryComponent {
           }
           newHist.options.clickable = true;
           newHist.options.url = '/' + (newHist as any).options.armyName;
-        } else if (
-          0
-          // newHist.type == 'war' &&
-          // (newHist as FightHistory).options?.fightId
-        ) {
-          // newHist.options.clickable = true;
-          // newHist.options.url =
-          //   '/war/' + (newHist as FightHistory).options?.fightId;
+        } else if (newHist.type == 'war' && newHist.options?.fightId) {
+          newHist.options.clickable = true;
+          newHist.options.url = '/war/' + newHist.options?.fightId;
         }
         return newHist;
       }) ?? [];

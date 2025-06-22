@@ -21,16 +21,16 @@
                 alt=""
                 class="mr-1 mt-[2px] h-4 w-4"
               />
-              <div class="underline">
+              <div class="content-center underline">
                 @if ($any(history).result === "win") {
                   <span class="font-bold text-[#3f8b12]">Victory</span>
                 }
                 @if ($any(history).result == "lose") {
                   <span class="font-bold text-[#a9200a]">Defeat</span>
                 }
-                &nbsp;<span>contre</span>&nbsp;<span class="font-bold"
-                  >L'armée {{ $any(history)?.options?.enemyName }}</span
-                >
+                &nbsp;<span class="font-bold">{{
+                  $any(history)?.options.opponent | getArmyName
+                }}</span>
               </div>
             </div>
           }
