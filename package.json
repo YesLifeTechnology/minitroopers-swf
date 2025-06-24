@@ -1,44 +1,40 @@
 {
   "name": "minitroopers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "engines": {
-    "npm": ">=9.5.0",
+    "npm": ">=10.9.0",
     "node": ">=20.9.0"
   },
   "scripts": {
-    "clean": "rimraf --glob \"client/dist\" \"shared/dist\" \"server/dist\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
-    "compile": "tsc -b tsconfig.build.json",
-    "client": "cd ./client && npm start",
-    "server": "cd ./server && dotenv -e ../.env -- npm run start:watch",
-    "prisma": "cd ./server && dotenv -e ../.env -- npx prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
-    "prisma:migrate": "cd ./server && dotenv -e ../.env -- npx prisma migrate dev",
-    "prisma:reset": "cd ./server && dotenv -e ../.env -- npx prisma migrate reset --skip-generate",
+    "prisma": "npx prisma migrate dev --schema=packages/prisma/schema.prisma && cp ../packages/prisma/package.reference.json ../packages/prisma/package.json",
+    "prisma:migrate": "npx prisma migrate dev --schema=packages/prisma/schema.prisma",
+    "prisma:reset": "npx prisma migrate reset --schema=packages/prisma/schema.prisma --skip-generate",
     "eternaltwin:start": "eternaltwin start",
     "eternaltwin": "eternaltwin",
-    "shared:compile": "cd ./shared && npm run compile",
-    "shared:start": "cd ./shared && npm run start:watch",
     "audit": "npm audit --recursive --all --environment production",
-    "dev": "npm run shared:compile && dotenv -e .env --concurrently --prefix \"[{name}]\" --names \"SHARED,SERVER,CLIENT,ETWIN\" -c \"bgBlue.bold,bgGreen.bold,bgYellow.bold,bgOrange.bold,\" \"npm run shared:start\" \"npm run server\" \"npm run client\" \"npm run eternaltwin:start\" "
+    "turbo:lint": "turbo run lint",
+    "turbo:build": "turbo run build",
+    "turbo:dev": "turbo run dev",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
   "devDependencies": {
     "@eternaltwin/cli": "^0.14.2",
     "@types/node": "^20.14.2",
-    "concurrently": "^8.2.2",
-    "rimraf": "^5.0.7",
+    "eslint": "^9.29.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.5.4",
     "typescript": "~5.8.3"
   },
-  "workspaces": {
-    "packages": [
-      "./client",
-      "./shared",
-      "./prisma",
-      "./server"
-    ]
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/shared",
+    "packages/prisma"
+  ],
+  "packageManager": "npm@10.9.0",
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "dotenv-cli": "^8.0.0"
+    "@typescript-eslint/eslint-plugin": "^8.35.0"
   }
 }

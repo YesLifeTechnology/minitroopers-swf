@@ -1,0 +1,33 @@
+{
+  "name": "@minitroopers/server",
+  "version": "0.0.2",
+  "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "build": "tsc --build ./tsconfig.json",
+    "dev": "tsc --build ./tsconfig.json --watch",
+    "start": "node dist/server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@eternaltwin/client-node": "^0.14.1",
+    "@eternaltwin/core": "^0.14.2",
+    "@eternaltwin/oauth-client-http": "^0.14.2",
+    "@prisma/client": "^6.2.1",
+    "@minitroopers/shared": "*",
+    "@minitroopers/prisma": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-schedule": "^2.1.1",
+    "url-join": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "@types/node-schedule": "^2.1.7",
+    "prisma": "^6.2.1",
+    "ts-node": "^10.9.2",
+    "tsc-watch": "^6.2.0",
+    "typescript": "~5.8.3"
+  }
+}

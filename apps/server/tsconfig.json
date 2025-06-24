@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "lib": ["esnext.disposable"],
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "paths": {
+      "@minitroopers/shared": ["../shared/dist/index"],
+      "@minitroopers/prisma": ["../prisma/index"]
+    }
+  },
+  "exclude": ["dist/**/*"],
+  // "references": [
+  //   {
+  //     "path": "../shared"
+  //   },
+  //   {
+  //     "path": "../prisma"
+  //   }
+  // ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "experimentalResolver": true
+  }
+}

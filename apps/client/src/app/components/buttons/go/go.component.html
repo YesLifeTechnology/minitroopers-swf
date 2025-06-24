@@ -1,0 +1,9 @@
+<div
+  class="cursor-pointer flex items-center justify-center mx-1 rounded-sm"
+  [class.pending]="state == 'pending'"
+  [class.lost]="state == 'lose'"
+  [class.won]="state == 'win'"
+  (click)="onClick($event)"
+>
+  <img [src]="image" alt="" class="py-px" />
+</div>
