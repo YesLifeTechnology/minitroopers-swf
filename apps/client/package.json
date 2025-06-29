@@ -22,7 +22,7 @@
     "@minitroopers/prisma": "*",
     "@minitroopers/shared": "*",
     "@ngrx/operators": "^19.2.1",
-    "@ngrx/signals": "^19.2.0",
+    "@ngrx/signals": "^19.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

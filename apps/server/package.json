@@ -4,8 +4,7 @@
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "build": "tsc --build ./tsconfig.json",
-    "dev": "tsc --build ./tsconfig.json --watch",
-    "start": "node dist/server.js"
+    "dev": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./dist/server.js\""
   },
   "type": "module",
   "dependencies": {

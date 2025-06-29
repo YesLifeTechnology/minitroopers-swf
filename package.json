@@ -29,7 +29,8 @@
     "typescript": "~5.8.3"
   },
   "workspaces": [
-    "apps/*",
+    "apps/client",
+    "apps/server",
     "packages/shared",
     "packages/prisma"
   ],

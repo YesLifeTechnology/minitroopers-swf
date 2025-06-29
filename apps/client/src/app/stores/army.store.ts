@@ -32,20 +32,22 @@ const initialState: ArmyState = {
 export const ArmyStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withComputed((store, authStore = inject(AuthStore)) => ({
-    currentArmyName: computed(() => store.army()?.armyName),
-    notExist: computed(() => store.army === null && !store.loading),
-    isOwner: computed(
-      () =>
-        authStore.armyName() != null &&
-        store.army()?.armyName === authStore.armyName(),
-    ),
-  })),
+  withComputed(
+    (store, authStore: InstanceType<typeof AuthStore> = inject(AuthStore)) => ({
+      currentArmyName: computed(() => store.army()?.armyName),
+      notExist: computed(() => store.army === null && !store.loading),
+      isOwner: computed(
+        () =>
+          authStore.armyName() != null &&
+          store.army()?.armyName === authStore.armyName(),
+      ),
+    }),
+  ),
   withMethods(
     (
       store,
       backendService = inject(BackendService),
-      authStore = inject(AuthStore),
+      authStore: InstanceType<typeof AuthStore> = inject(AuthStore),
       getArmyNamePipe = inject(GetArmyNamePipe),
     ) => ({
       loadByRoute: rxMethod<string | null>(
@@ -118,7 +120,7 @@ export const ArmyStore = signalStore(
       },
 
       updateTrooper(updatedTrooper: Trooper) {
-        const troopers = store.army()?.troopers ?? [];
+        const troopers: Trooper[] = store.army()?.troopers ?? [];
         const index = troopers.findIndex((x) => x.id === updatedTrooper.id);
         if (index !== -1) {
           troopers[index] = updatedTrooper;
