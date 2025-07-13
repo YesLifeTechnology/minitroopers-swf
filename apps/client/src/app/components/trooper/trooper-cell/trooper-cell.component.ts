@@ -8,9 +8,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Trooper, TrooperDay } from '@minitroopers/prisma';
-import { AuthService } from 'src/app/services/auth.service';
 import { TrooperService } from 'src/app/services/trooper.service';
 import { SkillsComponent } from '../skills/skills.component';
 
@@ -34,9 +32,6 @@ export class TrooperCellComponent implements AfterViewInit, OnChanges {
   public firstSkill: number | undefined = undefined;
   public secondSkill: number | undefined = undefined;
 
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private authService = inject(AuthService);
   private trooperService = inject(TrooperService);
 
   allSkills: string[] = [];

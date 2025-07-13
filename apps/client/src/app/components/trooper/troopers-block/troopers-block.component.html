@@ -45,7 +45,8 @@
         ></app-command-button>
       </div>
     }
-    @if (true) {
+    @if (false) {
+      <!-- Provision  -->
       <div class="-mx-1 mb-4">
         <app-command-button
           [type]="'orange'"
@@ -66,6 +67,15 @@
         <app-command-button
           [type]="'blue'"
           [text]="'Hiérarchie'"
+        ></app-command-button>
+      </div>
+    }
+    @if (displayRanking()) {
+      <div class="-mx-1 mb-4">
+        <app-command-button
+          [type]="'blue'"
+          [text]="'Classement'"
+          (clicked)="goToClassment()"
         ></app-command-button>
       </div>
     }

@@ -17,16 +17,18 @@ export const checkNameValide = (name: string | undefined) => {
 };
 
 const forbiddenName: string[] = [
-  "oauth",
-  "maintenance",
-  "war",
   "admin",
-  "invite",
   "api",
-  "undefined",
-  "null",
+  "army",
   "false",
+  "invite",
+  "maintenance",
+  "null",
+  "oauth",
+  "ranking",
   "true",
+  "undefined",
+  "war",
 ];
 const hasForbiddenWord = (name: string) => {
   return forbiddenName.some((x) =>

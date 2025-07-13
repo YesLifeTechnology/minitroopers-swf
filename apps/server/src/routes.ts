@@ -23,6 +23,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   );
   app.get("/api/util/checkArmyExist", Utils.checkArmyExist(prisma));
   app.get("/api/util/getTodayTroopers", Utils.getTodayTrooper(prisma));
+  app.get("/api/util/getRanking", Utils.getRanking(prisma));
 
   // User
   app.post("/api/user/create", Users.create(prisma));

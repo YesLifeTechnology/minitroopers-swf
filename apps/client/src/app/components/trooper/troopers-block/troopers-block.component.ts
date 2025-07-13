@@ -19,6 +19,9 @@ export class TroopersBlockComponent {
   public armyStore = inject(ArmyStore);
 
   public allowedBack = signal<boolean>(this.router.url.split('/').length > 2);
+  public displayRanking = signal<boolean>(
+    !this.router.url.includes('/ranking'),
+  );
 
   troopers = computed(() => this.armyStore.army()?.troopers ?? []);
 
@@ -31,6 +34,7 @@ export class TroopersBlockComponent {
       )
       .subscribe((event: NavigationEnd) => {
         this.allowedBack.set(event.url.split('/').length > 2);
+        this.displayRanking.set(!event.url.includes('/ranking'));
       });
   }
 
@@ -64,6 +68,10 @@ export class TroopersBlockComponent {
 
   disconnect() {
     this.authStore.logout();
+  }
+
+  goToClassment() {
+    this.router.navigate([this.authStore.armyName(), 'ranking']);
   }
 
   goToArmy() {

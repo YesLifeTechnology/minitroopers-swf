@@ -2,13 +2,12 @@ import { DecimalPipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAddCost } from '@minitroopers/shared';
-import { GetArmyNamePipe } from 'src/app/pipes/getArmyName.pipe';
 import { ArmyStore } from 'src/app/stores/army.store';
 
 @Component({
   selector: 'app-container-history',
-  providers: [DecimalPipe, GetArmyNamePipe],
-  imports: [GetArmyNamePipe],
+  providers: [DecimalPipe],
+  imports: [],
   templateUrl: './container-history.component.html',
   styleUrl: './container-history.component.scss',
 })

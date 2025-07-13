@@ -5,6 +5,7 @@ import { TrooperDay } from '@minitroopers/prisma';
 import {
   PartialUserExtended,
   UserExtended,
+  UserRanking,
   checkNameValide,
   statusAvailability,
 } from '@minitroopers/shared';
@@ -91,6 +92,19 @@ export class BackendService {
 
     return this.http
       .get<PartialUserExtended>(environment.apiUrl + '/api/user/get', {
+        params: queryParams,
+      })
+      .pipe(take(1));
+  }
+
+  getRanking(armyName: string | null = null) {
+    let queryParams = new HttpParams();
+    if (armyName) {
+      queryParams = queryParams.append('name', armyName);
+    }
+
+    return this.http
+      .get<UserRanking[]>(environment.apiUrl + '/api/util/getRanking', {
         params: queryParams,
       })
       .pipe(take(1));

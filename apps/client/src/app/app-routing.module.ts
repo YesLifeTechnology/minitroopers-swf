@@ -10,6 +10,7 @@ import { ArmyComponent } from './pages/army/army.component';
 import { HqComponent } from './pages/hq/hq.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { OpponentsComponent } from './pages/opponents/opponents.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ViewFightComponent } from './pages/view-fight/view-fight.component';
 import { ViewUpgradeComponent } from './pages/view-upgrade/view-upgrade.component';
@@ -74,6 +75,10 @@ const routes: Routes = [
       //   canActivate: [armyExistGuard, checkLoggedGuard],
       //   component: ViewUpgradeComponent,
       // },
+      {
+        path: 'ranking',
+        component: RankingComponent,
+      },
       {
         path: ':trooper',
         canActivate: [], // + trooper exist guard

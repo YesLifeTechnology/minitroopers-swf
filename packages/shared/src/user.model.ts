@@ -52,3 +52,14 @@ export const parseToPartialUser = (user: UserExtended): PartialUserExtended => {
     troopers: user.troopers ?? [],
   };
 };
+
+export interface UserRanking {
+  rank: number | null;
+  armyName: string;
+  power: number;
+  faction: number;
+  size: number;
+  recruits: number;
+  gold: number;
+  isOwner: boolean;
+}
