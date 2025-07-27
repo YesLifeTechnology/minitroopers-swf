@@ -12,7 +12,8 @@ import { RaidComponent } from '../../buttons/raid/raid.component';
   styleUrl: './today-fight.component.scss',
 })
 export class TodayFightComponent implements OnInit {
-  @Input() type: 'fight' | 'mission' | 'raid' = 'fight';
+  @Input() type: 'fight' | 'exterminate' | 'infiltrate' | 'raid' | 'epic' =
+    'fight';
   title: string = '';
   image: string = '';
 
@@ -24,9 +25,17 @@ export class TodayFightComponent implements OnInit {
         this.title = 'Bataille';
         this.image = '/assets/images/mode/garden.webp';
         break;
-      case 'mission': //two mission type
-        this.title = 'Mission : infiltrer';
+      case 'exterminate':
+        this.title = 'Extermination';
         this.image = '/assets/images/mode/attic.webp';
+        break;
+      case 'infiltrate':
+        this.title = 'Infiltration';
+        this.image = '/assets/images/mode/sewer.webp';
+        break;
+      case 'epic':
+        this.title = 'Mission : EPIC';
+        this.image = '/assets/images/mode/road.webp';
         break;
       case 'raid':
         this.title = 'Raid';

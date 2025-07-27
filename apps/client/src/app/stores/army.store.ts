@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import { Trooper } from '@minitroopers/prisma';
+import { MissionType, Trooper } from '@minitroopers/prisma';
 import { PartialUserExtended, UserExtended } from '@minitroopers/shared';
 import { tapResponse } from '@ngrx/operators';
 import {
@@ -132,6 +132,32 @@ export const ArmyStore = signalStore(
           });
         }
       },
+
+      unlockMission: rxMethod<MissionType>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: null })),
+          switchMap((missionType: MissionType) => {
+            return backendService.unlockMission(missionType).pipe(
+              tapResponse({
+                next: (user) =>
+                  patchState(store, {
+                    army: user,
+                    loading: false,
+                    error: null,
+                  }),
+                error: (err) => {
+                  patchState(store, {
+                    loading: false,
+                    error: 'buy mission failed',
+                  });
+                  console.error(err);
+                },
+              }),
+            );
+            // }
+          }),
+        ),
+      ),
     }),
   ),
 );

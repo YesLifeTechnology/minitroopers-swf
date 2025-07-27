@@ -7,6 +7,7 @@ import {
   getFightState,
 } from '@minitroopers/shared';
 import { Subject, interval, takeUntil } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ArmyStore } from 'src/app/stores/army.store';
 import { GoComponent } from '../go/go.component';
 
@@ -19,14 +20,10 @@ import { GoComponent } from '../go/go.component';
 })
 export class FightComponent implements OnChanges, OnDestroy {
   @Input() user!: PartialUserExtended;
+  @Input() smallIcon: boolean = false;
 
-  states: ButtonState[] = [
-    'pending',
-    'pending',
-    'pending',
-    'pending',
-    'pending',
-  ];
+  states: ButtonState[] = [];
+  isLocked: boolean = false;
 
   pendingLeft: number = this.states.length;
   timeLeft: string = '';
@@ -35,28 +32,34 @@ export class FightComponent implements OnChanges, OnDestroy {
   private decimalPipe = inject(DecimalPipe);
   private router = inject(Router);
   private armyStore = inject(ArmyStore);
+  private notificationService = inject(NotificationService);
   private destroyed$: Subject<void> = new Subject();
 
   ngOnChanges(): void {
     if (this.user) {
       this.states = this.getButtonState();
-      this.pendingLeft = this.states.filter((x) => x == 'pending').length;
 
-      if (this.pendingLeft == 0) {
-        this.buildTimeLeft();
-        interval(60000)
-          .pipe(takeUntil(this.destroyed$))
-          .subscribe(() => {
-            this.buildTimeLeft();
-          });
+      if (!this.states.includes('unlock')) {
+        this.isLocked = false;
+        this.pendingLeft = this.states.filter((x) => x == 'pending').length;
+
+        if (this.pendingLeft == 0) {
+          this.buildTimeLeft();
+          interval(60000)
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe(() => {
+              this.buildTimeLeft();
+            });
+        } else {
+          this.getTryLeft();
+        }
       } else {
-        this.getTryLeft();
+        this.isLocked = true;
       }
     }
   }
 
   getButtonState() {
-    //FightPartial
     return getFightState(this.user.fights);
   }
 
@@ -94,6 +97,18 @@ export class FightComponent implements OnChanges, OnDestroy {
       case 'pending':
         if (this.armyStore.isOwner()) {
           this.router.navigate(['/' + this.user.armyName, 'war']);
+        }
+        break;
+      case 'unlock':
+        if (this.armyStore.isOwner()) {
+          if (this.armyStore.army()!.gold >= 5) {
+            this.armyStore.unlockMission((this as any).type);
+          } else {
+            this.notificationService.notify(
+              'error',
+              "Pas assez d'argent pour débloquer la mission",
+            );
+          }
         }
         break;
     }

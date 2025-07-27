@@ -1,9 +1,16 @@
-import { FightResult, HistoryType, Trooper, User } from "@minitroopers/prisma";
+import {
+  FightResult,
+  HistoryType,
+  MissionType,
+  Trooper,
+  User,
+} from "@minitroopers/prisma";
 
 export interface UserExtended extends User {
   troopers: Trooper[];
   history: { type: HistoryType; options: any; ts: Date }[];
   fights: { id: string; result: FightResult; ts: Date }[];
+  missions: { id: string; type: MissionType; result: FightResult; ts: Date }[];
   ipAddressUser: { ip: string }[];
 }
 
@@ -30,15 +37,6 @@ export const getReferralPrice = (recruit: number): number => {
   return 100;
 };
 
-// export interface FightHistory extends HistoryUser {
-//   options: {
-//     result: FightResult;
-//     fightId: string;
-//     opponent: string;
-//     clickable: true;
-//   };
-// }
-
 export const parseToPartialUser = (user: UserExtended): PartialUserExtended => {
   return {
     armyName: user.armyName,
@@ -49,7 +47,11 @@ export const parseToPartialUser = (user: UserExtended): PartialUserExtended => {
     prefix: user.prefix,
     history: [],
     fights: [],
+    missions: [],
     troopers: user.troopers ?? [],
+    epicUnlockAt: user.epicUnlockAt,
+    exterminationUnlockAt: user.exterminationUnlockAt,
+    infiltrationUnlockAt: user.infiltrationUnlockAt,
   };
 };
 

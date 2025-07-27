@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrooperDay } from '@minitroopers/prisma';
+import { MissionType, TrooperDay } from '@minitroopers/prisma';
 import {
   PartialUserExtended,
   UserExtended,
@@ -108,5 +108,14 @@ export class BackendService {
         params: queryParams,
       })
       .pipe(take(1));
+  }
+
+  unlockMission(missionType: MissionType) {
+    return this.http.post<UserExtended>(
+      environment.apiUrl + '/api/user/unlockMission',
+      {
+        missionType: missionType,
+      },
+    );
   }
 }

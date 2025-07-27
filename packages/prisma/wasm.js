@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.12.0
+ * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.12.0",
+  engine: "8047c96bbd92db98a2abc7c9323ce77c02c89dbc"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -135,7 +135,10 @@ exports.Prisma.UserScalarFieldEnum = {
   prefix: 'prefix',
   color: 'color',
   sponsoredById: 'sponsoredById',
-  referralGold: 'referralGold'
+  referralGold: 'referralGold',
+  infiltrationUnlockAt: 'infiltrationUnlockAt',
+  exterminationUnlockAt: 'exterminationUnlockAt',
+  epicUnlockAt: 'epicUnlockAt'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -192,6 +195,14 @@ exports.Prisma.FightScalarFieldEnum = {
   result: 'result'
 };
 
+exports.Prisma.MissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ts: 'ts',
+  type: 'type',
+  result: 'result'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -240,13 +251,20 @@ exports.FightResult = exports.$Enums.FightResult = {
   lose: 'lose'
 };
 
+exports.MissionType = exports.$Enums.MissionType = {
+  exterminate: 'exterminate',
+  infiltrate: 'infiltrate',
+  epic: 'epic'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   ipAddressUser: 'ipAddressUser',
   HistoryUser: 'HistoryUser',
   Trooper: 'Trooper',
   TrooperDay: 'TrooperDay',
-  Fight: 'Fight'
+  Fight: 'Fight',
+  Mission: 'Mission'
 };
 
 /**

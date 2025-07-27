@@ -71,6 +71,16 @@ export const auth = async (prisma: PrismaClient, request: Request) => {
   return user;
 };
 
+const now = new Date();
+const todayStart = new Date(
+  now.getFullYear(),
+  now.getMonth(),
+  now.getDate(),
+  0,
+  0,
+  0,
+);
+
 export const IncludeAllUserData = {
   troopers: {
     orderBy: {
@@ -97,6 +107,22 @@ export const IncludeAllUserData = {
     },
     orderBy: {
       ts: "desc" as Prisma.SortOrder,
+    },
+  },
+  missions: {
+    where: {
+      ts: {
+        gte: todayStart,
+      },
+    },
+    orderBy: {
+      ts: "desc" as Prisma.SortOrder,
+    },
+    select: {
+      id: true,
+      type: true,
+      result: true,
+      ts: true,
     },
   },
 };

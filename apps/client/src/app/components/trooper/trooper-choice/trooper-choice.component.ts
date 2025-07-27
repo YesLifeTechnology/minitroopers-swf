@@ -46,20 +46,25 @@ export class TrooperChoiceComponent implements OnInit {
   chooseSkill(index: number) {
     if (!this.lock && this.selectedTrooper) {
       this.lock = true;
-      this.trooperService
-        .chooseSkill(this.selectedTrooper.id, index)
-        .pipe(take(1))
-        .subscribe((response) => {
-          if (response.troopers?.length) {
-            const trooperUpdated = response.troopers.find(
-              (x) => x.id == this.selectedTrooper.id,
-            );
-            if (trooperUpdated) {
-              this.updatedTrooper.emit(trooperUpdated);
-              this.returnChoice.emit(true);
+
+      if (confirm('Voulez-vous vraiment choisir cette compétence ?')) {
+        this.trooperService
+          .chooseSkill(this.selectedTrooper.id, index)
+          .pipe(take(1))
+          .subscribe((response) => {
+            if (response.troopers?.length) {
+              const trooperUpdated = response.troopers.find(
+                (x) => x.id == this.selectedTrooper.id,
+              );
+              if (trooperUpdated) {
+                this.updatedTrooper.emit(trooperUpdated);
+                this.returnChoice.emit(true);
+              }
             }
-          }
-        });
+          });
+      } else {
+        this.lock = false;
+      }
     }
   }
 }

@@ -43,6 +43,11 @@ export type TrooperDay = $Result.DefaultSelection<Prisma.$TrooperDayPayload>
  * 
  */
 export type Fight = $Result.DefaultSelection<Prisma.$FightPayload>
+/**
+ * Model Mission
+ * 
+ */
+export type Mission = $Result.DefaultSelection<Prisma.$MissionPayload>
 
 /**
  * Enums
@@ -79,6 +84,15 @@ export const FightResult: {
 
 export type FightResult = (typeof FightResult)[keyof typeof FightResult]
 
+
+export const MissionType: {
+  exterminate: 'exterminate',
+  infiltrate: 'infiltrate',
+  epic: 'epic'
+};
+
+export type MissionType = (typeof MissionType)[keyof typeof MissionType]
+
 }
 
 export type Lang = $Enums.Lang
@@ -92,6 +106,10 @@ export const HistoryType: typeof $Enums.HistoryType
 export type FightResult = $Enums.FightResult
 
 export const FightResult: typeof $Enums.FightResult
+
+export type MissionType = $Enums.MissionType
+
+export const MissionType: typeof $Enums.MissionType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -277,6 +295,16 @@ export class PrismaClient<
     * ```
     */
   get fight(): Prisma.FightDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mission`: Exposes CRUD operations for the **Mission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Missions
+    * const missions = await prisma.mission.findMany()
+    * ```
+    */
+  get mission(): Prisma.MissionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -335,8 +363,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.12.0
+   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
    */
   export type PrismaVersion = {
     client: string
@@ -722,7 +750,8 @@ export namespace Prisma {
     HistoryUser: 'HistoryUser',
     Trooper: 'Trooper',
     TrooperDay: 'TrooperDay',
-    Fight: 'Fight'
+    Fight: 'Fight',
+    Mission: 'Mission'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -741,7 +770,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "ipAddressUser" | "historyUser" | "trooper" | "trooperDay" | "fight"
+      modelProps: "user" | "ipAddressUser" | "historyUser" | "trooper" | "trooperDay" | "fight" | "mission"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1189,6 +1218,80 @@ export namespace Prisma {
           }
         }
       }
+      Mission: {
+        payload: Prisma.$MissionPayload<ExtArgs>
+        fields: Prisma.MissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          findFirst: {
+            args: Prisma.MissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          findMany: {
+            args: Prisma.MissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>[]
+          }
+          create: {
+            args: Prisma.MissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          createMany: {
+            args: Prisma.MissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>[]
+          }
+          delete: {
+            args: Prisma.MissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          update: {
+            args: Prisma.MissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.MissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.MissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MissionPayload>
+          }
+          aggregate: {
+            args: Prisma.MissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMission>
+          }
+          groupBy: {
+            args: Prisma.MissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MissionCountArgs<ExtArgs>
+            result: $Utils.Optional<MissionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1279,6 +1382,7 @@ export namespace Prisma {
     trooper?: TrooperOmit
     trooperDay?: TrooperDayOmit
     fight?: FightOmit
+    mission?: MissionOmit
   }
 
   /* Types for Logging */
@@ -1378,6 +1482,7 @@ export namespace Prisma {
     history: number
     ipAddressUser: number
     fights: number
+    missions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1386,6 +1491,7 @@ export namespace Prisma {
     history?: boolean | UserCountOutputTypeCountHistoryArgs
     ipAddressUser?: boolean | UserCountOutputTypeCountIpAddressUserArgs
     fights?: boolean | UserCountOutputTypeCountFightsArgs
+    missions?: boolean | UserCountOutputTypeCountMissionsArgs
   }
 
   // Custom InputTypes
@@ -1432,6 +1538,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountFightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FightWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MissionWhereInput
   }
 
 
@@ -1483,6 +1596,9 @@ export namespace Prisma {
     color: number | null
     sponsoredById: string | null
     referralGold: number | null
+    infiltrationUnlockAt: Date | null
+    exterminationUnlockAt: Date | null
+    epicUnlockAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1501,6 +1617,9 @@ export namespace Prisma {
     color: number | null
     sponsoredById: string | null
     referralGold: number | null
+    infiltrationUnlockAt: Date | null
+    exterminationUnlockAt: Date | null
+    epicUnlockAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1519,6 +1638,9 @@ export namespace Prisma {
     color: number
     sponsoredById: number
     referralGold: number
+    infiltrationUnlockAt: number
+    exterminationUnlockAt: number
+    epicUnlockAt: number
     _all: number
   }
 
@@ -1555,6 +1677,9 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    infiltrationUnlockAt?: true
+    exterminationUnlockAt?: true
+    epicUnlockAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1573,6 +1698,9 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    infiltrationUnlockAt?: true
+    exterminationUnlockAt?: true
+    epicUnlockAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1591,6 +1719,9 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    infiltrationUnlockAt?: true
+    exterminationUnlockAt?: true
+    epicUnlockAt?: true
     _all?: true
   }
 
@@ -1696,6 +1827,9 @@ export namespace Prisma {
     color: number
     sponsoredById: string | null
     referralGold: number
+    infiltrationUnlockAt: Date | null
+    exterminationUnlockAt: Date | null
+    epicUnlockAt: Date | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1733,12 +1867,16 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    infiltrationUnlockAt?: boolean
+    exterminationUnlockAt?: boolean
+    epicUnlockAt?: boolean
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
     sponsoredUsers?: boolean | User$sponsoredUsersArgs<ExtArgs>
     troopers?: boolean | User$troopersArgs<ExtArgs>
     history?: boolean | User$historyArgs<ExtArgs>
     ipAddressUser?: boolean | User$ipAddressUserArgs<ExtArgs>
     fights?: boolean | User$fightsArgs<ExtArgs>
+    missions?: boolean | User$missionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1758,6 +1896,9 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    infiltrationUnlockAt?: boolean
+    exterminationUnlockAt?: boolean
+    epicUnlockAt?: boolean
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1777,6 +1918,9 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    infiltrationUnlockAt?: boolean
+    exterminationUnlockAt?: boolean
+    epicUnlockAt?: boolean
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1796,9 +1940,12 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    infiltrationUnlockAt?: boolean
+    exterminationUnlockAt?: boolean
+    epicUnlockAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold" | "infiltrationUnlockAt" | "exterminationUnlockAt" | "epicUnlockAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
     sponsoredUsers?: boolean | User$sponsoredUsersArgs<ExtArgs>
@@ -1806,6 +1953,7 @@ export namespace Prisma {
     history?: boolean | User$historyArgs<ExtArgs>
     ipAddressUser?: boolean | User$ipAddressUserArgs<ExtArgs>
     fights?: boolean | User$fightsArgs<ExtArgs>
+    missions?: boolean | User$missionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1824,6 +1972,7 @@ export namespace Prisma {
       history: Prisma.$HistoryUserPayload<ExtArgs>[]
       ipAddressUser: Prisma.$ipAddressUserPayload<ExtArgs>[]
       fights: Prisma.$FightPayload<ExtArgs>[]
+      missions: Prisma.$MissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1841,6 +1990,9 @@ export namespace Prisma {
       color: number
       sponsoredById: string | null
       referralGold: number
+      infiltrationUnlockAt: Date | null
+      exterminationUnlockAt: Date | null
+      epicUnlockAt: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2241,6 +2393,7 @@ export namespace Prisma {
     history<T extends User$historyArgs<ExtArgs> = {}>(args?: Subset<T, User$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HistoryUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ipAddressUser<T extends User$ipAddressUserArgs<ExtArgs> = {}>(args?: Subset<T, User$ipAddressUserArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ipAddressUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     fights<T extends User$fightsArgs<ExtArgs> = {}>(args?: Subset<T, User$fightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    missions<T extends User$missionsArgs<ExtArgs> = {}>(args?: Subset<T, User$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2285,6 +2438,9 @@ export namespace Prisma {
     readonly color: FieldRef<"User", 'Int'>
     readonly sponsoredById: FieldRef<"User", 'String'>
     readonly referralGold: FieldRef<"User", 'Int'>
+    readonly infiltrationUnlockAt: FieldRef<"User", 'DateTime'>
+    readonly exterminationUnlockAt: FieldRef<"User", 'DateTime'>
+    readonly epicUnlockAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2826,6 +2982,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
+  }
+
+  /**
+   * User.missions
+   */
+  export type User$missionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    where?: MissionWhereInput
+    orderBy?: MissionOrderByWithRelationInput | MissionOrderByWithRelationInput[]
+    cursor?: MissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MissionScalarFieldEnum | MissionScalarFieldEnum[]
   }
 
   /**
@@ -8367,6 +8547,1073 @@ export namespace Prisma {
 
 
   /**
+   * Model Mission
+   */
+
+  export type AggregateMission = {
+    _count: MissionCountAggregateOutputType | null
+    _min: MissionMinAggregateOutputType | null
+    _max: MissionMaxAggregateOutputType | null
+  }
+
+  export type MissionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    ts: Date | null
+    type: $Enums.MissionType | null
+    result: $Enums.FightResult | null
+  }
+
+  export type MissionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    ts: Date | null
+    type: $Enums.MissionType | null
+    result: $Enums.FightResult | null
+  }
+
+  export type MissionCountAggregateOutputType = {
+    id: number
+    userId: number
+    ts: number
+    type: number
+    result: number
+    _all: number
+  }
+
+
+  export type MissionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    type?: true
+    result?: true
+  }
+
+  export type MissionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    type?: true
+    result?: true
+  }
+
+  export type MissionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    type?: true
+    result?: true
+    _all?: true
+  }
+
+  export type MissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Mission to aggregate.
+     */
+    where?: MissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Missions to fetch.
+     */
+    orderBy?: MissionOrderByWithRelationInput | MissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Missions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Missions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Missions
+    **/
+    _count?: true | MissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MissionMaxAggregateInputType
+  }
+
+  export type GetMissionAggregateType<T extends MissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMission[P]>
+      : GetScalarType<T[P], AggregateMission[P]>
+  }
+
+
+
+
+  export type MissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MissionWhereInput
+    orderBy?: MissionOrderByWithAggregationInput | MissionOrderByWithAggregationInput[]
+    by: MissionScalarFieldEnum[] | MissionScalarFieldEnum
+    having?: MissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MissionCountAggregateInputType | true
+    _min?: MissionMinAggregateInputType
+    _max?: MissionMaxAggregateInputType
+  }
+
+  export type MissionGroupByOutputType = {
+    id: string
+    userId: string
+    ts: Date
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+    _count: MissionCountAggregateOutputType | null
+    _min: MissionMinAggregateOutputType | null
+    _max: MissionMaxAggregateOutputType | null
+  }
+
+  type GetMissionGroupByPayload<T extends MissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MissionGroupByOutputType[P]>
+            : GetScalarType<T[P], MissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    type?: boolean
+    result?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mission"]>
+
+  export type MissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    type?: boolean
+    result?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mission"]>
+
+  export type MissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    type?: boolean
+    result?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mission"]>
+
+  export type MissionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    type?: boolean
+    result?: boolean
+  }
+
+  export type MissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "ts" | "type" | "result", ExtArgs["result"]["mission"]>
+  export type MissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Mission"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      ts: Date
+      type: $Enums.MissionType
+      result: $Enums.FightResult
+    }, ExtArgs["result"]["mission"]>
+    composites: {}
+  }
+
+  type MissionGetPayload<S extends boolean | null | undefined | MissionDefaultArgs> = $Result.GetResult<Prisma.$MissionPayload, S>
+
+  type MissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: MissionCountAggregateInputType | true
+    }
+
+  export interface MissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Mission'], meta: { name: 'Mission' } }
+    /**
+     * Find zero or one Mission that matches the filter.
+     * @param {MissionFindUniqueArgs} args - Arguments to find a Mission
+     * @example
+     * // Get one Mission
+     * const mission = await prisma.mission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MissionFindUniqueArgs>(args: SelectSubset<T, MissionFindUniqueArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Mission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MissionFindUniqueOrThrowArgs} args - Arguments to find a Mission
+     * @example
+     * // Get one Mission
+     * const mission = await prisma.mission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MissionFindUniqueOrThrowArgs>(args: SelectSubset<T, MissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Mission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionFindFirstArgs} args - Arguments to find a Mission
+     * @example
+     * // Get one Mission
+     * const mission = await prisma.mission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MissionFindFirstArgs>(args?: SelectSubset<T, MissionFindFirstArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Mission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionFindFirstOrThrowArgs} args - Arguments to find a Mission
+     * @example
+     * // Get one Mission
+     * const mission = await prisma.mission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MissionFindFirstOrThrowArgs>(args?: SelectSubset<T, MissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Missions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Missions
+     * const missions = await prisma.mission.findMany()
+     * 
+     * // Get first 10 Missions
+     * const missions = await prisma.mission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const missionWithIdOnly = await prisma.mission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MissionFindManyArgs>(args?: SelectSubset<T, MissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Mission.
+     * @param {MissionCreateArgs} args - Arguments to create a Mission.
+     * @example
+     * // Create one Mission
+     * const Mission = await prisma.mission.create({
+     *   data: {
+     *     // ... data to create a Mission
+     *   }
+     * })
+     * 
+     */
+    create<T extends MissionCreateArgs>(args: SelectSubset<T, MissionCreateArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Missions.
+     * @param {MissionCreateManyArgs} args - Arguments to create many Missions.
+     * @example
+     * // Create many Missions
+     * const mission = await prisma.mission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MissionCreateManyArgs>(args?: SelectSubset<T, MissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Missions and returns the data saved in the database.
+     * @param {MissionCreateManyAndReturnArgs} args - Arguments to create many Missions.
+     * @example
+     * // Create many Missions
+     * const mission = await prisma.mission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Missions and only return the `id`
+     * const missionWithIdOnly = await prisma.mission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MissionCreateManyAndReturnArgs>(args?: SelectSubset<T, MissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Mission.
+     * @param {MissionDeleteArgs} args - Arguments to delete one Mission.
+     * @example
+     * // Delete one Mission
+     * const Mission = await prisma.mission.delete({
+     *   where: {
+     *     // ... filter to delete one Mission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MissionDeleteArgs>(args: SelectSubset<T, MissionDeleteArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Mission.
+     * @param {MissionUpdateArgs} args - Arguments to update one Mission.
+     * @example
+     * // Update one Mission
+     * const mission = await prisma.mission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MissionUpdateArgs>(args: SelectSubset<T, MissionUpdateArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Missions.
+     * @param {MissionDeleteManyArgs} args - Arguments to filter Missions to delete.
+     * @example
+     * // Delete a few Missions
+     * const { count } = await prisma.mission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MissionDeleteManyArgs>(args?: SelectSubset<T, MissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Missions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Missions
+     * const mission = await prisma.mission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MissionUpdateManyArgs>(args: SelectSubset<T, MissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Missions and returns the data updated in the database.
+     * @param {MissionUpdateManyAndReturnArgs} args - Arguments to update many Missions.
+     * @example
+     * // Update many Missions
+     * const mission = await prisma.mission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Missions and only return the `id`
+     * const missionWithIdOnly = await prisma.mission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MissionUpdateManyAndReturnArgs>(args: SelectSubset<T, MissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Mission.
+     * @param {MissionUpsertArgs} args - Arguments to update or create a Mission.
+     * @example
+     * // Update or create a Mission
+     * const mission = await prisma.mission.upsert({
+     *   create: {
+     *     // ... data to create a Mission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Mission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MissionUpsertArgs>(args: SelectSubset<T, MissionUpsertArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Missions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionCountArgs} args - Arguments to filter Missions to count.
+     * @example
+     * // Count the number of Missions
+     * const count = await prisma.mission.count({
+     *   where: {
+     *     // ... the filter for the Missions we want to count
+     *   }
+     * })
+    **/
+    count<T extends MissionCountArgs>(
+      args?: Subset<T, MissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Mission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MissionAggregateArgs>(args: Subset<T, MissionAggregateArgs>): Prisma.PrismaPromise<GetMissionAggregateType<T>>
+
+    /**
+     * Group by Mission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MissionGroupByArgs['orderBy'] }
+        : { orderBy?: MissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Mission model
+   */
+  readonly fields: MissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Mission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Mission model
+   */
+  interface MissionFieldRefs {
+    readonly id: FieldRef<"Mission", 'String'>
+    readonly userId: FieldRef<"Mission", 'String'>
+    readonly ts: FieldRef<"Mission", 'DateTime'>
+    readonly type: FieldRef<"Mission", 'MissionType'>
+    readonly result: FieldRef<"Mission", 'FightResult'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Mission findUnique
+   */
+  export type MissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Mission to fetch.
+     */
+    where: MissionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission findUniqueOrThrow
+   */
+  export type MissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Mission to fetch.
+     */
+    where: MissionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission findFirst
+   */
+  export type MissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Mission to fetch.
+     */
+    where?: MissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Missions to fetch.
+     */
+    orderBy?: MissionOrderByWithRelationInput | MissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Missions.
+     */
+    cursor?: MissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Missions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Missions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Missions.
+     */
+    distinct?: MissionScalarFieldEnum | MissionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission findFirstOrThrow
+   */
+  export type MissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Mission to fetch.
+     */
+    where?: MissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Missions to fetch.
+     */
+    orderBy?: MissionOrderByWithRelationInput | MissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Missions.
+     */
+    cursor?: MissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Missions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Missions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Missions.
+     */
+    distinct?: MissionScalarFieldEnum | MissionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission findMany
+   */
+  export type MissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Missions to fetch.
+     */
+    where?: MissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Missions to fetch.
+     */
+    orderBy?: MissionOrderByWithRelationInput | MissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Missions.
+     */
+    cursor?: MissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Missions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Missions.
+     */
+    skip?: number
+    distinct?: MissionScalarFieldEnum | MissionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission create
+   */
+  export type MissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Mission.
+     */
+    data: XOR<MissionCreateInput, MissionUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission createMany
+   */
+  export type MissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Missions.
+     */
+    data: MissionCreateManyInput | MissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Mission createManyAndReturn
+   */
+  export type MissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Missions.
+     */
+    data: MissionCreateManyInput | MissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Mission update
+   */
+  export type MissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Mission.
+     */
+    data: XOR<MissionUpdateInput, MissionUncheckedUpdateInput>
+    /**
+     * Choose, which Mission to update.
+     */
+    where: MissionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission updateMany
+   */
+  export type MissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Missions.
+     */
+    data: XOR<MissionUpdateManyMutationInput, MissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Missions to update
+     */
+    where?: MissionWhereInput
+    /**
+     * Limit how many Missions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Mission updateManyAndReturn
+   */
+  export type MissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * The data used to update Missions.
+     */
+    data: XOR<MissionUpdateManyMutationInput, MissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Missions to update
+     */
+    where?: MissionWhereInput
+    /**
+     * Limit how many Missions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Mission upsert
+   */
+  export type MissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Mission to update in case it exists.
+     */
+    where: MissionWhereUniqueInput
+    /**
+     * In case the Mission found by the `where` argument doesn't exist, create a new Mission with this data.
+     */
+    create: XOR<MissionCreateInput, MissionUncheckedCreateInput>
+    /**
+     * In case the Mission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MissionUpdateInput, MissionUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission delete
+   */
+  export type MissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+    /**
+     * Filter which Mission to delete.
+     */
+    where: MissionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Mission deleteMany
+   */
+  export type MissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Missions to delete
+     */
+    where?: MissionWhereInput
+    /**
+     * Limit how many Missions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Mission without action
+   */
+  export type MissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mission
+     */
+    select?: MissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mission
+     */
+    omit?: MissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8395,7 +9642,10 @@ export namespace Prisma {
     prefix: 'prefix',
     color: 'color',
     sponsoredById: 'sponsoredById',
-    referralGold: 'referralGold'
+    referralGold: 'referralGold',
+    infiltrationUnlockAt: 'infiltrationUnlockAt',
+    exterminationUnlockAt: 'exterminationUnlockAt',
+    epicUnlockAt: 'epicUnlockAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8471,6 +9721,17 @@ export namespace Prisma {
   };
 
   export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
+
+
+  export const MissionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    ts: 'ts',
+    type: 'type',
+    result: 'result'
+  };
+
+  export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8625,6 +9886,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MissionType'
+   */
+  export type EnumMissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MissionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MissionType[]'
+   */
+  export type ListEnumMissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MissionType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8660,12 +9935,16 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     sponsoredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     sponsoredUsers?: UserListRelationFilter
     troopers?: TrooperListRelationFilter
     history?: HistoryUserListRelationFilter
     ipAddressUser?: IpAddressUserListRelationFilter
     fights?: FightListRelationFilter
+    missions?: MissionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8684,12 +9963,16 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
+    infiltrationUnlockAt?: SortOrderInput | SortOrder
+    exterminationUnlockAt?: SortOrderInput | SortOrder
+    epicUnlockAt?: SortOrderInput | SortOrder
     sponsoredBy?: UserOrderByWithRelationInput
     sponsoredUsers?: UserOrderByRelationAggregateInput
     troopers?: TrooperOrderByRelationAggregateInput
     history?: HistoryUserOrderByRelationAggregateInput
     ipAddressUser?: ipAddressUserOrderByRelationAggregateInput
     fights?: FightOrderByRelationAggregateInput
+    missions?: MissionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8711,12 +9994,16 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     sponsoredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     sponsoredUsers?: UserListRelationFilter
     troopers?: TrooperListRelationFilter
     history?: HistoryUserListRelationFilter
     ipAddressUser?: IpAddressUserListRelationFilter
     fights?: FightListRelationFilter
+    missions?: MissionListRelationFilter
   }, "id" | "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -8735,6 +10022,9 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
+    infiltrationUnlockAt?: SortOrderInput | SortOrder
+    exterminationUnlockAt?: SortOrderInput | SortOrder
+    epicUnlockAt?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -8761,6 +10051,9 @@ export namespace Prisma {
     color?: IntWithAggregatesFilter<"User"> | number
     sponsoredById?: UuidNullableWithAggregatesFilter<"User"> | string | null
     referralGold?: IntWithAggregatesFilter<"User"> | number
+    infiltrationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    exterminationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    epicUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type ipAddressUserWhereInput = {
@@ -9086,6 +10379,61 @@ export namespace Prisma {
     result?: EnumFightResultWithAggregatesFilter<"Fight"> | $Enums.FightResult
   }
 
+  export type MissionWhereInput = {
+    AND?: MissionWhereInput | MissionWhereInput[]
+    OR?: MissionWhereInput[]
+    NOT?: MissionWhereInput | MissionWhereInput[]
+    id?: UuidFilter<"Mission"> | string
+    userId?: UuidFilter<"Mission"> | string
+    ts?: DateTimeFilter<"Mission"> | Date | string
+    type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MissionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    type?: SortOrder
+    result?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MissionWhereInput | MissionWhereInput[]
+    OR?: MissionWhereInput[]
+    NOT?: MissionWhereInput | MissionWhereInput[]
+    userId?: UuidFilter<"Mission"> | string
+    ts?: DateTimeFilter<"Mission"> | Date | string
+    type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type MissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    type?: SortOrder
+    result?: SortOrder
+    _count?: MissionCountOrderByAggregateInput
+    _max?: MissionMaxOrderByAggregateInput
+    _min?: MissionMinOrderByAggregateInput
+  }
+
+  export type MissionScalarWhereWithAggregatesInput = {
+    AND?: MissionScalarWhereWithAggregatesInput | MissionScalarWhereWithAggregatesInput[]
+    OR?: MissionScalarWhereWithAggregatesInput[]
+    NOT?: MissionScalarWhereWithAggregatesInput | MissionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Mission"> | string
+    userId?: UuidWithAggregatesFilter<"Mission"> | string
+    ts?: DateTimeWithAggregatesFilter<"Mission"> | Date | string
+    type?: EnumMissionTypeWithAggregatesFilter<"Mission"> | $Enums.MissionType
+    result?: EnumFightResultWithAggregatesFilter<"Mission"> | $Enums.FightResult
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: $Enums.Lang
@@ -9101,12 +10449,16 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9125,11 +10477,15 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9147,12 +10503,16 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9171,11 +10531,15 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9194,6 +10558,9 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -9211,6 +10578,9 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -9229,6 +10599,9 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ipAddressUserCreateInput = {
@@ -9570,6 +10943,61 @@ export namespace Prisma {
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
+  export type MissionCreateInput = {
+    id?: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+    user: UserCreateNestedOneWithoutMissionsInput
+  }
+
+  export type MissionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+  }
+
+  export type MissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    user?: UserUpdateOneRequiredWithoutMissionsNestedInput
+  }
+
+  export type MissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type MissionCreateManyInput = {
+    id?: string
+    userId: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+  }
+
+  export type MissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type MissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9643,6 +11071,17 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -9678,6 +11117,12 @@ export namespace Prisma {
     none?: FightWhereInput
   }
 
+  export type MissionListRelationFilter = {
+    every?: MissionWhereInput
+    some?: MissionWhereInput
+    none?: MissionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -9703,6 +11148,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     lang?: SortOrder
@@ -9719,6 +11168,9 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    infiltrationUnlockAt?: SortOrder
+    exterminationUnlockAt?: SortOrder
+    epicUnlockAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -9745,6 +11197,9 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    infiltrationUnlockAt?: SortOrder
+    exterminationUnlockAt?: SortOrder
+    epicUnlockAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9763,6 +11218,9 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    infiltrationUnlockAt?: SortOrder
+    exterminationUnlockAt?: SortOrder
+    epicUnlockAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -9867,6 +11325,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -10177,6 +11649,47 @@ export namespace Prisma {
     _max?: NestedEnumFightResultFilter<$PrismaModel>
   }
 
+  export type EnumMissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
+  }
+
+  export type MissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    type?: SortOrder
+    result?: SortOrder
+  }
+
+  export type MissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    type?: SortOrder
+    result?: SortOrder
+  }
+
+  export type MissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    type?: SortOrder
+    result?: SortOrder
+  }
+
+  export type EnumMissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.MissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumMissionTypeFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutSponsoredUsersInput = {
     create?: XOR<UserCreateWithoutSponsoredUsersInput, UserUncheckedCreateWithoutSponsoredUsersInput>
     connectOrCreate?: UserCreateOrConnectWithoutSponsoredUsersInput
@@ -10218,6 +11731,13 @@ export namespace Prisma {
     connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
+  export type MissionCreateNestedManyWithoutUserInput = {
+    create?: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput> | MissionCreateWithoutUserInput[] | MissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCreateOrConnectWithoutUserInput | MissionCreateOrConnectWithoutUserInput[]
+    createMany?: MissionCreateManyUserInputEnvelope
+    connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutSponsoredByInput = {
     create?: XOR<UserCreateWithoutSponsoredByInput, UserUncheckedCreateWithoutSponsoredByInput> | UserCreateWithoutSponsoredByInput[] | UserUncheckedCreateWithoutSponsoredByInput[]
     connectOrCreate?: UserCreateOrConnectWithoutSponsoredByInput | UserCreateOrConnectWithoutSponsoredByInput[]
@@ -10253,6 +11773,13 @@ export namespace Prisma {
     connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
+  export type MissionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput> | MissionCreateWithoutUserInput[] | MissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCreateOrConnectWithoutUserInput | MissionCreateOrConnectWithoutUserInput[]
+    createMany?: MissionCreateManyUserInputEnvelope
+    connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -10275,6 +11802,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneWithoutSponsoredUsersNestedInput = {
@@ -10357,6 +11888,20 @@ export namespace Prisma {
     deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
   }
 
+  export type MissionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput> | MissionCreateWithoutUserInput[] | MissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCreateOrConnectWithoutUserInput | MissionCreateOrConnectWithoutUserInput[]
+    upsert?: MissionUpsertWithWhereUniqueWithoutUserInput | MissionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MissionCreateManyUserInputEnvelope
+    set?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    disconnect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    delete?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    update?: MissionUpdateWithWhereUniqueWithoutUserInput | MissionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MissionUpdateManyWithWhereWithoutUserInput | MissionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MissionScalarWhereInput | MissionScalarWhereInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -10429,6 +11974,20 @@ export namespace Prisma {
     update?: FightUpdateWithWhereUniqueWithoutUserInput | FightUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: FightUpdateManyWithWhereWithoutUserInput | FightUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
+  }
+
+  export type MissionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput> | MissionCreateWithoutUserInput[] | MissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCreateOrConnectWithoutUserInput | MissionCreateOrConnectWithoutUserInput[]
+    upsert?: MissionUpsertWithWhereUniqueWithoutUserInput | MissionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MissionCreateManyUserInputEnvelope
+    set?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    disconnect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    delete?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+    update?: MissionUpdateWithWhereUniqueWithoutUserInput | MissionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MissionUpdateManyWithWhereWithoutUserInput | MissionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MissionScalarWhereInput | MissionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutIpAddressUserInput = {
@@ -10521,6 +12080,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFightsInput, UserUpdateWithoutFightsInput>, UserUncheckedUpdateWithoutFightsInput>
   }
 
+  export type UserCreateNestedOneWithoutMissionsInput = {
+    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumMissionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MissionType
+  }
+
+  export type UserUpdateOneRequiredWithoutMissionsNestedInput = {
+    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
+    upsert?: UserUpsertWithoutMissionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMissionsInput, UserUpdateWithoutMissionsInput>, UserUncheckedUpdateWithoutMissionsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -10589,6 +12166,17 @@ export namespace Prisma {
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -10720,6 +12308,20 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumHistoryTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.HistoryType | EnumHistoryTypeFieldRefInput<$PrismaModel>
     in?: $Enums.HistoryType[] | ListEnumHistoryTypeFieldRefInput<$PrismaModel>
@@ -10804,6 +12406,23 @@ export namespace Prisma {
     _max?: NestedEnumFightResultFilter<$PrismaModel>
   }
 
+  export type NestedEnumMissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
+  }
+
+  export type NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MissionType[] | ListEnumMissionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.MissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumMissionTypeFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutSponsoredUsersInput = {
     id: string
     lang?: $Enums.Lang
@@ -10819,11 +12438,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSponsoredUsersInput = {
@@ -10842,10 +12465,14 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSponsoredUsersInput = {
@@ -10868,11 +12495,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSponsoredByInput = {
@@ -10890,11 +12521,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSponsoredByInput = {
@@ -11023,6 +12658,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MissionCreateWithoutUserInput = {
+    id?: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+  }
+
+  export type MissionUncheckedCreateWithoutUserInput = {
+    id?: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+  }
+
+  export type MissionCreateOrConnectWithoutUserInput = {
+    where: MissionWhereUniqueInput
+    create: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput>
+  }
+
+  export type MissionCreateManyUserInputEnvelope = {
+    data: MissionCreateManyUserInput | MissionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutSponsoredUsersInput = {
     update: XOR<UserUpdateWithoutSponsoredUsersInput, UserUncheckedUpdateWithoutSponsoredUsersInput>
     create: XOR<UserCreateWithoutSponsoredUsersInput, UserUncheckedCreateWithoutSponsoredUsersInput>
@@ -11049,11 +12708,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSponsoredUsersInput = {
@@ -11072,10 +12735,14 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutSponsoredByInput = {
@@ -11113,6 +12780,9 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
   }
 
   export type TrooperUpsertWithWhereUniqueWithoutUserInput = {
@@ -11233,6 +12903,33 @@ export namespace Prisma {
     result?: EnumFightResultFilter<"Fight"> | $Enums.FightResult
   }
 
+  export type MissionUpsertWithWhereUniqueWithoutUserInput = {
+    where: MissionWhereUniqueInput
+    update: XOR<MissionUpdateWithoutUserInput, MissionUncheckedUpdateWithoutUserInput>
+    create: XOR<MissionCreateWithoutUserInput, MissionUncheckedCreateWithoutUserInput>
+  }
+
+  export type MissionUpdateWithWhereUniqueWithoutUserInput = {
+    where: MissionWhereUniqueInput
+    data: XOR<MissionUpdateWithoutUserInput, MissionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MissionUpdateManyWithWhereWithoutUserInput = {
+    where: MissionScalarWhereInput
+    data: XOR<MissionUpdateManyMutationInput, MissionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MissionScalarWhereInput = {
+    AND?: MissionScalarWhereInput | MissionScalarWhereInput[]
+    OR?: MissionScalarWhereInput[]
+    NOT?: MissionScalarWhereInput | MissionScalarWhereInput[]
+    id?: UuidFilter<"Mission"> | string
+    userId?: UuidFilter<"Mission"> | string
+    ts?: DateTimeFilter<"Mission"> | Date | string
+    type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
+  }
+
   export type UserCreateWithoutIpAddressUserInput = {
     id: string
     lang?: $Enums.Lang
@@ -11248,11 +12945,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIpAddressUserInput = {
@@ -11271,10 +12972,14 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIpAddressUserInput = {
@@ -11308,11 +13013,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIpAddressUserInput = {
@@ -11331,10 +13040,14 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutHistoryInput = {
@@ -11352,11 +13065,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHistoryInput = {
@@ -11375,10 +13092,14 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHistoryInput = {
@@ -11412,11 +13133,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHistoryInput = {
@@ -11435,10 +13160,14 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTroopersInput = {
@@ -11456,11 +13185,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTroopersInput = {
@@ -11479,10 +13212,14 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTroopersInput = {
@@ -11516,11 +13253,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTroopersInput = {
@@ -11539,10 +13280,14 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFightsInput = {
@@ -11560,11 +13305,15 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
     sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperCreateNestedManyWithoutUserInput
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFightsInput = {
@@ -11583,10 +13332,14 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
     sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
     troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFightsInput = {
@@ -11620,11 +13373,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFightsInput = {
@@ -11643,10 +13400,134 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMissionsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    createdAt?: Date | string
+    lastConnexion?: Date | string
+    admin?: boolean
+    connexionToken: string
+    gold?: number
+    power?: number
+    armyName: string
+    armyUrl: string
+    prefix?: number
+    color?: number
+    referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
+    sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
+    sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
+    troopers?: TrooperCreateNestedManyWithoutUserInput
+    history?: HistoryUserCreateNestedManyWithoutUserInput
+    ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
+    fights?: FightCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMissionsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    createdAt?: Date | string
+    lastConnexion?: Date | string
+    admin?: boolean
+    connexionToken: string
+    gold?: number
+    power?: number
+    armyName: string
+    armyUrl: string
+    prefix?: number
+    color?: number
+    sponsoredById?: string | null
+    referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
+    sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
+    troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
+    history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
+    ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
+    fights?: FightUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+  }
+
+  export type UserUpsertWithoutMissionsInput = {
+    update: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
+    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
+  }
+
+  export type UserUpdateWithoutMissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastConnexion?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    gold?: IntFieldUpdateOperationsInput | number
+    power?: IntFieldUpdateOperationsInput | number
+    armyName?: StringFieldUpdateOperationsInput | string
+    armyUrl?: StringFieldUpdateOperationsInput | string
+    prefix?: IntFieldUpdateOperationsInput | number
+    color?: IntFieldUpdateOperationsInput | number
+    referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
+    sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
+    troopers?: TrooperUpdateManyWithoutUserNestedInput
+    history?: HistoryUserUpdateManyWithoutUserNestedInput
+    ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
+    fights?: FightUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastConnexion?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    gold?: IntFieldUpdateOperationsInput | number
+    power?: IntFieldUpdateOperationsInput | number
+    armyName?: StringFieldUpdateOperationsInput | string
+    armyUrl?: StringFieldUpdateOperationsInput | string
+    prefix?: IntFieldUpdateOperationsInput | number
+    color?: IntFieldUpdateOperationsInput | number
+    sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
+    referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
+    troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
+    history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
+    ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
+    fights?: FightUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManySponsoredByInput = {
@@ -11664,6 +13545,9 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
   }
 
   export type TrooperCreateManyUserInput = {
@@ -11704,6 +13588,13 @@ export namespace Prisma {
     result: $Enums.FightResult
   }
 
+  export type MissionCreateManyUserInput = {
+    id?: string
+    ts?: Date | string
+    type: $Enums.MissionType
+    result: $Enums.FightResult
+  }
+
   export type UserUpdateWithoutSponsoredByInput = {
     id?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
@@ -11719,11 +13610,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUpdateManyWithoutUserNestedInput
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSponsoredByInput = {
@@ -11741,11 +13636,15 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
     troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSponsoredByInput = {
@@ -11763,6 +13662,9 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TrooperUpdateWithoutUserInput = {
@@ -11876,6 +13778,27 @@ export namespace Prisma {
     opponentName?: StringFieldUpdateOperationsInput | string
     opponentPrefix?: IntFieldUpdateOperationsInput | number
     fightInputSWFData?: StringFieldUpdateOperationsInput | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type MissionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type MissionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type MissionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 

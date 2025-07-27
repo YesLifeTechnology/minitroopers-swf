@@ -17,13 +17,16 @@
     <div class="absolute top-1 w-full px-[6px]">
       @switch (type) {
         @case ("fight") {
-          <app-fight [user]="armyStore.army()!"></app-fight>
-        }
-        @case ("mission") {
-          <app-missions [user]="armyStore.army()!"></app-missions>
+          <app-fight [user]="armyStore.army()!" [smallIcon]="true"></app-fight>
         }
         @case ("raid") {
           <app-raid> </app-raid>
+        }
+        @default {
+          <!-- infiltrate -->
+          <!-- exterminate -->
+          <!-- epic -->
+          <app-missions [user]="armyStore.army()!" [type]="type"></app-missions>
         }
       }
     </div>

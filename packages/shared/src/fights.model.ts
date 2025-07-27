@@ -1,6 +1,6 @@
 import { Fight } from "@minitroopers/prisma";
 
-export type ButtonState = "pending" | "lose" | "win";
+export type ButtonState = "pending" | "lose" | "win" | "unlock";
 
 export const PowerDiff: number = 10;
 

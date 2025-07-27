@@ -1,5 +1,9 @@
-import { PrismaClient } from "@minitroopers/prisma";
-import { checkNameValide, getReferralPrice } from "@minitroopers/shared";
+import { MissionType, PrismaClient } from "@minitroopers/prisma";
+import {
+  BuyingMissionCost,
+  checkNameValide,
+  getReferralPrice,
+} from "@minitroopers/shared";
 import { Request, Response } from "express";
 import { auth, IncludeAllUserData } from "../utils/UserHelper.js";
 
@@ -189,6 +193,9 @@ const Users = {
           gold: full,
           power: full,
           prefix: true,
+          exterminationUnlockAt: true,
+          infiltrationUnlockAt: true,
+          epicUnlockAt: true,
           ...(full ? IncludeAllUserData : {}),
         },
       });
@@ -199,6 +206,62 @@ const Users = {
       res.send({ status: "error" });
     }
   },
+
+  unlockMission:
+    (prisma: PrismaClient) => async (req: Request, res: Response) => {
+      try {
+        if (
+          req.body.missionType == null ||
+          typeof req.body.missionType != "string"
+        ) {
+          throw new Error();
+        }
+
+        const user = await auth(prisma, req);
+
+        if (!user) {
+          throw new Error();
+        }
+
+        if (user.gold < BuyingMissionCost) {
+          throw new Error();
+        }
+        const missionType: MissionType = req.body.missionType;
+
+        let data: any = {
+          gold: {
+            decrement: BuyingMissionCost,
+          },
+        };
+
+        if (missionType === "infiltrate") {
+          if (user.infiltrationUnlockAt != null) {
+            throw new Error();
+          }
+          data.infiltrationUnlockAt = new Date();
+        } else if (missionType === "exterminate") {
+          if (user.exterminationUnlockAt != null) {
+            throw new Error();
+          }
+          data.exterminationUnlockAt = new Date();
+        } else if (missionType === "epic") {
+          if (user.epicUnlockAt != null) {
+            throw new Error();
+          }
+          data.epicUnlockAt = new Date();
+        }
+
+        const army = await prisma.user.update({
+          where: { id: user.id },
+          data: data,
+        });
+
+        res.send(army);
+      } catch (error) {
+        console.error(error);
+        res.send({ status: "error" });
+      }
+    },
 };
 
 export default Users;
