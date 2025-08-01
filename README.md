@@ -6,7 +6,7 @@ This is the repository for Minitroopers !
 
 ## Frontend
 
-> Made with [Angular 19](https://angular.dev/) and [TailwindCSS](https://tailwindcss.com/).
+> Made with [Angular 20](https://angular.dev/) and [TailwindCSS](https://tailwindcss.com/).
 
 ## Backend
 
@@ -31,7 +31,9 @@ This is the repository for Minitroopers !
 
 - Run db migration with `npm run prisma` (additional for windows only : then manually copy content from /prisma/package.reference.json to /prisma/package.json)
 
-- Start the server, client and etwin local server with `npm run dev`
+- Start etwin local `npm run eternaltwin:start`
+
+- Start project `turbo run dev`
 
 - Commit and push your changes
 
@@ -40,13 +42,14 @@ This is the repository for Minitroopers !
 ## File Structure
 
 ```
-├── client                  # Frontend Angular
-├── prisma                  # Prisma types definitions for both front and back end
-├── server                  # Backend ExpressJS
-    ├── prisma              # DB
-    └── src
-        ├── controllers     # Controllers
-        ├── utils           # Utility functions
-        └── ...
-└── shared                  # Shared ressourcs for both front and back end
+├── apps                    
+│       ├── client              # Frontend Angular
+│       └── server              # Backend ExpressJS
+│  
+├── packages                
+│       ├── prisma              # Prisma types definitions for both front and back end
+│       └── shared              # Shared resources for both front and back end
+│   
+└── node_modules            # Node modules
+
 ```

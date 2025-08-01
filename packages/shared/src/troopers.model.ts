@@ -159,7 +159,6 @@ export class TrooperSkill {
     const weaponIndex = this.seed.random(BasicWeapons.length);
     const chosenWeapon = BasicWeapons[weaponIndex];
 
-    console.log("return initial weapon --> " + chosenWeapon);
     this.Skills.push(chosenWeapon);
 
     BasicWeapons.forEach((weaponId) => {
@@ -192,10 +191,7 @@ export class TrooperSkill {
     for (let i = 0; i < choiceCount; i++) {
       if (totalWeight === 0) break;
 
-      console.log("b seed :" + this.seed.seed);
       const randomValue = this.seed.random(totalWeight);
-      console.log("randomValue :" + randomValue);
-      console.log("totalWeight :" + totalWeight);
 
       let cumulativeWeight = 0;
       let selectedIndex = -1;
@@ -230,7 +226,6 @@ export class TrooperSkill {
 
   private levelUp(choiceIndex: number): number {
     const choices = this.generateSkillChoices();
-    // console.log("choices --> " + choices + " whith seed " + this.seed.seed);
     const selectedSkill = choices[choiceIndex];
     this.Skills.push(selectedSkill);
     this.removeSkill(selectedSkill);
@@ -260,7 +255,6 @@ export class TrooperSkill {
   }
 
   getSkills(): number[] {
-    // console.log(Skills.map((skill, i) => "Skill #" + i + " --> " + skill.name));
     return this.Skills;
   }
 

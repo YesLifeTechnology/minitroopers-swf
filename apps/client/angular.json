@@ -121,7 +121,10 @@
     "analytics": false,
     "schematicCollections": [
       "angular-eslint"
-    ]
+    ],
+    "cache": {
+      "enabled": false
+    }
   },
   "schematics": {
     "@schematics/angular:component": {

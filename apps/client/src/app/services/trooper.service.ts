@@ -160,13 +160,10 @@ export class TrooperService {
           choices: choices || [],
           force: [],
           pref: {
-            moveSystem:
-              pref.moveSystem == null
-                ? null
-                : new MoveSystem(
-                    MoveSystem.__construct__[pref.moveSystem],
-                    pref.moveSystem,
-                  ),
+            moveSystem: new MoveSystem(
+              MoveSystem.__construct__[pref.moveSystem ?? 1],
+              pref.moveSystem ?? 1,
+            ),
             reloadSystem: ReloadSystem.DEFAULT,
             leftOver: [],
             __CBody:

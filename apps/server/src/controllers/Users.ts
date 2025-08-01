@@ -254,6 +254,7 @@ const Users = {
         const army = await prisma.user.update({
           where: { id: user.id },
           data: data,
+          include: IncludeAllUserData,
         });
 
         res.send(army);

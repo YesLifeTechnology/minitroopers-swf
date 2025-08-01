@@ -1,7 +1,7 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MissionType } from '@minitroopers/prisma/client';
-import { ButtonState } from '@minitroopers/shared';
+import { ButtonState, getMissionState } from '@minitroopers/shared';
 import { FightComponent } from '../fight/fight.component';
 import { GoComponent } from '../go/go.component';
 
@@ -38,7 +38,7 @@ export class MissionsComponent extends FightComponent {
         }
         break;
     }
-    return ['pending', 'pending', 'pending'];
-    // return getMissionState(this.user.missions);
+
+    return getMissionState(this.user.missions);
   }
 }
