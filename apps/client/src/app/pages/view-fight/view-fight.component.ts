@@ -31,22 +31,41 @@ export class ViewFightComponent {
     this.loadingFight = true;
     const fightId = this.route.snapshot.params['warId'];
     if (fightId != null) {
-      this.fightService
-        .getFightDetails(fightId)
-        .pipe(take(1))
-        .subscribe((response) => {
-          this.userArmy = response.left as PartialUserExtended;
-          this.userOpponent = response.right as PartialUserExtended;
+      if (this.route.routeConfig?.path === 'war/:warId') {
+        this.fightService
+          .getFightDetails(fightId)
+          .pipe(take(1))
+          .subscribe((response) => {
+            this.userArmy = response.left as PartialUserExtended;
+            this.userOpponent = response.right as PartialUserExtended;
 
-          if (this.element) {
-            this.fightService.renderFight(
-              this.element.nativeElement,
-              response.data,
-            );
-          }
+            if (this.element) {
+              this.fightService.renderFight(
+                this.element.nativeElement,
+                response.data,
+              );
+            }
 
-          this.loadingFight = false;
-        });
+            this.loadingFight = false;
+          });
+      } else if (this.route.routeConfig?.path === 'mission/:warId') {
+        this.fightService
+          .getMissionDetails(fightId)
+          .pipe(take(1))
+          .subscribe((response) => {
+            this.userArmy = response.left as PartialUserExtended;
+            this.userOpponent = response.right as PartialUserExtended;
+
+            if (this.element) {
+              this.fightService.renderFight(
+                this.element.nativeElement,
+                response.data,
+              );
+            }
+
+            this.loadingFight = false;
+          });
+      }
     }
   }
 

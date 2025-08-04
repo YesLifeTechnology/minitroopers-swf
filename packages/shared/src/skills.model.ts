@@ -2716,6 +2716,10 @@ export const Skills = [
   },
 ];
 
+export const RatSkills = [
+  112, 55, 70, 76, 79, 97, 74, 53, 114, 117, 123, 116, 131, 137,
+];
+
 export type SkillContent = (typeof Skills)[number];
 
 export const BasicWeapons = [8, 13, 18, 32]; // Skill IDs for basic weapons

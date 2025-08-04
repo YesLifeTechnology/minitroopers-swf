@@ -27,6 +27,7 @@ export type PartialUserExtended = Omit<
   | "referralGold"
   | "sponsoredById"
   | "ipAddressUser"
+  | "ratsCount"
 >;
 
 export const getReferralPrice = (recruit: number): number => {

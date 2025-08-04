@@ -136,6 +136,7 @@ exports.Prisma.UserScalarFieldEnum = {
   color: 'color',
   sponsoredById: 'sponsoredById',
   referralGold: 'referralGold',
+  ratsCount: 'ratsCount',
   infiltrationUnlockAt: 'infiltrationUnlockAt',
   exterminationUnlockAt: 'exterminationUnlockAt',
   epicUnlockAt: 'epicUnlockAt'
@@ -200,6 +201,7 @@ exports.Prisma.MissionScalarFieldEnum = {
   userId: 'userId',
   ts: 'ts',
   type: 'type',
+  missionInputSWFData: 'missionInputSWFData',
   result: 'result'
 };
 

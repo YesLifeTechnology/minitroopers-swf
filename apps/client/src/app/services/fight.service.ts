@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { MissionType } from '@minitroopers/prisma/client';
 import {
   FightDetail,
   PartialUserExtended,
@@ -45,12 +46,41 @@ export class FightService {
       );
   }
 
+  createMission(type: MissionType) {
+    return this.http
+      .post<{ user: UserExtended; fightId: string }>(
+        environment.apiUrl + '/api/fight/createMission',
+        {
+          missionType: type,
+        },
+      )
+      .pipe(
+        tap((response) => {
+          if (response?.user) {
+            this.armyStore.updateArmy(response.user);
+          }
+        }),
+      );
+  }
+
   getFightDetails(fightId: string) {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('fightId', fightId);
 
     return this.http.get<FightDetail>(
       environment.apiUrl + '/api/fight/getFight',
+      {
+        params: queryParams,
+      },
+    );
+  }
+
+  getMissionDetails(fightId: string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('missionId', fightId);
+
+    return this.http.get<FightDetail>(
+      environment.apiUrl + '/api/fight/getMission',
       {
         params: queryParams,
       },

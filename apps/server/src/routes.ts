@@ -1,6 +1,7 @@
 import { PrismaClient } from "@minitroopers/prisma";
 import { Express, Request, Response } from "express";
 import Fights from "./controllers/Fights.js";
+import Missions from "./controllers/Missions.js";
 import OAuth from "./controllers/OAuth.js";
 import Troopers from "./controllers/Troopers.js";
 import Users from "./controllers/Users.js";
@@ -40,6 +41,8 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get("/api/fight/getOpponents", Fights.getOpponents(prisma));
   app.post("/api/fight/createFight", Fights.createFight(prisma));
   app.get("/api/fight/getFight", Fights.getFight(prisma));
+  app.post("/api/fight/createMission", Missions.createMission(prisma));
+  app.get("/api/fight/getMission", Missions.getMission(prisma));
 };
 
 export default initRoutes;

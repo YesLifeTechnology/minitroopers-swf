@@ -1570,6 +1570,7 @@ export namespace Prisma {
     prefix: number | null
     color: number | null
     referralGold: number | null
+    ratsCount: number | null
   }
 
   export type UserSumAggregateOutputType = {
@@ -1578,6 +1579,7 @@ export namespace Prisma {
     prefix: number | null
     color: number | null
     referralGold: number | null
+    ratsCount: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1596,6 +1598,7 @@ export namespace Prisma {
     color: number | null
     sponsoredById: string | null
     referralGold: number | null
+    ratsCount: number | null
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1617,6 +1620,7 @@ export namespace Prisma {
     color: number | null
     sponsoredById: string | null
     referralGold: number | null
+    ratsCount: number | null
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1638,6 +1642,7 @@ export namespace Prisma {
     color: number
     sponsoredById: number
     referralGold: number
+    ratsCount: number
     infiltrationUnlockAt: number
     exterminationUnlockAt: number
     epicUnlockAt: number
@@ -1651,6 +1656,7 @@ export namespace Prisma {
     prefix?: true
     color?: true
     referralGold?: true
+    ratsCount?: true
   }
 
   export type UserSumAggregateInputType = {
@@ -1659,6 +1665,7 @@ export namespace Prisma {
     prefix?: true
     color?: true
     referralGold?: true
+    ratsCount?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1677,6 +1684,7 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    ratsCount?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1698,6 +1706,7 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    ratsCount?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1719,6 +1728,7 @@ export namespace Prisma {
     color?: true
     sponsoredById?: true
     referralGold?: true
+    ratsCount?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1827,6 +1837,7 @@ export namespace Prisma {
     color: number
     sponsoredById: string | null
     referralGold: number
+    ratsCount: number
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1867,6 +1878,7 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    ratsCount?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1896,6 +1908,7 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    ratsCount?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1918,6 +1931,7 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    ratsCount?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1940,12 +1954,13 @@ export namespace Prisma {
     color?: boolean
     sponsoredById?: boolean
     referralGold?: boolean
+    ratsCount?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold" | "infiltrationUnlockAt" | "exterminationUnlockAt" | "epicUnlockAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold" | "ratsCount" | "infiltrationUnlockAt" | "exterminationUnlockAt" | "epicUnlockAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
     sponsoredUsers?: boolean | User$sponsoredUsersArgs<ExtArgs>
@@ -1990,6 +2005,7 @@ export namespace Prisma {
       color: number
       sponsoredById: string | null
       referralGold: number
+      ratsCount: number
       infiltrationUnlockAt: Date | null
       exterminationUnlockAt: Date | null
       epicUnlockAt: Date | null
@@ -2438,6 +2454,7 @@ export namespace Prisma {
     readonly color: FieldRef<"User", 'Int'>
     readonly sponsoredById: FieldRef<"User", 'String'>
     readonly referralGold: FieldRef<"User", 'Int'>
+    readonly ratsCount: FieldRef<"User", 'Int'>
     readonly infiltrationUnlockAt: FieldRef<"User", 'DateTime'>
     readonly exterminationUnlockAt: FieldRef<"User", 'DateTime'>
     readonly epicUnlockAt: FieldRef<"User", 'DateTime'>
@@ -8561,6 +8578,7 @@ export namespace Prisma {
     userId: string | null
     ts: Date | null
     type: $Enums.MissionType | null
+    missionInputSWFData: string | null
     result: $Enums.FightResult | null
   }
 
@@ -8569,6 +8587,7 @@ export namespace Prisma {
     userId: string | null
     ts: Date | null
     type: $Enums.MissionType | null
+    missionInputSWFData: string | null
     result: $Enums.FightResult | null
   }
 
@@ -8577,6 +8596,7 @@ export namespace Prisma {
     userId: number
     ts: number
     type: number
+    missionInputSWFData: number
     result: number
     _all: number
   }
@@ -8587,6 +8607,7 @@ export namespace Prisma {
     userId?: true
     ts?: true
     type?: true
+    missionInputSWFData?: true
     result?: true
   }
 
@@ -8595,6 +8616,7 @@ export namespace Prisma {
     userId?: true
     ts?: true
     type?: true
+    missionInputSWFData?: true
     result?: true
   }
 
@@ -8603,6 +8625,7 @@ export namespace Prisma {
     userId?: true
     ts?: true
     type?: true
+    missionInputSWFData?: true
     result?: true
     _all?: true
   }
@@ -8684,6 +8707,7 @@ export namespace Prisma {
     userId: string
     ts: Date
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
     _count: MissionCountAggregateOutputType | null
     _min: MissionMinAggregateOutputType | null
@@ -8709,6 +8733,7 @@ export namespace Prisma {
     userId?: boolean
     ts?: boolean
     type?: boolean
+    missionInputSWFData?: boolean
     result?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mission"]>
@@ -8718,6 +8743,7 @@ export namespace Prisma {
     userId?: boolean
     ts?: boolean
     type?: boolean
+    missionInputSWFData?: boolean
     result?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mission"]>
@@ -8727,6 +8753,7 @@ export namespace Prisma {
     userId?: boolean
     ts?: boolean
     type?: boolean
+    missionInputSWFData?: boolean
     result?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mission"]>
@@ -8736,10 +8763,11 @@ export namespace Prisma {
     userId?: boolean
     ts?: boolean
     type?: boolean
+    missionInputSWFData?: boolean
     result?: boolean
   }
 
-  export type MissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "ts" | "type" | "result", ExtArgs["result"]["mission"]>
+  export type MissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "ts" | "type" | "missionInputSWFData" | "result", ExtArgs["result"]["mission"]>
   export type MissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8760,6 +8788,7 @@ export namespace Prisma {
       userId: string
       ts: Date
       type: $Enums.MissionType
+      missionInputSWFData: string
       result: $Enums.FightResult
     }, ExtArgs["result"]["mission"]>
     composites: {}
@@ -9189,6 +9218,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"Mission", 'String'>
     readonly ts: FieldRef<"Mission", 'DateTime'>
     readonly type: FieldRef<"Mission", 'MissionType'>
+    readonly missionInputSWFData: FieldRef<"Mission", 'String'>
     readonly result: FieldRef<"Mission", 'FightResult'>
   }
     
@@ -9643,6 +9673,7 @@ export namespace Prisma {
     color: 'color',
     sponsoredById: 'sponsoredById',
     referralGold: 'referralGold',
+    ratsCount: 'ratsCount',
     infiltrationUnlockAt: 'infiltrationUnlockAt',
     exterminationUnlockAt: 'exterminationUnlockAt',
     epicUnlockAt: 'epicUnlockAt'
@@ -9728,6 +9759,7 @@ export namespace Prisma {
     userId: 'userId',
     ts: 'ts',
     type: 'type',
+    missionInputSWFData: 'missionInputSWFData',
     result: 'result'
   };
 
@@ -9935,6 +9967,7 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    ratsCount?: IntFilter<"User"> | number
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -9963,6 +9996,7 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
     infiltrationUnlockAt?: SortOrderInput | SortOrder
     exterminationUnlockAt?: SortOrderInput | SortOrder
     epicUnlockAt?: SortOrderInput | SortOrder
@@ -9994,6 +10028,7 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    ratsCount?: IntFilter<"User"> | number
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -10022,6 +10057,7 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
     infiltrationUnlockAt?: SortOrderInput | SortOrder
     exterminationUnlockAt?: SortOrderInput | SortOrder
     epicUnlockAt?: SortOrderInput | SortOrder
@@ -10051,6 +10087,7 @@ export namespace Prisma {
     color?: IntWithAggregatesFilter<"User"> | number
     sponsoredById?: UuidNullableWithAggregatesFilter<"User"> | string | null
     referralGold?: IntWithAggregatesFilter<"User"> | number
+    ratsCount?: IntWithAggregatesFilter<"User"> | number
     infiltrationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -10387,6 +10424,7 @@ export namespace Prisma {
     userId?: UuidFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    missionInputSWFData?: StringFilter<"Mission"> | string
     result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -10396,6 +10434,7 @@ export namespace Prisma {
     userId?: SortOrder
     ts?: SortOrder
     type?: SortOrder
+    missionInputSWFData?: SortOrder
     result?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -10408,6 +10447,7 @@ export namespace Prisma {
     userId?: UuidFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    missionInputSWFData?: StringFilter<"Mission"> | string
     result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
@@ -10417,6 +10457,7 @@ export namespace Prisma {
     userId?: SortOrder
     ts?: SortOrder
     type?: SortOrder
+    missionInputSWFData?: SortOrder
     result?: SortOrder
     _count?: MissionCountOrderByAggregateInput
     _max?: MissionMaxOrderByAggregateInput
@@ -10431,6 +10472,7 @@ export namespace Prisma {
     userId?: UuidWithAggregatesFilter<"Mission"> | string
     ts?: DateTimeWithAggregatesFilter<"Mission"> | Date | string
     type?: EnumMissionTypeWithAggregatesFilter<"Mission"> | $Enums.MissionType
+    missionInputSWFData?: StringWithAggregatesFilter<"Mission"> | string
     result?: EnumFightResultWithAggregatesFilter<"Mission"> | $Enums.FightResult
   }
 
@@ -10449,6 +10491,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10477,6 +10520,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10503,6 +10547,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10531,6 +10576,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10558,6 +10604,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10578,6 +10625,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10599,6 +10647,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10947,6 +10996,7 @@ export namespace Prisma {
     id?: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
     user: UserCreateNestedOneWithoutMissionsInput
   }
@@ -10956,6 +11006,7 @@ export namespace Prisma {
     userId: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
   }
 
@@ -10963,6 +11014,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
     user?: UserUpdateOneRequiredWithoutMissionsNestedInput
   }
@@ -10972,6 +11024,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
@@ -10980,6 +11033,7 @@ export namespace Prisma {
     userId: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
   }
 
@@ -10987,6 +11041,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
@@ -10995,6 +11050,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
@@ -11168,6 +11224,7 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11179,6 +11236,7 @@ export namespace Prisma {
     prefix?: SortOrder
     color?: SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -11197,6 +11255,7 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11218,6 +11277,7 @@ export namespace Prisma {
     color?: SortOrder
     sponsoredById?: SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11229,6 +11289,7 @@ export namespace Prisma {
     prefix?: SortOrder
     color?: SortOrder
     referralGold?: SortOrder
+    ratsCount?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -11661,6 +11722,7 @@ export namespace Prisma {
     userId?: SortOrder
     ts?: SortOrder
     type?: SortOrder
+    missionInputSWFData?: SortOrder
     result?: SortOrder
   }
 
@@ -11669,6 +11731,7 @@ export namespace Prisma {
     userId?: SortOrder
     ts?: SortOrder
     type?: SortOrder
+    missionInputSWFData?: SortOrder
     result?: SortOrder
   }
 
@@ -11677,6 +11740,7 @@ export namespace Prisma {
     userId?: SortOrder
     ts?: SortOrder
     type?: SortOrder
+    missionInputSWFData?: SortOrder
     result?: SortOrder
   }
 
@@ -12438,6 +12502,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12465,6 +12530,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12495,6 +12561,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12521,6 +12588,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12662,6 +12730,7 @@ export namespace Prisma {
     id?: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
   }
 
@@ -12669,6 +12738,7 @@ export namespace Prisma {
     id?: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
   }
 
@@ -12708,6 +12778,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12735,6 +12806,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12780,6 +12852,7 @@ export namespace Prisma {
     color?: IntFilter<"User"> | number
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
+    ratsCount?: IntFilter<"User"> | number
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -12927,6 +13000,7 @@ export namespace Prisma {
     userId?: UuidFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
+    missionInputSWFData?: StringFilter<"Mission"> | string
     result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
   }
 
@@ -12945,6 +13019,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12972,6 +13047,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13013,6 +13089,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13040,6 +13117,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13065,6 +13143,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13092,6 +13171,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13133,6 +13213,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13160,6 +13241,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13185,6 +13267,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13212,6 +13295,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13253,6 +13337,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13280,6 +13365,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13305,6 +13391,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13332,6 +13419,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13373,6 +13461,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13400,6 +13489,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13425,6 +13515,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13452,6 +13543,7 @@ export namespace Prisma {
     color?: number
     sponsoredById?: string | null
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13493,6 +13585,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13520,6 +13613,7 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13545,6 +13639,7 @@ export namespace Prisma {
     prefix?: number
     color?: number
     referralGold?: number
+    ratsCount?: number
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13592,6 +13687,7 @@ export namespace Prisma {
     id?: string
     ts?: Date | string
     type: $Enums.MissionType
+    missionInputSWFData: string
     result: $Enums.FightResult
   }
 
@@ -13610,6 +13706,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13636,6 +13733,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13662,6 +13760,7 @@ export namespace Prisma {
     prefix?: IntFieldUpdateOperationsInput | number
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13785,6 +13884,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
@@ -13792,6 +13892,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
@@ -13799,6 +13900,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ts?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
+    missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 

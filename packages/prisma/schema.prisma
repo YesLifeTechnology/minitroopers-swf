@@ -43,6 +43,7 @@ model User {
   sponsoredById         String?         @db.Uuid
   sponsoredUsers        User[]          @relation("UserSponsor")
   referralGold          Int             @default(100)
+  ratsCount             Int             @default(0)
   troopers              Trooper[]
   history               HistoryUser[]
   ipAddressUser         ipAddressUser[]
@@ -128,10 +129,11 @@ enum MissionType {
 }
 
 model Mission {
-  id     String      @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user   User        @relation(fields: [userId], references: [id])
-  userId String      @db.Uuid
-  ts     DateTime    @default(now()) @db.Timestamptz()
-  type   MissionType
-  result FightResult
+  id                  String      @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user                User        @relation(fields: [userId], references: [id])
+  userId              String      @db.Uuid
+  ts                  DateTime    @default(now()) @db.Timestamptz()
+  type                MissionType
+  missionInputSWFData String
+  result              FightResult
 }

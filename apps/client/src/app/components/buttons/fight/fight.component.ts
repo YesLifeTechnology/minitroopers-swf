@@ -30,9 +30,9 @@ export class FightComponent implements OnChanges, OnDestroy {
   tryLeft: string = '';
 
   private decimalPipe = inject(DecimalPipe);
-  private router = inject(Router);
-  private armyStore = inject(ArmyStore);
-  private notificationService = inject(NotificationService);
+  protected router = inject(Router);
+  protected armyStore = inject(ArmyStore);
+  protected notificationService = inject(NotificationService);
   private destroyed$: Subject<void> = new Subject();
 
   ngOnChanges(): void {
@@ -99,18 +99,18 @@ export class FightComponent implements OnChanges, OnDestroy {
           this.router.navigate(['/' + this.user.armyName, 'war']);
         }
         break;
-      case 'unlock':
-        if (this.armyStore.isOwner()) {
-          if (this.armyStore.army()!.gold >= 5) {
-            this.armyStore.unlockMission((this as any).type);
-          } else {
-            this.notificationService.notify(
-              'error',
-              "Pas assez d'argent pour débloquer la mission",
-            );
-          }
-        }
-        break;
+      // case 'unlock':
+      //   if (this.armyStore.isOwner()) {
+      //     if (this.armyStore.army()!.gold >= 5) {
+      //       this.armyStore.unlockMission((this as any).type);
+      //     } else {
+      //       this.notificationService.notify(
+      //         'error',
+      //         "Pas assez d'argent pour débloquer la mission",
+      //       );
+      //     }
+      //   }
+      //   break;
     }
   }
 

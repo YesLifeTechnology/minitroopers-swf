@@ -25,6 +25,10 @@ export class OpponentsComponent {
   }
 
   onOpponentSelected(opponent: string) {
+    if (this.lockOpponents) {
+      return;
+    }
+
     this.lockOpponents = true;
     this.fightService
       .createFight(opponent)
