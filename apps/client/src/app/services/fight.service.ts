@@ -49,7 +49,7 @@ export class FightService {
   createMission(type: MissionType) {
     return this.http
       .post<{ user: UserExtended; fightId: string }>(
-        environment.apiUrl + '/api/fight/createMission',
+        environment.apiUrl + '/api/mission/createMission',
         {
           missionType: type,
         },
@@ -80,7 +80,7 @@ export class FightService {
     queryParams = queryParams.append('missionId', fightId);
 
     return this.http.get<FightDetail>(
-      environment.apiUrl + '/api/fight/getMission',
+      environment.apiUrl + '/api/mission/getMission',
       {
         params: queryParams,
       },

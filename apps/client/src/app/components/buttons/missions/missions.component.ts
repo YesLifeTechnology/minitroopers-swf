@@ -54,15 +54,15 @@ export class MissionsComponent extends FightComponent {
     switch (state) {
       case 'win':
       case 'lose':
-      // if (this.armyStore.army()?.missions?.length) {
-      //   const misison = [
-      //     ...this.user?.missions.filter((x) => x.type == this.type),
-      //   ].reverse()[index];
-      //   this.router.navigate(['/war', misison.id], {
-      //     state: { fight: misison },
-      //   });
-      // }
-      // break;
+        if (this.armyStore.army()?.missions?.length) {
+          const misison = [
+            ...this.user?.missions.filter((x) => x.type == this.type),
+          ].reverse()[index];
+          this.router.navigate(['/war', misison.id], {
+            state: { fight: misison },
+          });
+        }
+        break;
       case 'pending':
         if (this.armyStore.isOwner() && !this.lock) {
           this.lock = true;
@@ -87,6 +87,8 @@ export class MissionsComponent extends FightComponent {
             );
           }
         }
+        break;
+      case 'hidden':
         break;
     }
   }

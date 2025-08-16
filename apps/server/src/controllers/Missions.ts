@@ -13,7 +13,11 @@ import {
   UserExtended,
 } from "@minitroopers/shared";
 import { Request, Response } from "express";
-import { auth, IncludeAllUserData } from "../utils/UserHelper.js";
+import {
+  auth,
+  generateBattleData,
+  IncludeAllUserData,
+} from "../utils/UserHelper.js";
 
 const Missions = {
   createMission:
@@ -89,6 +93,7 @@ const generateMission = async (
       return await generateMissionExterminate(user, prisma);
       break;
     case "infiltrate":
+      return await generateMissionInfiltrate(user, prisma);
       break;
     case "epic":
       break;
@@ -101,6 +106,7 @@ const generateMission = async (
   };
 };
 
+// Exterminate
 const generateMissionExterminate = async (
   user: UserExtended,
   prisma: PrismaClient,
@@ -210,9 +216,6 @@ const generateBattleDataExterminate = (user: UserExtended) => {
     gfx: `http://localhost:4200/assets/swf/army.swf`,
   };
 
-  const datav =
-    "oy10:%3B%01%0CZjy10:ClientMode:0:2oy5:7X%01i55732139y5:M%01oy8:%24PS%01y14:bg%2Fattic.jpgR2jy14:BackgroundType:1:0gy11:a%5De%1B%02aoy11:%601%1F%02aoy8:%032%1A4y8:Owenumany6:%0CA2ci75540580y6:An%256jy11:TrooperType:0:0R2zy8:%0Az%0Avahy13:%7D%26%16Y%01ahy8:V%1BE%7Coy13:%0BR%10%1B%02jy6:Weapon:1:0y13:%1A)%13%3D%01ny6:%3BuXEjy12:TargetSystem:0:0y13:%15S%17%3F%03jy10:TargetType:0:0y9:%1DlQK%03jy10:MoveSystem:1:0y11:%11!%0Ea%01jy12:ReloadSystem:2:0y9:)0%19i%03ahggoR9y5:BrsonR11i27647082R12jR13:0:0R2i1R14ahR15ahR16oR17nR19nR20jR21:0:0R22jR23:0:0R24jR25:1:0R26jR27:2:0R28ahgghy9:OPz%16%03i2y11:K)%16%0A%02azi1hgoR8aoR9y3:RatR11i71764R12jR13:2:0R2i2R14ahR15ajy5:Skill:117:0jR33:131:0hR16nghR30zR31ai2hghgzR4y64:https%3A%2F%2Fdata.trooperstest.gued.es%2Fswf%2Farmy.swf%3Fv%3D1g";
-
   const obfuscatedData = objectObfuscator(data);
 
   const serialized = Serializer.serialize(obfuscatedData);
@@ -244,6 +247,124 @@ const generatesRats = (user: UserExtended) => {
         skills: selectedSkills,
       };
     });
+};
+
+// Infiltrate
+
+const generateMissionInfiltrate = async (
+  user: UserExtended,
+  prisma: PrismaClient,
+) => {
+  if (user.exterminationUnlockAt == null) {
+    throw new Error();
+  }
+
+  const generatedMission = await generateBattleDataInfiltrate(prisma, user);
+
+  const mission = await prisma.mission.create({
+    data: {
+      userId: user.id,
+      type: MissionType.infiltrate,
+      result: generatedMission.result,
+      missionInputSWFData: generatedMission.data,
+    },
+  });
+
+  const returnedUser = await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      gold: {
+        increment: generatedMission.result === FightResult.win ? 2 : 1,
+      },
+      missions: {
+        connect: mission,
+      },
+    },
+    include: IncludeAllUserData,
+  });
+
+  return {
+    returnedUser: returnedUser,
+    missionId: mission.id,
+    swfData: generatedMission.data,
+  };
+};
+
+const generateBattleDataInfiltrate = async (
+  prisma: PrismaClient,
+  user: UserExtended,
+) => {
+  const opponent = await findInfiltrateOpponent(prisma, user);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      infiltrationOpponentDate: new Date(),
+      infiltrationOpponentArmy: opponent.id,
+    },
+  });
+
+  return {
+    result: Math.random() > 0.5 ? FightResult.win : FightResult.lose,
+    data: "data=" + generateBattleData(user, opponent),
+  };
+};
+
+const findInfiltrateOpponent = async (
+  prisma: PrismaClient,
+  user: UserExtended,
+): Promise<UserExtended> => {
+  const now = new Date();
+  if (
+    user.infiltrationOpponentDate &&
+    user.infiltrationOpponentArmy &&
+    now.getDate() == user.infiltrationOpponentDate.getDate() &&
+    now.getMonth() == user.infiltrationOpponentDate.getMonth() &&
+    now.getFullYear() == user.infiltrationOpponentDate.getFullYear()
+  ) {
+    const opponent = (await prisma.user.findFirst({
+      where: {
+        id: user.infiltrationOpponentArmy,
+      },
+      include: IncludeAllUserData,
+    })) as UserExtended;
+    return opponent;
+  }
+
+  const minPower = user.power;
+  const maxPower = user.power * 2;
+
+  const randomUserWithTroopers = await prisma.user.findFirst({
+    where: {
+      power: {
+        gte: minPower,
+        lte: maxPower,
+      },
+      id: {
+        not: user.id,
+      },
+    },
+    include: {
+      troopers: true,
+    },
+  });
+
+  if (randomUserWithTroopers) {
+    return randomUserWithTroopers as UserExtended;
+  }
+
+  const rdUser = await prisma.user.findFirst({
+    where: {
+      id: {
+        not: user.id,
+      },
+    },
+    include: {
+      troopers: true,
+    },
+  });
+
+  return rdUser as UserExtended;
 };
 
 export default Missions;

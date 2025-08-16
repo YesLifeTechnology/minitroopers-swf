@@ -26,32 +26,34 @@ enum Lang {
 }
 
 model User {
-  id                    String          @id @unique @db.Uuid
-  lang                  Lang            @default(fr)
-  name                  String          @db.VarChar(255)
-  createdAt             DateTime        @default(now()) @db.Timestamptz()
-  lastConnexion         DateTime        @default(now()) @db.Timestamptz()
-  admin                 Boolean         @default(false)
-  connexionToken        String          @db.Uuid
-  gold                  Int             @default(0)
-  power                 Int             @default(0)
-  armyName              String          @db.VarChar(255)
-  armyUrl               String          @db.VarChar(255) //to remove ?
-  prefix                Int             @default(0)
-  color                 Int             @default(0) // 0~5
-  sponsoredBy           User?           @relation("UserSponsor", fields: [sponsoredById], references: [id])
-  sponsoredById         String?         @db.Uuid
-  sponsoredUsers        User[]          @relation("UserSponsor")
-  referralGold          Int             @default(100)
-  ratsCount             Int             @default(0)
-  troopers              Trooper[]
-  history               HistoryUser[]
-  ipAddressUser         ipAddressUser[]
-  fights                Fight[]
-  missions              Mission[]
-  infiltrationUnlockAt  DateTime?       @db.Timestamptz
-  exterminationUnlockAt DateTime?       @db.Timestamptz
-  epicUnlockAt          DateTime?       @db.Timestamptz
+  id                       String          @id @unique @db.Uuid
+  lang                     Lang            @default(fr)
+  name                     String          @db.VarChar(255)
+  createdAt                DateTime        @default(now()) @db.Timestamptz()
+  lastConnexion            DateTime        @default(now()) @db.Timestamptz()
+  admin                    Boolean         @default(false)
+  connexionToken           String          @db.Uuid
+  gold                     Int             @default(0)
+  power                    Int             @default(0)
+  armyName                 String          @db.VarChar(255)
+  armyUrl                  String          @db.VarChar(255) //to remove ?
+  prefix                   Int             @default(0)
+  color                    Int             @default(0) // 0~5
+  sponsoredBy              User?           @relation("UserSponsor", fields: [sponsoredById], references: [id])
+  sponsoredById            String?         @db.Uuid
+  sponsoredUsers           User[]          @relation("UserSponsor")
+  referralGold             Int             @default(100)
+  ratsCount                Int             @default(0)
+  infiltrationOpponentArmy String?         @db.Uuid
+  infiltrationOpponentDate DateTime?
+  troopers                 Trooper[]
+  history                  HistoryUser[]
+  ipAddressUser            ipAddressUser[]
+  fights                   Fight[]
+  missions                 Mission[]
+  infiltrationUnlockAt     DateTime?       @db.Timestamptz
+  exterminationUnlockAt    DateTime?       @db.Timestamptz
+  epicUnlockAt             DateTime?       @db.Timestamptz
 }
 
 model ipAddressUser {

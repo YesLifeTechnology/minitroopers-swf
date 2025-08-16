@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { ButtonState } from '@minitroopers/shared';
 
 @Component({
@@ -7,14 +13,14 @@ import { ButtonState } from '@minitroopers/shared';
   templateUrl: './go.component.html',
   styleUrl: './go.component.scss',
 })
-export class GoComponent implements OnInit {
+export class GoComponent implements OnChanges {
   @Input() state: ButtonState = 'pending';
   @Input() smallIcon: boolean = false;
   @Output() eventClick: EventEmitter<MouseEvent> = new EventEmitter();
 
   image: string = '';
 
-  ngOnInit(): void {
+  ngOnChanges() {
     switch (this.state) {
       case 'lose':
         this.image = '/assets/images/bdefeat.webp';

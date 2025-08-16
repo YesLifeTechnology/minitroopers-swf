@@ -1599,6 +1599,8 @@ export namespace Prisma {
     sponsoredById: string | null
     referralGold: number | null
     ratsCount: number | null
+    infiltrationOpponentArmy: string | null
+    infiltrationOpponentDate: Date | null
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1621,6 +1623,8 @@ export namespace Prisma {
     sponsoredById: string | null
     referralGold: number | null
     ratsCount: number | null
+    infiltrationOpponentArmy: string | null
+    infiltrationOpponentDate: Date | null
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1643,6 +1647,8 @@ export namespace Prisma {
     sponsoredById: number
     referralGold: number
     ratsCount: number
+    infiltrationOpponentArmy: number
+    infiltrationOpponentDate: number
     infiltrationUnlockAt: number
     exterminationUnlockAt: number
     epicUnlockAt: number
@@ -1685,6 +1691,8 @@ export namespace Prisma {
     sponsoredById?: true
     referralGold?: true
     ratsCount?: true
+    infiltrationOpponentArmy?: true
+    infiltrationOpponentDate?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1707,6 +1715,8 @@ export namespace Prisma {
     sponsoredById?: true
     referralGold?: true
     ratsCount?: true
+    infiltrationOpponentArmy?: true
+    infiltrationOpponentDate?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1729,6 +1739,8 @@ export namespace Prisma {
     sponsoredById?: true
     referralGold?: true
     ratsCount?: true
+    infiltrationOpponentArmy?: true
+    infiltrationOpponentDate?: true
     infiltrationUnlockAt?: true
     exterminationUnlockAt?: true
     epicUnlockAt?: true
@@ -1838,6 +1850,8 @@ export namespace Prisma {
     sponsoredById: string | null
     referralGold: number
     ratsCount: number
+    infiltrationOpponentArmy: string | null
+    infiltrationOpponentDate: Date | null
     infiltrationUnlockAt: Date | null
     exterminationUnlockAt: Date | null
     epicUnlockAt: Date | null
@@ -1879,6 +1893,8 @@ export namespace Prisma {
     sponsoredById?: boolean
     referralGold?: boolean
     ratsCount?: boolean
+    infiltrationOpponentArmy?: boolean
+    infiltrationOpponentDate?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1909,6 +1925,8 @@ export namespace Prisma {
     sponsoredById?: boolean
     referralGold?: boolean
     ratsCount?: boolean
+    infiltrationOpponentArmy?: boolean
+    infiltrationOpponentDate?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1932,6 +1950,8 @@ export namespace Prisma {
     sponsoredById?: boolean
     referralGold?: boolean
     ratsCount?: boolean
+    infiltrationOpponentArmy?: boolean
+    infiltrationOpponentDate?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
@@ -1955,12 +1975,14 @@ export namespace Prisma {
     sponsoredById?: boolean
     referralGold?: boolean
     ratsCount?: boolean
+    infiltrationOpponentArmy?: boolean
+    infiltrationOpponentDate?: boolean
     infiltrationUnlockAt?: boolean
     exterminationUnlockAt?: boolean
     epicUnlockAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold" | "ratsCount" | "infiltrationUnlockAt" | "exterminationUnlockAt" | "epicUnlockAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "createdAt" | "lastConnexion" | "admin" | "connexionToken" | "gold" | "power" | "armyName" | "armyUrl" | "prefix" | "color" | "sponsoredById" | "referralGold" | "ratsCount" | "infiltrationOpponentArmy" | "infiltrationOpponentDate" | "infiltrationUnlockAt" | "exterminationUnlockAt" | "epicUnlockAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sponsoredBy?: boolean | User$sponsoredByArgs<ExtArgs>
     sponsoredUsers?: boolean | User$sponsoredUsersArgs<ExtArgs>
@@ -2006,6 +2028,8 @@ export namespace Prisma {
       sponsoredById: string | null
       referralGold: number
       ratsCount: number
+      infiltrationOpponentArmy: string | null
+      infiltrationOpponentDate: Date | null
       infiltrationUnlockAt: Date | null
       exterminationUnlockAt: Date | null
       epicUnlockAt: Date | null
@@ -2455,6 +2479,8 @@ export namespace Prisma {
     readonly sponsoredById: FieldRef<"User", 'String'>
     readonly referralGold: FieldRef<"User", 'Int'>
     readonly ratsCount: FieldRef<"User", 'Int'>
+    readonly infiltrationOpponentArmy: FieldRef<"User", 'String'>
+    readonly infiltrationOpponentDate: FieldRef<"User", 'DateTime'>
     readonly infiltrationUnlockAt: FieldRef<"User", 'DateTime'>
     readonly exterminationUnlockAt: FieldRef<"User", 'DateTime'>
     readonly epicUnlockAt: FieldRef<"User", 'DateTime'>
@@ -9674,6 +9700,8 @@ export namespace Prisma {
     sponsoredById: 'sponsoredById',
     referralGold: 'referralGold',
     ratsCount: 'ratsCount',
+    infiltrationOpponentArmy: 'infiltrationOpponentArmy',
+    infiltrationOpponentDate: 'infiltrationOpponentDate',
     infiltrationUnlockAt: 'infiltrationUnlockAt',
     exterminationUnlockAt: 'exterminationUnlockAt',
     epicUnlockAt: 'epicUnlockAt'
@@ -9968,6 +9996,8 @@ export namespace Prisma {
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
+    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -9997,6 +10027,8 @@ export namespace Prisma {
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
     ratsCount?: SortOrder
+    infiltrationOpponentArmy?: SortOrderInput | SortOrder
+    infiltrationOpponentDate?: SortOrderInput | SortOrder
     infiltrationUnlockAt?: SortOrderInput | SortOrder
     exterminationUnlockAt?: SortOrderInput | SortOrder
     epicUnlockAt?: SortOrderInput | SortOrder
@@ -10029,6 +10061,8 @@ export namespace Prisma {
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
+    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -10058,6 +10092,8 @@ export namespace Prisma {
     sponsoredById?: SortOrderInput | SortOrder
     referralGold?: SortOrder
     ratsCount?: SortOrder
+    infiltrationOpponentArmy?: SortOrderInput | SortOrder
+    infiltrationOpponentDate?: SortOrderInput | SortOrder
     infiltrationUnlockAt?: SortOrderInput | SortOrder
     exterminationUnlockAt?: SortOrderInput | SortOrder
     epicUnlockAt?: SortOrderInput | SortOrder
@@ -10088,6 +10124,8 @@ export namespace Prisma {
     sponsoredById?: UuidNullableWithAggregatesFilter<"User"> | string | null
     referralGold?: IntWithAggregatesFilter<"User"> | number
     ratsCount?: IntWithAggregatesFilter<"User"> | number
+    infiltrationOpponentArmy?: UuidNullableWithAggregatesFilter<"User"> | string | null
+    infiltrationOpponentDate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -10492,6 +10530,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10521,6 +10561,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10548,6 +10590,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10577,6 +10621,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10605,6 +10651,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -10626,6 +10674,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10648,6 +10698,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11225,6 +11277,8 @@ export namespace Prisma {
     sponsoredById?: SortOrder
     referralGold?: SortOrder
     ratsCount?: SortOrder
+    infiltrationOpponentArmy?: SortOrder
+    infiltrationOpponentDate?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11256,6 +11310,8 @@ export namespace Prisma {
     sponsoredById?: SortOrder
     referralGold?: SortOrder
     ratsCount?: SortOrder
+    infiltrationOpponentArmy?: SortOrder
+    infiltrationOpponentDate?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11278,6 +11334,8 @@ export namespace Prisma {
     sponsoredById?: SortOrder
     referralGold?: SortOrder
     ratsCount?: SortOrder
+    infiltrationOpponentArmy?: SortOrder
+    infiltrationOpponentDate?: SortOrder
     infiltrationUnlockAt?: SortOrder
     exterminationUnlockAt?: SortOrder
     epicUnlockAt?: SortOrder
@@ -11868,6 +11926,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -11964,10 +12026,6 @@ export namespace Prisma {
     update?: MissionUpdateWithWhereUniqueWithoutUserInput | MissionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MissionUpdateManyWithWhereWithoutUserInput | MissionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MissionScalarWhereInput | MissionScalarWhereInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UserUncheckedUpdateManyWithoutSponsoredByNestedInput = {
@@ -12503,6 +12561,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12531,6 +12591,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12562,6 +12624,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12589,6 +12653,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -12779,6 +12845,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12807,6 +12875,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12853,6 +12923,8 @@ export namespace Prisma {
     sponsoredById?: UuidNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
+    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     epicUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -13020,6 +13092,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13048,6 +13122,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13090,6 +13166,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13118,6 +13196,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13144,6 +13224,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13172,6 +13254,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13214,6 +13298,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13242,6 +13328,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13268,6 +13356,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13296,6 +13386,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13338,6 +13430,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13366,6 +13460,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13392,6 +13488,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13420,6 +13518,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13462,6 +13562,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13490,6 +13592,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13516,6 +13620,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13544,6 +13650,8 @@ export namespace Prisma {
     sponsoredById?: string | null
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13586,6 +13694,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13614,6 +13724,8 @@ export namespace Prisma {
     sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13640,6 +13752,8 @@ export namespace Prisma {
     color?: number
     referralGold?: number
     ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
     infiltrationUnlockAt?: Date | string | null
     exterminationUnlockAt?: Date | string | null
     epicUnlockAt?: Date | string | null
@@ -13707,6 +13821,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13734,6 +13850,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13761,6 +13879,8 @@ export namespace Prisma {
     color?: IntFieldUpdateOperationsInput | number
     referralGold?: IntFieldUpdateOperationsInput | number
     ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

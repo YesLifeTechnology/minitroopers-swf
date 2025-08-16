@@ -137,6 +137,8 @@ exports.Prisma.UserScalarFieldEnum = {
   sponsoredById: 'sponsoredById',
   referralGold: 'referralGold',
   ratsCount: 'ratsCount',
+  infiltrationOpponentArmy: 'infiltrationOpponentArmy',
+  infiltrationOpponentDate: 'infiltrationOpponentDate',
   infiltrationUnlockAt: 'infiltrationUnlockAt',
   exterminationUnlockAt: 'exterminationUnlockAt',
   epicUnlockAt: 'epicUnlockAt'

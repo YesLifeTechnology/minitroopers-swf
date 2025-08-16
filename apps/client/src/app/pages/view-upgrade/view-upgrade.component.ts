@@ -24,7 +24,6 @@ export class ViewUpgradeComponent implements OnDestroy {
 
   constructor() {
     this.route.url.pipe(takeUntilDestroyed()).subscribe(() => {
-      console.log('DDDD');
       if (this.route.snapshot.params['trooper']) {
         const trooper = this.armyStore
           .army()

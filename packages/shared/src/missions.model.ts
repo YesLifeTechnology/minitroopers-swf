@@ -17,5 +17,13 @@ export const getMissionState = (
       states[i] = previousFight.result as ButtonState;
     });
 
+  if (states.includes("win")) {
+    states.forEach((state, i) => {
+      if (state === "pending") {
+        states[i] = "hidden";
+      }
+    });
+  }
+
   return states;
 };

@@ -28,6 +28,8 @@ export type PartialUserExtended = Omit<
   | "sponsoredById"
   | "ipAddressUser"
   | "ratsCount"
+  | "infiltrationOpponentArmy"
+  | "infiltrationOpponentDate"
 >;
 
 export const getReferralPrice = (recruit: number): number => {

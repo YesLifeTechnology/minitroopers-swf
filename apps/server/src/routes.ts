@@ -41,8 +41,10 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get("/api/fight/getOpponents", Fights.getOpponents(prisma));
   app.post("/api/fight/createFight", Fights.createFight(prisma));
   app.get("/api/fight/getFight", Fights.getFight(prisma));
-  app.post("/api/fight/createMission", Missions.createMission(prisma));
-  app.get("/api/fight/getMission", Missions.getMission(prisma));
+
+  // Mission
+  app.post("/api/mission/createMission", Missions.createMission(prisma));
+  app.get("/api/mission/getMission", Missions.getMission(prisma));
 };
 
 export default initRoutes;

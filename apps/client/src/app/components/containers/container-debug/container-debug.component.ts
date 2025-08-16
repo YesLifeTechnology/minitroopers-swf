@@ -1,4 +1,3 @@
-
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TrooperService } from 'src/app/services/trooper.service';
@@ -148,7 +147,7 @@ export class DebugComponent implements AfterViewInit {
       seed = (seed * 16807) % 2147483647;
     }
 
-    console.log(seed);
+    // console.log(seed);
 
     let loc3 = [0, 1, 2, 3];
     let idx = seed & 1073741823 & loc3.length;

@@ -62,9 +62,17 @@ export class ContainerHistoryComponent {
     const hours = this.decimalPipe.transform(date.getHours(), '2.0-0');
     const minutes = this.decimalPipe.transform(date.getMinutes(), '2.0-0');
     let returnDate: string = '';
-    if (now.getDate() == date.getDate() && now.getMonth() == date.getMonth()) {
+    if (
+      now.getDate() == date.getDate() &&
+      now.getMonth() == date.getMonth() &&
+      now.getFullYear() == date.getFullYear()
+    ) {
       returnDate = "Aujourd'hui";
-    } else if (now.getDate() - 1 == date.getDate()) {
+    } else if (
+      now.getDate() - 1 == date.getDate() &&
+      now.getMonth() == date.getMonth() &&
+      now.getFullYear() == date.getFullYear()
+    ) {
       returnDate = 'Hier';
     } else {
       returnDate =
