@@ -40,7 +40,7 @@ export class TrooperChoiceComponent implements OnInit {
       this.selectedTrooper.choices,
     );
     this.skills = this.trooperSkill.generateSkillChoices();
-    this.has3Choices = this.skills.includes(64);
+    this.has3Choices = this.trooperSkill.Skills.includes(64);
   }
 
   chooseSkill(index: number) {

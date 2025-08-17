@@ -306,7 +306,12 @@ const generateBattleDataInfiltrate = async (
 
   return {
     result: Math.random() > 0.5 ? FightResult.win : FightResult.lose,
-    data: "data=" + generateBattleData(user, opponent),
+    data:
+      "data=" +
+      generateBattleData(user, opponent, {
+        gfx: "bg/sewer.jpg",
+        id: BackgroundType.BG_SEWER,
+      }),
   };
 };
 

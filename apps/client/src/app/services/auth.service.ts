@@ -43,13 +43,26 @@ export class AuthService {
                 return resp;
               }),
             )
-            .subscribe((response) => {
-              this.notificationService.notify(
-                'success',
-                'Connected as ' + response.name,
-              );
-              resolve(response);
-              // +catch
+            .subscribe({
+              next: (response) => {
+                if (response) {
+                  this.notificationService.notify(
+                    'success',
+                    `Connected as ${response.name}`,
+                  );
+                  resolve(response);
+                }
+                resolve(null);
+              },
+              error: (err) => {
+                this.clearLocalStorage();
+                this.notificationService.notify(
+                  'error',
+                  'Connection failed. Please try again.',
+                );
+                resolve(null);
+              },
+              complete: () => {},
             });
         } else {
           this.clearLocalStorage();

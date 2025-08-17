@@ -169,9 +169,7 @@ export class TrooperSkill {
   }
 
   generateSkillChoices() {
-    const hasSmartSkill = this.Skills.includes(64); // Check for SMART skill
-
-    const choiceCount = hasSmartSkill ? 4 : 3;
+    const choiceCount = 3;
 
     let skillWeights = [...this.iav];
     let totalWeight = this.ssum;

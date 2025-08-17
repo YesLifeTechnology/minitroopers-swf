@@ -58,7 +58,7 @@ export class MissionsComponent extends FightComponent {
           const misison = [
             ...this.user?.missions.filter((x) => x.type == this.type),
           ].reverse()[index];
-          this.router.navigate(['/war', misison.id], {
+          this.router.navigate(['/mission', misison.id], {
             state: { fight: misison },
           });
         }

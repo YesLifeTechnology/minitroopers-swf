@@ -29,6 +29,9 @@ export class ViewUpgradeComponent implements OnDestroy {
           .army()
           ?.troopers.find((x) => x.id == this.route.snapshot.params['trooper']);
         if (trooper) {
+          if (this.selectedTrooper()) {
+            this.displaySkill = true;
+          }
           this.selectedTrooper.set(trooper);
           this.armyStore.setTitle('Fiche de ' + trooper.name);
         } else {

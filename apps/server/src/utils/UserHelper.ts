@@ -140,6 +140,10 @@ export const IncludeAllUserData = {
 export const generateBattleData = (
   leftArmy: UserExtended,
   rightArmy: Omit<UserExtended, "history" | "fights">,
+  background = {
+    gfx: "bg/garden.jpg",
+    id: BackgroundType.BG_GARDEN,
+  },
 ) => {
   const leftTrooperIndexes = leftArmy.troopers.map((trooper, index) => index);
   const rightTrooperIndexes = rightArmy.troopers.map(
@@ -160,10 +164,7 @@ export const generateBattleData = (
       // First parameter: battle configuration object
       {
         id: battle.seed, // Battle seed
-        bg: {
-          gfx: "bg/garden.jpg",
-          id: BackgroundType.BG_GARDEN,
-        },
+        bg: background,
         armies: [
           {
             troopers: leftArmy.troopers.map((trooper, index) => ({
