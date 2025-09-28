@@ -13,6 +13,7 @@ import {
   UserExtended,
 } from "@minitroopers/shared";
 import { Request, Response } from "express";
+import { Ruffle } from "../utils/Ruffle.js";
 import {
   auth,
   generateBattleData,
@@ -21,12 +22,13 @@ import {
 
 const Missions = {
   createMission:
-    (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    (prisma: PrismaClient, ruffle: Ruffle) =>
+    async (req: Request, res: Response) => {
       try {
         if (
           !req.body.missionType ||
           typeof req.body.missionType !== "string" ||
-          !["exterminate", "infiltrate", "epic"].includes(req.body.missionType)
+          !["exterminate", "infiltrate"].includes(req.body.missionType) //, "epic"
         ) {
           throw new Error();
         }
@@ -47,7 +49,8 @@ const Missions = {
           user,
           missionType,
           prisma,
-        ); // <----- TODO
+          ruffle,
+        );
 
         return res.send({ user: returnedUser, fightId: missionId });
       } catch (error: any) {
@@ -87,13 +90,14 @@ const generateMission = async (
   user: UserExtended,
   missionType: MissionType,
   prisma: PrismaClient,
+  ruffle: Ruffle,
 ) => {
   switch (missionType) {
     case "exterminate":
-      return await generateMissionExterminate(user, prisma);
+      return await generateMissionExterminate(user, prisma, ruffle);
       break;
     case "infiltrate":
-      return await generateMissionInfiltrate(user, prisma);
+      return await generateMissionInfiltrate(user, prisma, ruffle);
       break;
     case "epic":
       break;
@@ -110,22 +114,21 @@ const generateMission = async (
 const generateMissionExterminate = async (
   user: UserExtended,
   prisma: PrismaClient,
+  ruffle: Ruffle,
 ) => {
   if (user.exterminationUnlockAt == null) {
     throw new Error();
   }
 
-  const generatedMission = {
-    result: Math.random() > 0.5 ? FightResult.win : FightResult.lose,
-    data: "data=" + generateBattleDataExterminate(user),
-  };
+  const flashvars = "data=" + generateBattleDataExterminate(user);
+  const simulateData = await ruffle.runBattle(flashvars);
 
   const mission = await prisma.mission.create({
     data: {
       userId: user.id,
       type: MissionType.exterminate,
-      result: generatedMission.result,
-      missionInputSWFData: generatedMission.data,
+      result: simulateData.result,
+      missionInputSWFData: flashvars,
     },
   });
 
@@ -133,22 +136,22 @@ const generateMissionExterminate = async (
     where: { id: user.id },
     data: {
       gold: {
-        increment: generatedMission.result === FightResult.win ? 2 : 1,
+        increment: simulateData.result === FightResult.win ? 2 : 1,
       },
       ratsCount: {
-        increment: generatedMission.result === FightResult.win ? 1 : 0,
+        increment: simulateData.result === FightResult.win ? 1 : 0,
       },
       missions: {
         connect: mission,
       },
     },
-    include: IncludeAllUserData,
+    include: IncludeAllUserData(),
   });
 
   return {
     returnedUser: returnedUser,
     missionId: mission.id,
-    swfData: generatedMission.data,
+    swfData: flashvars,
   };
 };
 
@@ -254,12 +257,17 @@ const generatesRats = (user: UserExtended) => {
 const generateMissionInfiltrate = async (
   user: UserExtended,
   prisma: PrismaClient,
+  ruffle: Ruffle,
 ) => {
   if (user.exterminationUnlockAt == null) {
     throw new Error();
   }
 
-  const generatedMission = await generateBattleDataInfiltrate(prisma, user);
+  const generatedMission = await generateBattleDataInfiltrate(
+    prisma,
+    user,
+    ruffle,
+  );
 
   const mission = await prisma.mission.create({
     data: {
@@ -280,7 +288,7 @@ const generateMissionInfiltrate = async (
         connect: mission,
       },
     },
-    include: IncludeAllUserData,
+    include: IncludeAllUserData(),
   });
 
   return {
@@ -293,6 +301,7 @@ const generateMissionInfiltrate = async (
 const generateBattleDataInfiltrate = async (
   prisma: PrismaClient,
   user: UserExtended,
+  ruffle: Ruffle,
 ) => {
   const opponent = await findInfiltrateOpponent(prisma, user);
 
@@ -304,14 +313,18 @@ const generateBattleDataInfiltrate = async (
     },
   });
 
+  const flashvars =
+    "data=" +
+    generateBattleData(user, opponent, {
+      gfx: "bg/sewer.jpg",
+      id: BackgroundType.BG_SEWER,
+    });
+
+  const simulateData = await ruffle.runBattle(flashvars);
+
   return {
-    result: Math.random() > 0.5 ? FightResult.win : FightResult.lose,
-    data:
-      "data=" +
-      generateBattleData(user, opponent, {
-        gfx: "bg/sewer.jpg",
-        id: BackgroundType.BG_SEWER,
-      }),
+    result: simulateData.result,
+    data: flashvars,
   };
 };
 
@@ -331,7 +344,7 @@ const findInfiltrateOpponent = async (
       where: {
         id: user.infiltrationOpponentArmy,
       },
-      include: IncludeAllUserData,
+      include: IncludeAllUserData(),
     })) as UserExtended;
     return opponent;
   }

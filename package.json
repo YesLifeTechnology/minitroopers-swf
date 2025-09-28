@@ -9,6 +9,7 @@
   "scripts": {
     "prisma": "npx prisma migrate dev --schema=packages/prisma/schema.prisma && cp ../packages/prisma/package.reference.json ../packages/prisma/package.json",
     "prisma:migrate": "npx prisma migrate dev --schema=packages/prisma/schema.prisma",
+    "prisma:create": "npx prisma migrate dev --schema=packages/prisma/schema.prisma --create-only",
     "prisma:reset": "npx prisma migrate reset --schema=packages/prisma/schema.prisma --skip-generate",
     "eternaltwin:start": "eternaltwin start",
     "eternaltwin": "eternaltwin",

@@ -69,7 +69,7 @@ const OAuth = {
       // Fetch user data
       const user = await prisma.user.findFirst({
         where: { id: etwinUser.id, connexionToken: token.accessToken },
-        include: IncludeAllUserData,
+        include: IncludeAllUserData(),
       });
       res.send(user);
     } catch (error) {

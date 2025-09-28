@@ -71,7 +71,7 @@ export class TroopersBlockComponent {
   }
 
   goToClassment() {
-    this.router.navigate([this.authStore.armyName(), 'ranking']);
+    this.router.navigate([this.armyStore.army()!.armyName, 'ranking']);
   }
 
   goToArmy() {

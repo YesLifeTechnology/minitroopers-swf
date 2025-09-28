@@ -6,6 +6,7 @@ import {
   UserExtended,
 } from "@minitroopers/shared";
 import { Request, Response } from "express";
+import { Ruffle } from "../utils/Ruffle.js";
 import {
   auth,
   generateBattleData,
@@ -61,7 +62,8 @@ const Fights = {
     },
 
   createFight:
-    (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    (prisma: PrismaClient, ruffle: Ruffle) =>
+    async (req: Request, res: Response) => {
       try {
         if (
           !req.body.opponentName ||
@@ -105,7 +107,8 @@ const Fights = {
           user,
           opponent as UserExtended,
           prisma,
-        ); // <----- TODO
+          ruffle,
+        );
 
         return res.send({ user: returnedUser, fightId: fightId });
       } catch (error: any) {
@@ -152,11 +155,10 @@ const generateFight = async (
   user: UserExtended,
   opponent: Omit<UserExtended, "history" | "fights">,
   prisma: PrismaClient,
+  ruffle: Ruffle,
 ) => {
-  const generatedFight = {
-    result: Math.random() > 0.5 ? FightResult.win : FightResult.lose,
-    data: "data=" + generateBattleData(user, opponent),
-  };
+  const flashvars = "data=" + generateBattleData(user, opponent);
+  const simulateData = await ruffle.runBattle(flashvars);
 
   const fight = await prisma.fight.create({
     data: {
@@ -165,8 +167,8 @@ const generateFight = async (
       userPrefix: user.prefix,
       opponentName: opponent.armyName,
       opponentPrefix: opponent.prefix,
-      result: generatedFight.result,
-      fightInputSWFData: generatedFight.data,
+      result: simulateData.result,
+      fightInputSWFData: flashvars,
     },
   });
 
@@ -174,7 +176,7 @@ const generateFight = async (
     where: { id: user.id },
     data: {
       gold: {
-        increment: generatedFight.result === FightResult.win ? 2 : 1,
+        increment: simulateData.result === FightResult.win ? 2 : 1,
       },
       fights: {
         connect: fight,
@@ -183,7 +185,7 @@ const generateFight = async (
         create: {
           type: "war",
           options: {
-            result: generatedFight.result,
+            result: simulateData.result,
             opponent: {
               armyName: opponent.armyName,
               prefix: opponent.prefix,
@@ -193,13 +195,13 @@ const generateFight = async (
         },
       },
     },
-    include: IncludeAllUserData,
+    include: IncludeAllUserData(),
   });
 
   return {
     returnedUser: returnedUser,
     fightId: fight.id,
-    swfData: generatedFight.data,
+    swfData: flashvars,
   };
 };
 

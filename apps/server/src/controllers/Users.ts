@@ -151,7 +151,7 @@ const Users = {
             ],
           },
         },
-        include: IncludeAllUserData,
+        include: IncludeAllUserData(),
       });
 
       res.send(army);
@@ -196,7 +196,7 @@ const Users = {
           exterminationUnlockAt: true,
           infiltrationUnlockAt: true,
           epicUnlockAt: true,
-          ...(full ? IncludeAllUserData : {}),
+          ...(full ? IncludeAllUserData() : {}),
         },
       });
 
@@ -254,7 +254,7 @@ const Users = {
         const army = await prisma.user.update({
           where: { id: user.id },
           data: data,
-          include: IncludeAllUserData,
+          include: IncludeAllUserData(),
         });
 
         res.send(army);

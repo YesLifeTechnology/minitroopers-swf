@@ -6,9 +6,10 @@ import OAuth from "./controllers/OAuth.js";
 import Troopers from "./controllers/Troopers.js";
 import Users from "./controllers/Users.js";
 import Utils from "./controllers/Utils.js";
+import { Ruffle } from "./utils/Ruffle.js";
 import ServerState from "./utils/ServerState.js";
 
-const initRoutes = (app: Express, prisma: PrismaClient) => {
+const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
   app.get("/api/is-ready", (req: Request, res: Response<boolean>) => {
     res.status(200).send(ServerState.isReady());
   });
@@ -39,11 +40,14 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // Fight
   app.get("/api/fight/getOpponents", Fights.getOpponents(prisma));
-  app.post("/api/fight/createFight", Fights.createFight(prisma));
+  app.post("/api/fight/createFight", Fights.createFight(prisma, ruffle));
   app.get("/api/fight/getFight", Fights.getFight(prisma));
 
   // Mission
-  app.post("/api/mission/createMission", Missions.createMission(prisma));
+  app.post(
+    "/api/mission/createMission",
+    Missions.createMission(prisma, ruffle),
+  );
   app.get("/api/mission/getMission", Missions.getMission(prisma));
 };
 

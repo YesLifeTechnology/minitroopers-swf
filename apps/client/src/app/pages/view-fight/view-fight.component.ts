@@ -18,6 +18,7 @@ export class ViewFightComponent {
 
   fight: Fight | undefined = undefined;
   loadingFight: boolean = false;
+  fightType: 'war' | 'mission' = 'war';
 
   userArmy: PartialUserExtended | undefined = undefined;
   userOpponent: PartialUserExtended | undefined = undefined;
@@ -32,6 +33,7 @@ export class ViewFightComponent {
     const fightId = this.route.snapshot.params['warId'];
     if (fightId != null) {
       if (this.route.routeConfig?.path === 'war/:warId') {
+        this.fightType = 'war';
         this.fightService
           .getFightDetails(fightId)
           .pipe(take(1))
@@ -49,6 +51,7 @@ export class ViewFightComponent {
             this.loadingFight = false;
           });
       } else if (this.route.routeConfig?.path === 'mission/:warId') {
+        this.fightType = 'mission';
         this.fightService
           .getMissionDetails(fightId)
           .pipe(take(1))

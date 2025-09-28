@@ -6,6 +6,7 @@ import schedule from "node-schedule";
 import dailyJob from "./dailyJob.js";
 import Env from "./Env.js";
 import initRoutes from "./routes.js";
+import { Ruffle } from "./utils/Ruffle.js";
 import { initTrooperDay } from "./utils/TrooperDay.js";
 
 const prisma = new PrismaClient(
@@ -67,4 +68,6 @@ app.listen(port, () => {
 
 await initTrooperDay(prisma);
 
-initRoutes(app, prisma);
+const ruffle = new Ruffle();
+
+initRoutes(app, prisma, ruffle);

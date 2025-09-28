@@ -12,20 +12,21 @@
       <app-today-fight [type]="'infiltrate'"></app-today-fight>
     </div>
 
-    <div class="relative">
+    <!-- <div class="relative">
       <app-today-fight [type]="'epic'"></app-today-fight>
-    </div>
+    </div> -->
 
     <div class="relative">
       <app-today-fight [type]="'raid'"></app-today-fight>
     </div>
 
-    <app-container-ad [image]="ad1.image" [link]="ad1.link"></app-container-ad>
-
     @if (armyStore.isOwner()) {
       <app-container-referral></app-container-referral>
     } @else {
-      <div></div>
+      <app-container-ad
+        [image]="ad1.image"
+        [link]="ad1.link"
+      ></app-container-ad>
     }
 
     <app-container-ad [image]="ad2.image" [link]="ad2.link"></app-container-ad>

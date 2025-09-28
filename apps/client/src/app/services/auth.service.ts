@@ -45,7 +45,7 @@ export class AuthService {
             )
             .subscribe({
               next: (response) => {
-                if (response) {
+                if (response?.name) {
                   this.notificationService.notify(
                     'success',
                     `Connected as ${response.name}`,

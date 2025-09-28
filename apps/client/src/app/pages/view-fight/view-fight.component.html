@@ -1,15 +1,17 @@
 <div class="flex flex-col items-center">
   <div class="relative mt-16">
-    @if (loadingFight) {
-      LOADING PLEASE WAIT
-    }
+    <!-- @if (loadingFight) {} -->
     <div>
       <img src="/assets/images/swfframe2.webp" alt="" draggable="false" />
 
       <h1
         class="shadow-title absolute left-1/2 top-1 -translate-x-1/2 text-nowrap text-lg font-bold text-white"
       >
-        {{ userArmy | getArmyName }} vs {{ userOpponent | getArmyName }}
+        @if (fightType == "war") {
+          {{ userArmy | getArmyName }} vs {{ userOpponent | getArmyName }}
+        } @else {
+          Mission
+        }
       </h1>
     </div>
     <div

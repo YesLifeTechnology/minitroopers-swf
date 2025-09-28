@@ -132,7 +132,7 @@ const Troopers = {
             gold: user.gold - upgradeCost,
             power: { increment: 1 },
           },
-          include: IncludeAllUserData,
+          include: IncludeAllUserData(),
         });
         res.send(userUpdated);
       } catch (error: any) {
@@ -182,7 +182,7 @@ const Troopers = {
             },
           },
         },
-        include: IncludeAllUserData,
+        include: IncludeAllUserData(),
       });
       res.send(updatedUser);
     } catch (error: any) {

@@ -38,7 +38,7 @@ export const auth = async (prisma: PrismaClient, request: Request) => {
       connexionToken: token,
     },
     include: {
-      ...IncludeAllUserData,
+      ...IncludeAllUserData(),
       ipAddressUser: true,
     },
   });
@@ -81,60 +81,60 @@ export const auth = async (prisma: PrismaClient, request: Request) => {
   return user;
 };
 
-const now = new Date();
-const todayStart = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  now.getDate(),
-  0,
-  0,
-  0,
-);
+export const IncludeAllUserData = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-export const IncludeAllUserData = {
-  troopers: {
-    orderBy: {
-      createdAt: "asc" as Prisma.SortOrder,
-    },
-  },
-  history: {
-    take: 5,
-    select: {
-      options: true,
-      type: true,
-      ts: true,
-    },
-    orderBy: {
-      ts: "desc" as Prisma.SortOrder,
-    },
-  },
-  fights: {
-    take: 5,
-    select: {
-      id: true,
-      result: true,
-      ts: true,
-    },
-    orderBy: {
-      ts: "desc" as Prisma.SortOrder,
-    },
-  },
-  missions: {
-    where: {
-      ts: {
-        gte: todayStart,
+  return {
+    troopers: {
+      orderBy: {
+        createdAt: "asc" as Prisma.SortOrder,
       },
     },
-    orderBy: {
-      ts: "desc" as Prisma.SortOrder,
+    history: {
+      take: 5,
+      select: {
+        options: true,
+        type: true,
+        ts: true,
+      },
+      orderBy: {
+        ts: "desc" as Prisma.SortOrder,
+      },
     },
-    select: {
-      id: true,
-      type: true,
-      result: true,
-      ts: true,
+    fights: {
+      take: 5,
+      select: {
+        id: true,
+        result: true,
+        ts: true,
+      },
+      where: {
+        ts: {
+          gte: today,
+        },
+      },
+      orderBy: {
+        ts: "desc" as Prisma.SortOrder,
+      },
     },
-  },
+    missions: {
+      where: {
+        ts: {
+          gte: today,
+        },
+      },
+      orderBy: {
+        ts: "desc" as Prisma.SortOrder,
+      },
+      select: {
+        id: true,
+        type: true,
+        result: true,
+        ts: true,
+      },
+    },
+  };
 };
 
 export const generateBattleData = (
