@@ -54,6 +54,7 @@ model User {
   infiltrationUnlockAt     DateTime?       @db.Timestamptz
   exterminationUnlockAt    DateTime?       @db.Timestamptz
   epicUnlockAt             DateTime?       @db.Timestamptz
+  raids                    Raid[]
 }
 
 model ipAddressUser {
@@ -137,4 +138,13 @@ model Mission {
   type                MissionType
   missionInputSWFData String
   result              FightResult
+}
+
+model Raid {
+  id        String      @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String      @db.Uuid
+  ts        DateTime    @default(now()) @db.Timestamptz()
+  result    FightResult
+  graveyard String[]
 }

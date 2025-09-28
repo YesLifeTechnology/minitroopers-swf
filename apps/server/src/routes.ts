@@ -3,6 +3,7 @@ import { Express, Request, Response } from "express";
 import Fights from "./controllers/Fights.js";
 import Missions from "./controllers/Missions.js";
 import OAuth from "./controllers/OAuth.js";
+import Raids from "./controllers/Raids.js";
 import Troopers from "./controllers/Troopers.js";
 import Users from "./controllers/Users.js";
 import Utils from "./controllers/Utils.js";
@@ -42,6 +43,7 @@ const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
   app.get("/api/fight/getOpponents", Fights.getOpponents(prisma));
   app.post("/api/fight/createFight", Fights.createFight(prisma, ruffle));
   app.get("/api/fight/getFight", Fights.getFight(prisma));
+  app.get("/api/fight/getTroopersRaid", Fights.getTroopersRaid(prisma));
 
   // Mission
   app.post(
@@ -49,6 +51,9 @@ const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
     Missions.createMission(prisma, ruffle),
   );
   app.get("/api/mission/getMission", Missions.getMission(prisma));
+
+  // Raid
+  app.post("/api/raid/createRaid", Raids.createRaid(prisma, ruffle));
 };
 
 export default initRoutes;

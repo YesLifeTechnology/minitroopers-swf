@@ -3,13 +3,13 @@
     class="bg-body mx-1 flex flex-1 items-center justify-center border border-amber-950"
   >
     <div class="font-bold text-white" style="text-shadow: 1px 1px 1px black">
-      {{ avalaibleTroopers }}
+      {{ raidTroopers }}
     </div>
     <img src="/assets/images/head.webp" alt="" class="ml-1" />
   </div>
   <div class="flex-1">
-    @if (avalaibleTroopers > 0) {
-      <app-go></app-go>
+    @if (raidTroopers > 0 && armyStore.army()!.raids!.length < 20) {
+      <app-go (eventClick)="onClick($event)"></app-go>
     }
   </div>
 </div>
@@ -20,12 +20,12 @@
     alt=""
     class="mr-[6px] h-[10px] w-[10px]"
   />
-  @if (avalaibleTroopers > 0) {
+  @if (raidTroopers > 0) {
     <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
       {{ tryLeft }}
     </p>
   }
-  @if (avalaibleTroopers == 0) {
+  @if (raidTroopers == 0) {
     <p style="text-shadow: 1px 1px 0px rgba(253, 246, 213, 0.3)">
       Prochaine raid disponible dans
     </p>

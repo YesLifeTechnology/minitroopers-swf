@@ -48,6 +48,11 @@ export type Fight = $Result.DefaultSelection<Prisma.$FightPayload>
  * 
  */
 export type Mission = $Result.DefaultSelection<Prisma.$MissionPayload>
+/**
+ * Model Raid
+ * 
+ */
+export type Raid = $Result.DefaultSelection<Prisma.$RaidPayload>
 
 /**
  * Enums
@@ -127,7 +132,7 @@ export const MissionType: typeof $Enums.MissionType
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -159,13 +164,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -305,6 +303,16 @@ export class PrismaClient<
     * ```
     */
   get mission(): Prisma.MissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.raid`: Exposes CRUD operations for the **Raid** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Raids
+    * const raids = await prisma.raid.findMany()
+    * ```
+    */
+  get raid(): Prisma.RaidDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -363,8 +371,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.12.0
-   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -751,7 +759,8 @@ export namespace Prisma {
     Trooper: 'Trooper',
     TrooperDay: 'TrooperDay',
     Fight: 'Fight',
-    Mission: 'Mission'
+    Mission: 'Mission',
+    Raid: 'Raid'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -770,7 +779,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "ipAddressUser" | "historyUser" | "trooper" | "trooperDay" | "fight" | "mission"
+      modelProps: "user" | "ipAddressUser" | "historyUser" | "trooper" | "trooperDay" | "fight" | "mission" | "raid"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1292,6 +1301,80 @@ export namespace Prisma {
           }
         }
       }
+      Raid: {
+        payload: Prisma.$RaidPayload<ExtArgs>
+        fields: Prisma.RaidFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RaidFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RaidFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          findFirst: {
+            args: Prisma.RaidFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RaidFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          findMany: {
+            args: Prisma.RaidFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>[]
+          }
+          create: {
+            args: Prisma.RaidCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          createMany: {
+            args: Prisma.RaidCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RaidCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>[]
+          }
+          delete: {
+            args: Prisma.RaidDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          update: {
+            args: Prisma.RaidUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          deleteMany: {
+            args: Prisma.RaidDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RaidUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RaidUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>[]
+          }
+          upsert: {
+            args: Prisma.RaidUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RaidPayload>
+          }
+          aggregate: {
+            args: Prisma.RaidAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRaid>
+          }
+          groupBy: {
+            args: Prisma.RaidGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RaidGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RaidCountArgs<ExtArgs>
+            result: $Utils.Optional<RaidCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1335,16 +1418,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1359,6 +1450,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1383,6 +1478,7 @@ export namespace Prisma {
     trooperDay?: TrooperDayOmit
     fight?: FightOmit
     mission?: MissionOmit
+    raid?: RaidOmit
   }
 
   /* Types for Logging */
@@ -1392,10 +1488,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1436,25 +1537,6 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
-
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -1483,6 +1565,7 @@ export namespace Prisma {
     ipAddressUser: number
     fights: number
     missions: number
+    raids: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1492,6 +1575,7 @@ export namespace Prisma {
     ipAddressUser?: boolean | UserCountOutputTypeCountIpAddressUserArgs
     fights?: boolean | UserCountOutputTypeCountFightsArgs
     missions?: boolean | UserCountOutputTypeCountMissionsArgs
+    raids?: boolean | UserCountOutputTypeCountRaidsArgs
   }
 
   // Custom InputTypes
@@ -1545,6 +1629,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MissionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRaidsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RaidWhereInput
   }
 
 
@@ -1905,6 +1996,7 @@ export namespace Prisma {
     ipAddressUser?: boolean | User$ipAddressUserArgs<ExtArgs>
     fights?: boolean | User$fightsArgs<ExtArgs>
     missions?: boolean | User$missionsArgs<ExtArgs>
+    raids?: boolean | User$raidsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1991,6 +2083,7 @@ export namespace Prisma {
     ipAddressUser?: boolean | User$ipAddressUserArgs<ExtArgs>
     fights?: boolean | User$fightsArgs<ExtArgs>
     missions?: boolean | User$missionsArgs<ExtArgs>
+    raids?: boolean | User$raidsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2010,6 +2103,7 @@ export namespace Prisma {
       ipAddressUser: Prisma.$ipAddressUserPayload<ExtArgs>[]
       fights: Prisma.$FightPayload<ExtArgs>[]
       missions: Prisma.$MissionPayload<ExtArgs>[]
+      raids: Prisma.$RaidPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2434,6 +2528,7 @@ export namespace Prisma {
     ipAddressUser<T extends User$ipAddressUserArgs<ExtArgs> = {}>(args?: Subset<T, User$ipAddressUserArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ipAddressUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     fights<T extends User$fightsArgs<ExtArgs> = {}>(args?: Subset<T, User$fightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     missions<T extends User$missionsArgs<ExtArgs> = {}>(args?: Subset<T, User$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    raids<T extends User$raidsArgs<ExtArgs> = {}>(args?: Subset<T, User$raidsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3049,6 +3144,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MissionScalarFieldEnum | MissionScalarFieldEnum[]
+  }
+
+  /**
+   * User.raids
+   */
+  export type User$raidsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    where?: RaidWhereInput
+    orderBy?: RaidOrderByWithRelationInput | RaidOrderByWithRelationInput[]
+    cursor?: RaidWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RaidScalarFieldEnum | RaidScalarFieldEnum[]
   }
 
   /**
@@ -5427,7 +5546,7 @@ export namespace Prisma {
     targetType: number
     reloadSystem: number
     moveSystem: number
-    CBody: number | null
+    CBody: number
     CWeapon: number | null
     _count: TrooperCountAggregateOutputType | null
     _avg: TrooperAvgAggregateOutputType | null
@@ -5545,7 +5664,7 @@ export namespace Prisma {
       targetType: number
       reloadSystem: number
       moveSystem: number
-      CBody: number | null
+      CBody: number
       CWeapon: number | null
     }, ExtArgs["result"]["trooper"]>
     composites: {}
@@ -9670,6 +9789,1069 @@ export namespace Prisma {
 
 
   /**
+   * Model Raid
+   */
+
+  export type AggregateRaid = {
+    _count: RaidCountAggregateOutputType | null
+    _min: RaidMinAggregateOutputType | null
+    _max: RaidMaxAggregateOutputType | null
+  }
+
+  export type RaidMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    ts: Date | null
+    result: $Enums.FightResult | null
+  }
+
+  export type RaidMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    ts: Date | null
+    result: $Enums.FightResult | null
+  }
+
+  export type RaidCountAggregateOutputType = {
+    id: number
+    userId: number
+    ts: number
+    result: number
+    graveyard: number
+    _all: number
+  }
+
+
+  export type RaidMinAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    result?: true
+  }
+
+  export type RaidMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    result?: true
+  }
+
+  export type RaidCountAggregateInputType = {
+    id?: true
+    userId?: true
+    ts?: true
+    result?: true
+    graveyard?: true
+    _all?: true
+  }
+
+  export type RaidAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Raid to aggregate.
+     */
+    where?: RaidWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Raids to fetch.
+     */
+    orderBy?: RaidOrderByWithRelationInput | RaidOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RaidWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Raids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Raids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Raids
+    **/
+    _count?: true | RaidCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RaidMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RaidMaxAggregateInputType
+  }
+
+  export type GetRaidAggregateType<T extends RaidAggregateArgs> = {
+        [P in keyof T & keyof AggregateRaid]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRaid[P]>
+      : GetScalarType<T[P], AggregateRaid[P]>
+  }
+
+
+
+
+  export type RaidGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RaidWhereInput
+    orderBy?: RaidOrderByWithAggregationInput | RaidOrderByWithAggregationInput[]
+    by: RaidScalarFieldEnum[] | RaidScalarFieldEnum
+    having?: RaidScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RaidCountAggregateInputType | true
+    _min?: RaidMinAggregateInputType
+    _max?: RaidMaxAggregateInputType
+  }
+
+  export type RaidGroupByOutputType = {
+    id: string
+    userId: string
+    ts: Date
+    result: $Enums.FightResult
+    graveyard: string[]
+    _count: RaidCountAggregateOutputType | null
+    _min: RaidMinAggregateOutputType | null
+    _max: RaidMaxAggregateOutputType | null
+  }
+
+  type GetRaidGroupByPayload<T extends RaidGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RaidGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RaidGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RaidGroupByOutputType[P]>
+            : GetScalarType<T[P], RaidGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RaidSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    result?: boolean
+    graveyard?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["raid"]>
+
+  export type RaidSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    result?: boolean
+    graveyard?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["raid"]>
+
+  export type RaidSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    result?: boolean
+    graveyard?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["raid"]>
+
+  export type RaidSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    ts?: boolean
+    result?: boolean
+    graveyard?: boolean
+  }
+
+  export type RaidOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "ts" | "result" | "graveyard", ExtArgs["result"]["raid"]>
+  export type RaidInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RaidIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RaidIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RaidPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Raid"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      ts: Date
+      result: $Enums.FightResult
+      graveyard: string[]
+    }, ExtArgs["result"]["raid"]>
+    composites: {}
+  }
+
+  type RaidGetPayload<S extends boolean | null | undefined | RaidDefaultArgs> = $Result.GetResult<Prisma.$RaidPayload, S>
+
+  type RaidCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RaidFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: RaidCountAggregateInputType | true
+    }
+
+  export interface RaidDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Raid'], meta: { name: 'Raid' } }
+    /**
+     * Find zero or one Raid that matches the filter.
+     * @param {RaidFindUniqueArgs} args - Arguments to find a Raid
+     * @example
+     * // Get one Raid
+     * const raid = await prisma.raid.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RaidFindUniqueArgs>(args: SelectSubset<T, RaidFindUniqueArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Raid that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RaidFindUniqueOrThrowArgs} args - Arguments to find a Raid
+     * @example
+     * // Get one Raid
+     * const raid = await prisma.raid.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RaidFindUniqueOrThrowArgs>(args: SelectSubset<T, RaidFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Raid that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidFindFirstArgs} args - Arguments to find a Raid
+     * @example
+     * // Get one Raid
+     * const raid = await prisma.raid.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RaidFindFirstArgs>(args?: SelectSubset<T, RaidFindFirstArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Raid that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidFindFirstOrThrowArgs} args - Arguments to find a Raid
+     * @example
+     * // Get one Raid
+     * const raid = await prisma.raid.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RaidFindFirstOrThrowArgs>(args?: SelectSubset<T, RaidFindFirstOrThrowArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Raids that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Raids
+     * const raids = await prisma.raid.findMany()
+     * 
+     * // Get first 10 Raids
+     * const raids = await prisma.raid.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const raidWithIdOnly = await prisma.raid.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RaidFindManyArgs>(args?: SelectSubset<T, RaidFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Raid.
+     * @param {RaidCreateArgs} args - Arguments to create a Raid.
+     * @example
+     * // Create one Raid
+     * const Raid = await prisma.raid.create({
+     *   data: {
+     *     // ... data to create a Raid
+     *   }
+     * })
+     * 
+     */
+    create<T extends RaidCreateArgs>(args: SelectSubset<T, RaidCreateArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Raids.
+     * @param {RaidCreateManyArgs} args - Arguments to create many Raids.
+     * @example
+     * // Create many Raids
+     * const raid = await prisma.raid.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RaidCreateManyArgs>(args?: SelectSubset<T, RaidCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Raids and returns the data saved in the database.
+     * @param {RaidCreateManyAndReturnArgs} args - Arguments to create many Raids.
+     * @example
+     * // Create many Raids
+     * const raid = await prisma.raid.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Raids and only return the `id`
+     * const raidWithIdOnly = await prisma.raid.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RaidCreateManyAndReturnArgs>(args?: SelectSubset<T, RaidCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Raid.
+     * @param {RaidDeleteArgs} args - Arguments to delete one Raid.
+     * @example
+     * // Delete one Raid
+     * const Raid = await prisma.raid.delete({
+     *   where: {
+     *     // ... filter to delete one Raid
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RaidDeleteArgs>(args: SelectSubset<T, RaidDeleteArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Raid.
+     * @param {RaidUpdateArgs} args - Arguments to update one Raid.
+     * @example
+     * // Update one Raid
+     * const raid = await prisma.raid.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RaidUpdateArgs>(args: SelectSubset<T, RaidUpdateArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Raids.
+     * @param {RaidDeleteManyArgs} args - Arguments to filter Raids to delete.
+     * @example
+     * // Delete a few Raids
+     * const { count } = await prisma.raid.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RaidDeleteManyArgs>(args?: SelectSubset<T, RaidDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Raids.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Raids
+     * const raid = await prisma.raid.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RaidUpdateManyArgs>(args: SelectSubset<T, RaidUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Raids and returns the data updated in the database.
+     * @param {RaidUpdateManyAndReturnArgs} args - Arguments to update many Raids.
+     * @example
+     * // Update many Raids
+     * const raid = await prisma.raid.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Raids and only return the `id`
+     * const raidWithIdOnly = await prisma.raid.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RaidUpdateManyAndReturnArgs>(args: SelectSubset<T, RaidUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Raid.
+     * @param {RaidUpsertArgs} args - Arguments to update or create a Raid.
+     * @example
+     * // Update or create a Raid
+     * const raid = await prisma.raid.upsert({
+     *   create: {
+     *     // ... data to create a Raid
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Raid we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RaidUpsertArgs>(args: SelectSubset<T, RaidUpsertArgs<ExtArgs>>): Prisma__RaidClient<$Result.GetResult<Prisma.$RaidPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Raids.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidCountArgs} args - Arguments to filter Raids to count.
+     * @example
+     * // Count the number of Raids
+     * const count = await prisma.raid.count({
+     *   where: {
+     *     // ... the filter for the Raids we want to count
+     *   }
+     * })
+    **/
+    count<T extends RaidCountArgs>(
+      args?: Subset<T, RaidCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RaidCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Raid.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RaidAggregateArgs>(args: Subset<T, RaidAggregateArgs>): Prisma.PrismaPromise<GetRaidAggregateType<T>>
+
+    /**
+     * Group by Raid.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RaidGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RaidGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RaidGroupByArgs['orderBy'] }
+        : { orderBy?: RaidGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RaidGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRaidGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Raid model
+   */
+  readonly fields: RaidFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Raid.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RaidClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Raid model
+   */
+  interface RaidFieldRefs {
+    readonly id: FieldRef<"Raid", 'String'>
+    readonly userId: FieldRef<"Raid", 'String'>
+    readonly ts: FieldRef<"Raid", 'DateTime'>
+    readonly result: FieldRef<"Raid", 'FightResult'>
+    readonly graveyard: FieldRef<"Raid", 'String[]'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Raid findUnique
+   */
+  export type RaidFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter, which Raid to fetch.
+     */
+    where: RaidWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid findUniqueOrThrow
+   */
+  export type RaidFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter, which Raid to fetch.
+     */
+    where: RaidWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid findFirst
+   */
+  export type RaidFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter, which Raid to fetch.
+     */
+    where?: RaidWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Raids to fetch.
+     */
+    orderBy?: RaidOrderByWithRelationInput | RaidOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Raids.
+     */
+    cursor?: RaidWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Raids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Raids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Raids.
+     */
+    distinct?: RaidScalarFieldEnum | RaidScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid findFirstOrThrow
+   */
+  export type RaidFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter, which Raid to fetch.
+     */
+    where?: RaidWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Raids to fetch.
+     */
+    orderBy?: RaidOrderByWithRelationInput | RaidOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Raids.
+     */
+    cursor?: RaidWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Raids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Raids.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Raids.
+     */
+    distinct?: RaidScalarFieldEnum | RaidScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid findMany
+   */
+  export type RaidFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter, which Raids to fetch.
+     */
+    where?: RaidWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Raids to fetch.
+     */
+    orderBy?: RaidOrderByWithRelationInput | RaidOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Raids.
+     */
+    cursor?: RaidWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Raids from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Raids.
+     */
+    skip?: number
+    distinct?: RaidScalarFieldEnum | RaidScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid create
+   */
+  export type RaidCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Raid.
+     */
+    data: XOR<RaidCreateInput, RaidUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid createMany
+   */
+  export type RaidCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Raids.
+     */
+    data: RaidCreateManyInput | RaidCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Raid createManyAndReturn
+   */
+  export type RaidCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * The data used to create many Raids.
+     */
+    data: RaidCreateManyInput | RaidCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Raid update
+   */
+  export type RaidUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Raid.
+     */
+    data: XOR<RaidUpdateInput, RaidUncheckedUpdateInput>
+    /**
+     * Choose, which Raid to update.
+     */
+    where: RaidWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid updateMany
+   */
+  export type RaidUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Raids.
+     */
+    data: XOR<RaidUpdateManyMutationInput, RaidUncheckedUpdateManyInput>
+    /**
+     * Filter which Raids to update
+     */
+    where?: RaidWhereInput
+    /**
+     * Limit how many Raids to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Raid updateManyAndReturn
+   */
+  export type RaidUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * The data used to update Raids.
+     */
+    data: XOR<RaidUpdateManyMutationInput, RaidUncheckedUpdateManyInput>
+    /**
+     * Filter which Raids to update
+     */
+    where?: RaidWhereInput
+    /**
+     * Limit how many Raids to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Raid upsert
+   */
+  export type RaidUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Raid to update in case it exists.
+     */
+    where: RaidWhereUniqueInput
+    /**
+     * In case the Raid found by the `where` argument doesn't exist, create a new Raid with this data.
+     */
+    create: XOR<RaidCreateInput, RaidUncheckedCreateInput>
+    /**
+     * In case the Raid was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RaidUpdateInput, RaidUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid delete
+   */
+  export type RaidDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+    /**
+     * Filter which Raid to delete.
+     */
+    where: RaidWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Raid deleteMany
+   */
+  export type RaidDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Raids to delete
+     */
+    where?: RaidWhereInput
+    /**
+     * Limit how many Raids to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Raid without action
+   */
+  export type RaidDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Raid
+     */
+    select?: RaidSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Raid
+     */
+    omit?: RaidOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RaidInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9792,6 +10974,17 @@ export namespace Prisma {
   };
 
   export type MissionScalarFieldEnum = (typeof MissionScalarFieldEnum)[keyof typeof MissionScalarFieldEnum]
+
+
+  export const RaidScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    ts: 'ts',
+    result: 'result',
+    graveyard: 'graveyard'
+  };
+
+  export type RaidScalarFieldEnum = (typeof RaidScalarFieldEnum)[keyof typeof RaidScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10008,6 +11201,7 @@ export namespace Prisma {
     ipAddressUser?: IpAddressUserListRelationFilter
     fights?: FightListRelationFilter
     missions?: MissionListRelationFilter
+    raids?: RaidListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10039,6 +11233,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserOrderByRelationAggregateInput
     fights?: FightOrderByRelationAggregateInput
     missions?: MissionOrderByRelationAggregateInput
+    raids?: RaidOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10073,6 +11268,7 @@ export namespace Prisma {
     ipAddressUser?: IpAddressUserListRelationFilter
     fights?: FightListRelationFilter
     missions?: MissionListRelationFilter
+    raids?: RaidListRelationFilter
   }, "id" | "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -10246,7 +11442,7 @@ export namespace Prisma {
     targetType?: IntFilter<"Trooper"> | number
     reloadSystem?: IntFilter<"Trooper"> | number
     moveSystem?: IntFilter<"Trooper"> | number
-    CBody?: IntNullableFilter<"Trooper"> | number | null
+    CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -10263,7 +11459,7 @@ export namespace Prisma {
     targetType?: SortOrder
     reloadSystem?: SortOrder
     moveSystem?: SortOrder
-    CBody?: SortOrderInput | SortOrder
+    CBody?: SortOrder
     CWeapon?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -10283,7 +11479,7 @@ export namespace Prisma {
     targetType?: IntFilter<"Trooper"> | number
     reloadSystem?: IntFilter<"Trooper"> | number
     moveSystem?: IntFilter<"Trooper"> | number
-    CBody?: IntNullableFilter<"Trooper"> | number | null
+    CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
@@ -10300,7 +11496,7 @@ export namespace Prisma {
     targetType?: SortOrder
     reloadSystem?: SortOrder
     moveSystem?: SortOrder
-    CBody?: SortOrderInput | SortOrder
+    CBody?: SortOrder
     CWeapon?: SortOrderInput | SortOrder
     _count?: TrooperCountOrderByAggregateInput
     _avg?: TrooperAvgOrderByAggregateInput
@@ -10324,7 +11520,7 @@ export namespace Prisma {
     targetType?: IntWithAggregatesFilter<"Trooper"> | number
     reloadSystem?: IntWithAggregatesFilter<"Trooper"> | number
     moveSystem?: IntWithAggregatesFilter<"Trooper"> | number
-    CBody?: IntNullableWithAggregatesFilter<"Trooper"> | number | null
+    CBody?: IntWithAggregatesFilter<"Trooper"> | number
     CWeapon?: IntNullableWithAggregatesFilter<"Trooper"> | number | null
   }
 
@@ -10514,6 +11710,61 @@ export namespace Prisma {
     result?: EnumFightResultWithAggregatesFilter<"Mission"> | $Enums.FightResult
   }
 
+  export type RaidWhereInput = {
+    AND?: RaidWhereInput | RaidWhereInput[]
+    OR?: RaidWhereInput[]
+    NOT?: RaidWhereInput | RaidWhereInput[]
+    id?: UuidFilter<"Raid"> | string
+    userId?: UuidFilter<"Raid"> | string
+    ts?: DateTimeFilter<"Raid"> | Date | string
+    result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
+    graveyard?: StringNullableListFilter<"Raid">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type RaidOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    result?: SortOrder
+    graveyard?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type RaidWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RaidWhereInput | RaidWhereInput[]
+    OR?: RaidWhereInput[]
+    NOT?: RaidWhereInput | RaidWhereInput[]
+    userId?: UuidFilter<"Raid"> | string
+    ts?: DateTimeFilter<"Raid"> | Date | string
+    result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
+    graveyard?: StringNullableListFilter<"Raid">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type RaidOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    result?: SortOrder
+    graveyard?: SortOrder
+    _count?: RaidCountOrderByAggregateInput
+    _max?: RaidMaxOrderByAggregateInput
+    _min?: RaidMinOrderByAggregateInput
+  }
+
+  export type RaidScalarWhereWithAggregatesInput = {
+    AND?: RaidScalarWhereWithAggregatesInput | RaidScalarWhereWithAggregatesInput[]
+    OR?: RaidScalarWhereWithAggregatesInput[]
+    NOT?: RaidScalarWhereWithAggregatesInput | RaidScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Raid"> | string
+    userId?: UuidWithAggregatesFilter<"Raid"> | string
+    ts?: DateTimeWithAggregatesFilter<"Raid"> | Date | string
+    result?: EnumFightResultWithAggregatesFilter<"Raid"> | $Enums.FightResult
+    graveyard?: StringNullableListFilter<"Raid">
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: $Enums.Lang
@@ -10542,6 +11793,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10572,6 +11824,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10602,6 +11855,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10632,6 +11886,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10812,7 +12067,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
     user: UserCreateNestedOneWithoutTroopersInput
   }
@@ -10829,7 +12084,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
   }
 
@@ -10844,7 +12099,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutTroopersNestedInput
   }
@@ -10861,7 +12116,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -10877,7 +12132,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
   }
 
@@ -10892,7 +12147,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -10908,7 +12163,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -11106,6 +12361,61 @@ export namespace Prisma {
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
   }
 
+  export type RaidCreateInput = {
+    id?: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+    user: UserCreateNestedOneWithoutRaidsInput
+  }
+
+  export type RaidUncheckedCreateInput = {
+    id?: string
+    userId: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+  }
+
+  export type RaidUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+    user?: UserUpdateOneRequiredWithoutRaidsNestedInput
+  }
+
+  export type RaidUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+  }
+
+  export type RaidCreateManyInput = {
+    id?: string
+    userId: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+  }
+
+  export type RaidUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+  }
+
+  export type RaidUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11231,6 +12541,12 @@ export namespace Prisma {
     none?: MissionWhereInput
   }
 
+  export type RaidListRelationFilter = {
+    every?: RaidWhereInput
+    some?: RaidWhereInput
+    none?: RaidWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11257,6 +12573,10 @@ export namespace Prisma {
   }
 
   export type MissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RaidOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11812,6 +13132,36 @@ export namespace Prisma {
     _max?: NestedEnumMissionTypeFilter<$PrismaModel>
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type RaidCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    result?: SortOrder
+    graveyard?: SortOrder
+  }
+
+  export type RaidMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    result?: SortOrder
+  }
+
+  export type RaidMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ts?: SortOrder
+    result?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutSponsoredUsersInput = {
     create?: XOR<UserCreateWithoutSponsoredUsersInput, UserUncheckedCreateWithoutSponsoredUsersInput>
     connectOrCreate?: UserCreateOrConnectWithoutSponsoredUsersInput
@@ -11860,6 +13210,13 @@ export namespace Prisma {
     connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
   }
 
+  export type RaidCreateNestedManyWithoutUserInput = {
+    create?: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput> | RaidCreateWithoutUserInput[] | RaidUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RaidCreateOrConnectWithoutUserInput | RaidCreateOrConnectWithoutUserInput[]
+    createMany?: RaidCreateManyUserInputEnvelope
+    connect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutSponsoredByInput = {
     create?: XOR<UserCreateWithoutSponsoredByInput, UserUncheckedCreateWithoutSponsoredByInput> | UserCreateWithoutSponsoredByInput[] | UserUncheckedCreateWithoutSponsoredByInput[]
     connectOrCreate?: UserCreateOrConnectWithoutSponsoredByInput | UserCreateOrConnectWithoutSponsoredByInput[]
@@ -11900,6 +13257,13 @@ export namespace Prisma {
     connectOrCreate?: MissionCreateOrConnectWithoutUserInput | MissionCreateOrConnectWithoutUserInput[]
     createMany?: MissionCreateManyUserInputEnvelope
     connect?: MissionWhereUniqueInput | MissionWhereUniqueInput[]
+  }
+
+  export type RaidUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput> | RaidCreateWithoutUserInput[] | RaidUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RaidCreateOrConnectWithoutUserInput | RaidCreateOrConnectWithoutUserInput[]
+    createMany?: RaidCreateManyUserInputEnvelope
+    connect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12028,6 +13392,20 @@ export namespace Prisma {
     deleteMany?: MissionScalarWhereInput | MissionScalarWhereInput[]
   }
 
+  export type RaidUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput> | RaidCreateWithoutUserInput[] | RaidUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RaidCreateOrConnectWithoutUserInput | RaidCreateOrConnectWithoutUserInput[]
+    upsert?: RaidUpsertWithWhereUniqueWithoutUserInput | RaidUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RaidCreateManyUserInputEnvelope
+    set?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    disconnect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    delete?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    connect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    update?: RaidUpdateWithWhereUniqueWithoutUserInput | RaidUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RaidUpdateManyWithWhereWithoutUserInput | RaidUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RaidScalarWhereInput | RaidScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutSponsoredByNestedInput = {
     create?: XOR<UserCreateWithoutSponsoredByInput, UserUncheckedCreateWithoutSponsoredByInput> | UserCreateWithoutSponsoredByInput[] | UserUncheckedCreateWithoutSponsoredByInput[]
     connectOrCreate?: UserCreateOrConnectWithoutSponsoredByInput | UserCreateOrConnectWithoutSponsoredByInput[]
@@ -12110,6 +13488,20 @@ export namespace Prisma {
     update?: MissionUpdateWithWhereUniqueWithoutUserInput | MissionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MissionUpdateManyWithWhereWithoutUserInput | MissionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MissionScalarWhereInput | MissionScalarWhereInput[]
+  }
+
+  export type RaidUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput> | RaidCreateWithoutUserInput[] | RaidUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RaidCreateOrConnectWithoutUserInput | RaidCreateOrConnectWithoutUserInput[]
+    upsert?: RaidUpsertWithWhereUniqueWithoutUserInput | RaidUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RaidCreateManyUserInputEnvelope
+    set?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    disconnect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    delete?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    connect?: RaidWhereUniqueInput | RaidWhereUniqueInput[]
+    update?: RaidUpdateWithWhereUniqueWithoutUserInput | RaidUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RaidUpdateManyWithWhereWithoutUserInput | RaidUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RaidScalarWhereInput | RaidScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutIpAddressUserInput = {
@@ -12218,6 +13610,29 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMissionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMissionsInput, UserUpdateWithoutMissionsInput>, UserUncheckedUpdateWithoutMissionsInput>
+  }
+
+  export type RaidCreategraveyardInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutRaidsInput = {
+    create?: XOR<UserCreateWithoutRaidsInput, UserUncheckedCreateWithoutRaidsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRaidsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RaidUpdategraveyardInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutRaidsNestedInput = {
+    create?: XOR<UserCreateWithoutRaidsInput, UserUncheckedCreateWithoutRaidsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRaidsInput
+    upsert?: UserUpsertWithoutRaidsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRaidsInput, UserUpdateWithoutRaidsInput>, UserUncheckedUpdateWithoutRaidsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -12572,6 +13987,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSponsoredUsersInput = {
@@ -12601,6 +14017,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSponsoredUsersInput = {
@@ -12635,6 +14052,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSponsoredByInput = {
@@ -12664,6 +14082,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSponsoredByInput = {
@@ -12687,7 +14106,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
   }
 
@@ -12702,7 +14121,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
   }
 
@@ -12818,6 +14237,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RaidCreateWithoutUserInput = {
+    id?: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+  }
+
+  export type RaidUncheckedCreateWithoutUserInput = {
+    id?: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+  }
+
+  export type RaidCreateOrConnectWithoutUserInput = {
+    where: RaidWhereUniqueInput
+    create: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput>
+  }
+
+  export type RaidCreateManyUserInputEnvelope = {
+    data: RaidCreateManyUserInput | RaidCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutSponsoredUsersInput = {
     update: XOR<UserUpdateWithoutSponsoredUsersInput, UserUncheckedUpdateWithoutSponsoredUsersInput>
     create: XOR<UserCreateWithoutSponsoredUsersInput, UserUncheckedCreateWithoutSponsoredUsersInput>
@@ -12856,6 +14299,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSponsoredUsersInput = {
@@ -12885,6 +14329,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutSponsoredByInput = {
@@ -12961,7 +14406,7 @@ export namespace Prisma {
     targetType?: IntFilter<"Trooper"> | number
     reloadSystem?: IntFilter<"Trooper"> | number
     moveSystem?: IntFilter<"Trooper"> | number
-    CBody?: IntNullableFilter<"Trooper"> | number | null
+    CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
   }
 
@@ -13076,6 +14521,33 @@ export namespace Prisma {
     result?: EnumFightResultFilter<"Mission"> | $Enums.FightResult
   }
 
+  export type RaidUpsertWithWhereUniqueWithoutUserInput = {
+    where: RaidWhereUniqueInput
+    update: XOR<RaidUpdateWithoutUserInput, RaidUncheckedUpdateWithoutUserInput>
+    create: XOR<RaidCreateWithoutUserInput, RaidUncheckedCreateWithoutUserInput>
+  }
+
+  export type RaidUpdateWithWhereUniqueWithoutUserInput = {
+    where: RaidWhereUniqueInput
+    data: XOR<RaidUpdateWithoutUserInput, RaidUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RaidUpdateManyWithWhereWithoutUserInput = {
+    where: RaidScalarWhereInput
+    data: XOR<RaidUpdateManyMutationInput, RaidUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RaidScalarWhereInput = {
+    AND?: RaidScalarWhereInput | RaidScalarWhereInput[]
+    OR?: RaidScalarWhereInput[]
+    NOT?: RaidScalarWhereInput | RaidScalarWhereInput[]
+    id?: UuidFilter<"Raid"> | string
+    userId?: UuidFilter<"Raid"> | string
+    ts?: DateTimeFilter<"Raid"> | Date | string
+    result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
+    graveyard?: StringNullableListFilter<"Raid">
+  }
+
   export type UserCreateWithoutIpAddressUserInput = {
     id: string
     lang?: $Enums.Lang
@@ -13103,6 +14575,7 @@ export namespace Prisma {
     history?: HistoryUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIpAddressUserInput = {
@@ -13132,6 +14605,7 @@ export namespace Prisma {
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIpAddressUserInput = {
@@ -13177,6 +14651,7 @@ export namespace Prisma {
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIpAddressUserInput = {
@@ -13206,6 +14681,7 @@ export namespace Prisma {
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutHistoryInput = {
@@ -13235,6 +14711,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHistoryInput = {
@@ -13264,6 +14741,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHistoryInput = {
@@ -13309,6 +14787,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHistoryInput = {
@@ -13338,6 +14817,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTroopersInput = {
@@ -13367,6 +14847,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTroopersInput = {
@@ -13396,6 +14877,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTroopersInput = {
@@ -13441,6 +14923,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTroopersInput = {
@@ -13470,6 +14953,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFightsInput = {
@@ -13499,6 +14983,7 @@ export namespace Prisma {
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     missions?: MissionCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFightsInput = {
@@ -13528,6 +15013,7 @@ export namespace Prisma {
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFightsInput = {
@@ -13573,6 +15059,7 @@ export namespace Prisma {
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFightsInput = {
@@ -13602,6 +15089,7 @@ export namespace Prisma {
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMissionsInput = {
@@ -13631,6 +15119,7 @@ export namespace Prisma {
     history?: HistoryUserCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
     fights?: FightCreateNestedManyWithoutUserInput
+    raids?: RaidCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMissionsInput = {
@@ -13660,6 +15149,7 @@ export namespace Prisma {
     history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
     ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
     fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    raids?: RaidUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMissionsInput = {
@@ -13705,6 +15195,7 @@ export namespace Prisma {
     history?: HistoryUserUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMissionsInput = {
@@ -13734,6 +15225,143 @@ export namespace Prisma {
     history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutRaidsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    createdAt?: Date | string
+    lastConnexion?: Date | string
+    admin?: boolean
+    connexionToken: string
+    gold?: number
+    power?: number
+    armyName: string
+    armyUrl: string
+    prefix?: number
+    color?: number
+    referralGold?: number
+    ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
+    sponsoredBy?: UserCreateNestedOneWithoutSponsoredUsersInput
+    sponsoredUsers?: UserCreateNestedManyWithoutSponsoredByInput
+    troopers?: TrooperCreateNestedManyWithoutUserInput
+    history?: HistoryUserCreateNestedManyWithoutUserInput
+    ipAddressUser?: ipAddressUserCreateNestedManyWithoutUserInput
+    fights?: FightCreateNestedManyWithoutUserInput
+    missions?: MissionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRaidsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    createdAt?: Date | string
+    lastConnexion?: Date | string
+    admin?: boolean
+    connexionToken: string
+    gold?: number
+    power?: number
+    armyName: string
+    armyUrl: string
+    prefix?: number
+    color?: number
+    sponsoredById?: string | null
+    referralGold?: number
+    ratsCount?: number
+    infiltrationOpponentArmy?: string | null
+    infiltrationOpponentDate?: Date | string | null
+    infiltrationUnlockAt?: Date | string | null
+    exterminationUnlockAt?: Date | string | null
+    epicUnlockAt?: Date | string | null
+    sponsoredUsers?: UserUncheckedCreateNestedManyWithoutSponsoredByInput
+    troopers?: TrooperUncheckedCreateNestedManyWithoutUserInput
+    history?: HistoryUserUncheckedCreateNestedManyWithoutUserInput
+    ipAddressUser?: ipAddressUserUncheckedCreateNestedManyWithoutUserInput
+    fights?: FightUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRaidsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRaidsInput, UserUncheckedCreateWithoutRaidsInput>
+  }
+
+  export type UserUpsertWithoutRaidsInput = {
+    update: XOR<UserUpdateWithoutRaidsInput, UserUncheckedUpdateWithoutRaidsInput>
+    create: XOR<UserCreateWithoutRaidsInput, UserUncheckedCreateWithoutRaidsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRaidsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRaidsInput, UserUncheckedUpdateWithoutRaidsInput>
+  }
+
+  export type UserUpdateWithoutRaidsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastConnexion?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    gold?: IntFieldUpdateOperationsInput | number
+    power?: IntFieldUpdateOperationsInput | number
+    armyName?: StringFieldUpdateOperationsInput | string
+    armyUrl?: StringFieldUpdateOperationsInput | string
+    prefix?: IntFieldUpdateOperationsInput | number
+    color?: IntFieldUpdateOperationsInput | number
+    referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sponsoredBy?: UserUpdateOneWithoutSponsoredUsersNestedInput
+    sponsoredUsers?: UserUpdateManyWithoutSponsoredByNestedInput
+    troopers?: TrooperUpdateManyWithoutUserNestedInput
+    history?: HistoryUserUpdateManyWithoutUserNestedInput
+    ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
+    fights?: FightUpdateManyWithoutUserNestedInput
+    missions?: MissionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRaidsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastConnexion?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    gold?: IntFieldUpdateOperationsInput | number
+    power?: IntFieldUpdateOperationsInput | number
+    armyName?: StringFieldUpdateOperationsInput | string
+    armyUrl?: StringFieldUpdateOperationsInput | string
+    prefix?: IntFieldUpdateOperationsInput | number
+    color?: IntFieldUpdateOperationsInput | number
+    sponsoredById?: NullableStringFieldUpdateOperationsInput | string | null
+    referralGold?: IntFieldUpdateOperationsInput | number
+    ratsCount?: IntFieldUpdateOperationsInput | number
+    infiltrationOpponentArmy?: NullableStringFieldUpdateOperationsInput | string | null
+    infiltrationOpponentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    infiltrationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exterminationUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    epicUnlockAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sponsoredUsers?: UserUncheckedUpdateManyWithoutSponsoredByNestedInput
+    troopers?: TrooperUncheckedUpdateManyWithoutUserNestedInput
+    history?: HistoryUserUncheckedUpdateManyWithoutUserNestedInput
+    ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
+    fights?: FightUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManySponsoredByInput = {
@@ -13770,7 +15398,7 @@ export namespace Prisma {
     targetType?: number
     reloadSystem?: number
     moveSystem?: number
-    CBody?: number | null
+    CBody?: number
     CWeapon?: number | null
   }
 
@@ -13805,6 +15433,13 @@ export namespace Prisma {
     result: $Enums.FightResult
   }
 
+  export type RaidCreateManyUserInput = {
+    id?: string
+    ts?: Date | string
+    result: $Enums.FightResult
+    graveyard?: RaidCreategraveyardInput | string[]
+  }
+
   export type UserUpdateWithoutSponsoredByInput = {
     id?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
@@ -13832,6 +15467,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUpdateManyWithoutUserNestedInput
     fights?: FightUpdateManyWithoutUserNestedInput
     missions?: MissionUpdateManyWithoutUserNestedInput
+    raids?: RaidUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSponsoredByInput = {
@@ -13861,6 +15497,7 @@ export namespace Prisma {
     ipAddressUser?: ipAddressUserUncheckedUpdateManyWithoutUserNestedInput
     fights?: FightUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionUncheckedUpdateManyWithoutUserNestedInput
+    raids?: RaidUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSponsoredByInput = {
@@ -13897,7 +15534,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -13912,7 +15549,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -13927,7 +15564,7 @@ export namespace Prisma {
     targetType?: IntFieldUpdateOperationsInput | number
     reloadSystem?: IntFieldUpdateOperationsInput | number
     moveSystem?: IntFieldUpdateOperationsInput | number
-    CBody?: NullableIntFieldUpdateOperationsInput | number | null
+    CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -14022,6 +15659,27 @@ export namespace Prisma {
     type?: EnumMissionTypeFieldUpdateOperationsInput | $Enums.MissionType
     missionInputSWFData?: StringFieldUpdateOperationsInput | string
     result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+  }
+
+  export type RaidUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+  }
+
+  export type RaidUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
+  }
+
+  export type RaidUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ts?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: EnumFightResultFieldUpdateOperationsInput | $Enums.FightResult
+    graveyard?: RaidUpdategraveyardInput | string[]
   }
 
 

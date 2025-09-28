@@ -1,4 +1,10 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fight } from '@minitroopers/prisma';
 import { PartialUserExtended } from '@minitroopers/shared';
@@ -13,12 +19,13 @@ import { ArmyStore } from 'src/app/stores/army.store';
   templateUrl: './view-fight.component.html',
   styleUrl: './view-fight.component.scss',
 })
-export class ViewFightComponent {
+export class ViewFightComponent implements AfterViewInit {
   @ViewChild('insert') element!: ElementRef;
 
   fight: Fight | undefined = undefined;
   loadingFight: boolean = false;
   fightType: 'war' | 'mission' = 'war';
+  savedSwfData: string | null = null;
 
   userArmy: PartialUserExtended | undefined = undefined;
   userOpponent: PartialUserExtended | undefined = undefined;
@@ -30,45 +37,61 @@ export class ViewFightComponent {
 
   constructor() {
     this.loadingFight = true;
-    const fightId = this.route.snapshot.params['warId'];
-    if (fightId != null) {
-      if (this.route.routeConfig?.path === 'war/:warId') {
-        this.fightType = 'war';
-        this.fightService
-          .getFightDetails(fightId)
-          .pipe(take(1))
-          .subscribe((response) => {
-            this.userArmy = response.left as PartialUserExtended;
-            this.userOpponent = response.right as PartialUserExtended;
+    const state = this.router.currentNavigation()?.extras.state;
 
-            if (this.element) {
-              this.fightService.renderFight(
-                this.element.nativeElement,
-                response.data,
-              );
-            }
+    if (state && state['swfData']) {
+      this.fightType = 'mission';
+      this.savedSwfData = state['swfData'];
+    } else {
+      const fightId = this.route.snapshot.params['warId'];
+      if (fightId != null) {
+        if (this.route.routeConfig?.path === 'war/:warId') {
+          this.fightType = 'war';
+          this.fightService
+            .getFightDetails(fightId)
+            .pipe(take(1))
+            .subscribe((response) => {
+              this.userArmy = response.left as PartialUserExtended;
+              this.userOpponent = response.right as PartialUserExtended;
 
-            this.loadingFight = false;
-          });
-      } else if (this.route.routeConfig?.path === 'mission/:warId') {
-        this.fightType = 'mission';
-        this.fightService
-          .getMissionDetails(fightId)
-          .pipe(take(1))
-          .subscribe((response) => {
-            this.userArmy = response.left as PartialUserExtended;
-            this.userOpponent = response.right as PartialUserExtended;
+              if (this.element) {
+                this.fightService.renderFight(
+                  this.element.nativeElement,
+                  response.data,
+                );
+              }
 
-            if (this.element) {
-              this.fightService.renderFight(
-                this.element.nativeElement,
-                response.data,
-              );
-            }
+              this.loadingFight = false;
+            });
+        } else if (this.route.routeConfig?.path === 'mission/:warId') {
+          this.fightType = 'mission';
+          this.fightService
+            .getMissionDetails(fightId)
+            .pipe(take(1))
+            .subscribe((response) => {
+              this.userArmy = response.left as PartialUserExtended;
+              this.userOpponent = response.right as PartialUserExtended;
 
-            this.loadingFight = false;
-          });
+              if (this.element) {
+                this.fightService.renderFight(
+                  this.element.nativeElement,
+                  response.data,
+                );
+              }
+
+              this.loadingFight = false;
+            });
+        }
       }
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.element && this.savedSwfData) {
+      this.fightService.renderFight(
+        this.element.nativeElement,
+        this.savedSwfData,
+      );
     }
   }
 

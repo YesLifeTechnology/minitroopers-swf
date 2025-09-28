@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.12.0
- * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+ * Prisma Client JS version: 6.16.2
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.12.0",
-  engine: "8047c96bbd92db98a2abc7c9323ce77c02c89dbc"
+  client: "6.16.2",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -207,6 +207,14 @@ exports.Prisma.MissionScalarFieldEnum = {
   result: 'result'
 };
 
+exports.Prisma.RaidScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ts: 'ts',
+  result: 'result',
+  graveyard: 'graveyard'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -268,7 +276,8 @@ exports.Prisma.ModelName = {
   Trooper: 'Trooper',
   TrooperDay: 'TrooperDay',
   Fight: 'Fight',
-  Mission: 'Mission'
+  Mission: 'Mission',
+  Raid: 'Raid'
 };
 
 /**

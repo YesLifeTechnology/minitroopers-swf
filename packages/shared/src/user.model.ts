@@ -11,6 +11,7 @@ export interface UserExtended extends User {
   history: { type: HistoryType; options: any; ts: Date }[];
   fights: { id: string; result: FightResult; ts: Date }[];
   missions: { id: string; type: MissionType; result: FightResult; ts: Date }[];
+  raids: { id: string; result: FightResult; ts: Date; graveyard: string[] }[];
   ipAddressUser: { ip: string }[];
 }
 
@@ -51,6 +52,7 @@ export const parseToPartialUser = (user: UserExtended): PartialUserExtended => {
     history: [],
     fights: [],
     missions: [],
+    raids: [],
     troopers: user.troopers ?? [],
     epicUnlockAt: user.epicUnlockAt,
     exterminationUnlockAt: user.exterminationUnlockAt,

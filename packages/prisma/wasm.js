@@ -5,13 +5,28 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const {
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientInitializationError,
+  PrismaClientValidationError,
+  getPrismaClient,
+  sqltag,
+  empty,
+  join,
+  raw,
+  skip,
   Decimal,
+  Debug,
   objectEnumValues,
   makeStrictEnum,
+  Extensions,
+  warnOnce,
+  defineDmmfProperty,
   Public,
   getRuntime,
-  skip
-} = require('./runtime/index-browser.js')
+  createParam,
+} = require('./runtime/wasm-engine-edge.js')
 
 
 const Prisma = {}
@@ -20,79 +35,35 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.12.0
- * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+ * Prisma Client JS version: 6.16.2
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.12.0",
-  engine: "8047c96bbd92db98a2abc7c9323ce77c02c89dbc"
+  client: "6.16.2",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
-Prisma.PrismaClientKnownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientKnownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)};
-Prisma.PrismaClientUnknownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientUnknownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientRustPanicError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientRustPanicError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientInitializationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientInitializationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientValidationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
+Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError
+Prisma.PrismaClientRustPanicError = PrismaClientRustPanicError
+Prisma.PrismaClientInitializationError = PrismaClientInitializationError
+Prisma.PrismaClientValidationError = PrismaClientValidationError
 Prisma.Decimal = Decimal
 
 /**
  * Re-export of sql-template-tag
  */
-Prisma.sql = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`sqltag is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.empty = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`empty is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.join = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`join is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.raw = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`raw is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.sql = sqltag
+Prisma.empty = empty
+Prisma.join = join
+Prisma.raw = raw
 Prisma.validator = Public.validator
 
 /**
 * Extensions
 */
-Prisma.getExtensionContext = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.getExtensionContext is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.defineExtension = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.defineExtension is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.getExtensionContext = Extensions.getExtensionContext
+Prisma.defineExtension = Extensions.defineExtension
 
 /**
  * Shorthand utilities for JSON filtering
@@ -109,10 +80,11 @@ Prisma.NullTypes = {
 
 
 
+
+
 /**
  * Enums
  */
-
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -207,6 +179,14 @@ exports.Prisma.MissionScalarFieldEnum = {
   result: 'result'
 };
 
+exports.Prisma.RaidScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ts: 'ts',
+  result: 'result',
+  graveyard: 'graveyard'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -268,36 +248,88 @@ exports.Prisma.ModelName = {
   Trooper: 'Trooper',
   TrooperDay: 'TrooperDay',
   Fight: 'Fight',
-  Mission: 'Mission'
+  Mission: 'Mission',
+  Raid: 'Raid'
 };
-
 /**
- * This is a stub Prisma Client that will error at runtime if called.
+ * Create the Client
  */
-class PrismaClient {
-  constructor() {
-    return new Proxy(this, {
-      get(target, prop) {
-        let message
-        const runtime = getRuntime()
-        if (runtime.isEdge) {
-          message = `PrismaClient is not configured to run in ${runtime.prettyName}. In order to run Prisma Client on edge runtime, either:
-- Use Prisma Accelerate: https://pris.ly/d/accelerate
-- Use Driver Adapters: https://pris.ly/d/driver-adapters
-`;
-        } else {
-          message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
-        }
-
-        message += `
-If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
-
-        throw new Error(message)
+const config = {
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "C:\\Users\\fanba\\Documents\\minitroopers-swf\\packages\\prisma",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "windows",
+        "native": true
       }
-    })
+    ],
+    "previewFeatures": [
+      "nativeDistinct",
+      "relationJoins"
+    ],
+    "sourceFilePath": "C:\\Users\\fanba\\Documents\\minitroopers-swf\\packages\\prisma\\schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../.env"
+  },
+  "relativePath": "",
+  "clientVersion": "6.16.2",
+  "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
+  "datasourceNames": [
+    "db"
+  ],
+  "activeProvider": "postgresql",
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  output          = \"./\"\n  previewFeatures = [\"nativeDistinct\", \"relationJoins\"]\n  binaryTargets   = [\"native\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Lang {\n  en\n  fr\n  de\n  es\n  ru\n  pt\n}\n\nmodel User {\n  id                       String          @id @unique @db.Uuid\n  lang                     Lang            @default(fr)\n  name                     String          @db.VarChar(255)\n  createdAt                DateTime        @default(now()) @db.Timestamptz()\n  lastConnexion            DateTime        @default(now()) @db.Timestamptz()\n  admin                    Boolean         @default(false)\n  connexionToken           String          @db.Uuid\n  gold                     Int             @default(0)\n  power                    Int             @default(0)\n  armyName                 String          @db.VarChar(255)\n  armyUrl                  String          @db.VarChar(255) //to remove ?\n  prefix                   Int             @default(0)\n  color                    Int             @default(0) // 0~5\n  sponsoredBy              User?           @relation(\"UserSponsor\", fields: [sponsoredById], references: [id])\n  sponsoredById            String?         @db.Uuid\n  sponsoredUsers           User[]          @relation(\"UserSponsor\")\n  referralGold             Int             @default(100)\n  ratsCount                Int             @default(0)\n  infiltrationOpponentArmy String?         @db.Uuid\n  infiltrationOpponentDate DateTime?\n  troopers                 Trooper[]\n  history                  HistoryUser[]\n  ipAddressUser            ipAddressUser[]\n  fights                   Fight[]\n  missions                 Mission[]\n  infiltrationUnlockAt     DateTime?       @db.Timestamptz\n  exterminationUnlockAt    DateTime?       @db.Timestamptz\n  epicUnlockAt             DateTime?       @db.Timestamptz\n  raids                    Raid[]\n}\n\nmodel ipAddressUser {\n  id     String @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @db.Uuid\n  ip     String\n}\n\nenum HistoryType {\n  creation\n  war\n  trooperAdd\n  trooperUpdate\n  trooperAvailable\n  recruit\n}\n\nmodel HistoryUser {\n  id      String      @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  ts      DateTime    @default(now()) @db.Timestamptz()\n  type    HistoryType\n  options Json?\n  user    User        @relation(fields: [userId], references: [id])\n  userId  String      @db.Uuid\n}\n\nmodel Trooper {\n  id           String   @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  createdAt    DateTime @default(now()) @db.Timestamptz()\n  user         User     @relation(fields: [userId], references: [id])\n  userId       String   @db.Uuid\n  name         String   @db.VarChar(255)\n  choices      Int[]\n  group        Int\n  seed         Int\n  targetSystem Int      @default(0)\n  targetType   Int      @default(0)\n  reloadSystem Int      @default(2)\n  moveSystem   Int      @default(1)\n  CBody        Int      @default(0)\n  CWeapon      Int? //null\n}\n\nmodel TrooperDay {\n  id      String @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name    String @db.VarChar(255)\n  seed    Int\n  choices Int[]\n}\n\nenum FightResult {\n  win\n  lose\n}\n\nmodel Fight {\n  id                String      @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user              User        @relation(fields: [userId], references: [id])\n  userId            String      @db.Uuid\n  ts                DateTime    @default(now()) @db.Timestamptz()\n  userName          String\n  userPrefix        Int\n  opponentName      String\n  opponentPrefix    Int\n  fightInputSWFData String\n  result            FightResult\n}\n\nenum MissionType {\n  exterminate\n  infiltrate\n  epic\n}\n\nmodel Mission {\n  id                  String      @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user                User        @relation(fields: [userId], references: [id])\n  userId              String      @db.Uuid\n  ts                  DateTime    @default(now()) @db.Timestamptz()\n  type                MissionType\n  missionInputSWFData String\n  result              FightResult\n}\n\nmodel Raid {\n  id        String      @id @unique @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user      User        @relation(fields: [userId], references: [id])\n  userId    String      @db.Uuid\n  ts        DateTime    @default(now()) @db.Timestamptz()\n  result    FightResult\n  graveyard String[]\n}\n",
+  "inlineSchemaHash": "4eef061584427c245c85dd2401484c20f2df98d85f940122651cecd31895170d",
+  "copyEngine": true
+}
+config.dirname = '/'
+
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lang\",\"kind\":\"enum\",\"type\":\"Lang\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"lastConnexion\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"admin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"connexionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gold\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"power\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"armyName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"armyUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"prefix\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"color\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sponsoredBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserSponsor\"},{\"name\":\"sponsoredById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sponsoredUsers\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserSponsor\"},{\"name\":\"referralGold\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ratsCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"infiltrationOpponentArmy\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"infiltrationOpponentDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"troopers\",\"kind\":\"object\",\"type\":\"Trooper\",\"relationName\":\"TrooperToUser\"},{\"name\":\"history\",\"kind\":\"object\",\"type\":\"HistoryUser\",\"relationName\":\"HistoryUserToUser\"},{\"name\":\"ipAddressUser\",\"kind\":\"object\",\"type\":\"ipAddressUser\",\"relationName\":\"UserToipAddressUser\"},{\"name\":\"fights\",\"kind\":\"object\",\"type\":\"Fight\",\"relationName\":\"FightToUser\"},{\"name\":\"missions\",\"kind\":\"object\",\"type\":\"Mission\",\"relationName\":\"MissionToUser\"},{\"name\":\"infiltrationUnlockAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"exterminationUnlockAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"epicUnlockAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"raids\",\"kind\":\"object\",\"type\":\"Raid\",\"relationName\":\"RaidToUser\"}],\"dbName\":null},\"ipAddressUser\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToipAddressUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ip\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"HistoryUser\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ts\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"HistoryType\"},{\"name\":\"options\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"HistoryUserToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Trooper\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TrooperToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"choices\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"group\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"seed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"targetSystem\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"targetType\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reloadSystem\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"moveSystem\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"CBody\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"CWeapon\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"TrooperDay\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"seed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"choices\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Fight\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FightToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ts\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userPrefix\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"opponentName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"opponentPrefix\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fightInputSWFData\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"result\",\"kind\":\"enum\",\"type\":\"FightResult\"}],\"dbName\":null},\"Mission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MissionToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ts\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"MissionType\"},{\"name\":\"missionInputSWFData\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"result\",\"kind\":\"enum\",\"type\":\"FightResult\"}],\"dbName\":null},\"Raid\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RaidToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ts\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"result\",\"kind\":\"enum\",\"type\":\"FightResult\"},{\"name\":\"graveyard\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
   }
 }
+config.compilerWasm = undefined
 
+config.injectableEdgeEnv = () => ({
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
+  }
+})
+
+if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
+  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
+}
+
+const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
-
 Object.assign(exports, Prisma)
+

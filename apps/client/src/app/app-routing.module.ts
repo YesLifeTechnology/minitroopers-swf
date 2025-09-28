@@ -45,6 +45,10 @@ const routes: Routes = [
     component: ViewFightComponent,
   },
   {
+    path: 'raid/:warId',
+    component: ViewFightComponent,
+  },
+  {
     path: 'admin',
     component: AdminComponent,
   },

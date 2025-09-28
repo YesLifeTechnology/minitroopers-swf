@@ -134,6 +134,23 @@ export const IncludeAllUserData = () => {
         ts: true,
       },
     },
+    raids: {
+      take: 20,
+      select: {
+        id: true,
+        result: true,
+        graveyard: true,
+        ts: true,
+      },
+      where: {
+        ts: {
+          gte: today,
+        },
+      },
+      orderBy: {
+        ts: "desc" as Prisma.SortOrder,
+      },
+    },
   };
 };
 
@@ -205,4 +222,45 @@ export const generateBattleData = (
   const serialized = Serializer.serialize(obfuscatedData);
 
   return encodeURIComponent(serialized);
+};
+
+export const getRaidTroopers = async (
+  prisma: PrismaClient,
+  armyName: string,
+) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      armyName: armyName,
+    },
+    include: {
+      ...IncludeAllUserData(),
+      sponsoredUsers: {
+        include: {
+          troopers: true,
+        },
+      },
+    },
+  });
+
+  if (!user || user.troopers.length == 0) {
+    throw new Error();
+  }
+
+  let troopers: string[] = [];
+
+  const troopersInGraveyard = user.raids.map((x) => x.graveyard).flat();
+  if (!troopersInGraveyard.includes(user.troopers[0].id)) {
+    troopers.push(user.troopers[0].id);
+  }
+
+  for (const affiliatedUser of user.sponsoredUsers) {
+    if (
+      affiliatedUser.troopers.length &&
+      !troopersInGraveyard.includes(affiliatedUser.troopers[0].id)
+    ) {
+      troopers.push(affiliatedUser.troopers[0].id);
+    }
+  }
+
+  return troopers;
 };

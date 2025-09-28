@@ -29,6 +29,24 @@ export class FightService {
       );
   }
 
+  getTroopersRaid() {
+    return this.http
+      .get<{
+        troopers: string[];
+      }>(environment.apiUrl + '/api/fight/getTroopersRaid', {
+        params: new HttpParams({
+          fromObject: {
+            army: this.armyStore.army()!.armyName,
+          },
+        }),
+      })
+      .pipe(
+        map((response) =>
+          response?.troopers?.length ? response.troopers : [],
+        ),
+      );
+  }
+
   createFight(opponentName: string) {
     return this.http
       .post<{ user: UserExtended; fightId: string }>(
@@ -54,6 +72,22 @@ export class FightService {
           missionType: type,
         },
       )
+      .pipe(
+        tap((response) => {
+          if (response?.user) {
+            this.armyStore.updateArmy(response.user);
+          }
+        }),
+      );
+  }
+
+  createRaid() {
+    return this.http
+      .post<{
+        user: UserExtended;
+        raidId: string;
+        swfData: string;
+      }>(environment.apiUrl + '/api/raid/createRaid', {})
       .pipe(
         tap((response) => {
           if (response?.user) {

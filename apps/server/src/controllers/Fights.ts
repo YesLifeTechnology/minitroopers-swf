@@ -10,6 +10,7 @@ import { Ruffle } from "../utils/Ruffle.js";
 import {
   auth,
   generateBattleData,
+  getRaidTroopers,
   IncludeAllUserData,
 } from "../utils/UserHelper.js";
 
@@ -149,6 +150,20 @@ const Fights = {
       return res.send({ status: "error", reason: error?.message });
     }
   },
+
+  getTroopersRaid:
+    (prisma: PrismaClient) => async (req: Request, res: Response) => {
+      try {
+        if (!req.query.army || typeof req.query.army != "string") {
+          throw new Error();
+        }
+
+        const troopers = await getRaidTroopers(prisma, req.query.army);
+        return res.send({ troopers: troopers });
+      } catch (error: any) {
+        return res.send({ status: "error", reason: error?.message });
+      }
+    },
 };
 
 const generateFight = async (

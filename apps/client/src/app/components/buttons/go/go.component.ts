@@ -20,7 +20,15 @@ export class GoComponent implements OnChanges {
 
   image: string = '';
 
+  ngOnInit(): void {
+    this.applyState(this.state);
+  }
+
   ngOnChanges() {
+    this.applyState(this.state);
+  }
+
+  applyState(state: ButtonState) {
     switch (this.state) {
       case 'lose':
         this.image = '/assets/images/bdefeat.webp';

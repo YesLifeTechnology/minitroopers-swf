@@ -136,7 +136,7 @@ const generateMissionExterminate = async (
     where: { id: user.id },
     data: {
       gold: {
-        increment: simulateData.result === FightResult.win ? 2 : 1,
+        increment: simulateData.result === FightResult.win ? 4 : 0,
       },
       ratsCount: {
         increment: simulateData.result === FightResult.win ? 1 : 0,
@@ -282,7 +282,7 @@ const generateMissionInfiltrate = async (
     where: { id: user.id },
     data: {
       gold: {
-        increment: generatedMission.result === FightResult.win ? 2 : 1,
+        increment: generatedMission.result === FightResult.win ? 4 : 0,
       },
       missions: {
         connect: mission,
