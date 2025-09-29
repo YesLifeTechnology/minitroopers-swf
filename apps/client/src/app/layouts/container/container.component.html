@@ -118,9 +118,10 @@
         ></div>
 
         <div class="mt-[8px] flex justify-center">
-          @for (ad of ads; track ad; let isLast = $last) {
+          @for (ad of ads; track ad; let isFirst = $first; let isLast = $last) {
             <div
-              class="relative flex w-[222px] cursor-pointer pb-[3px] pl-3 pt-[3px] text-white"
+              class="relative flex w-[222px] cursor-pointer pb-[3px] pl-3 pt-[3px] text-white md:flex"
+              [class.hidden]="isFirst || isLast"
             >
               @if (!isLast) {
                 <div

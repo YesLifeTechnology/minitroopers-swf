@@ -32,7 +32,6 @@ const Missions = {
         ) {
           throw new Error();
         }
-
         const missionType: MissionType = req.body.missionType;
 
         const user = await auth(prisma, req);
@@ -259,7 +258,7 @@ const generateMissionInfiltrate = async (
   prisma: PrismaClient,
   ruffle: Ruffle,
 ) => {
-  if (user.exterminationUnlockAt == null) {
+  if (user.infiltrationUnlockAt == null) {
     throw new Error();
   }
 

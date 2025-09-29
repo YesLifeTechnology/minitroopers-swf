@@ -1,9 +1,9 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { PartialUserExtended } from '@minitroopers/shared';
 import { interval, Subject, takeUntil } from 'rxjs';
 import { FightService } from 'src/app/services/fight.service';
-import { ArmyStore } from 'src/app/stores/army.store';
 import { GoComponent } from '../go/go.component';
 
 @Component({
@@ -13,32 +13,40 @@ import { GoComponent } from '../go/go.component';
   templateUrl: './raid.component.html',
   styleUrl: './raid.component.scss',
 })
-export class RaidComponent implements OnDestroy {
+export class RaidComponent implements OnChanges, OnDestroy {
+  @Input() user!: PartialUserExtended;
+
   timeLeft: string = '';
   tryLeft: string = '';
+
+  noRecruits: boolean = false;
 
   raidTroopers: number = 0;
 
   private fightService = inject(FightService);
-  public armyStore = inject(ArmyStore);
 
   private decimalPipe = inject(DecimalPipe);
   private router = inject(Router);
   private destroyed$: Subject<void> = new Subject();
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.loadAvailableTroopers();
   }
 
   loadAvailableTroopers() {
     this.fightService.getTroopersRaid().subscribe((troopers) => {
+      this.noRecruits = false;
       this.raidTroopers = troopers.length;
       this.applyLogic();
     });
   }
 
   applyLogic() {
-    if (this.raidTroopers == 0 || this.armyStore.army()!.raids?.length >= 20) {
+    if (this.raidTroopers == 1 && this.user.raids?.length == 0) {
+      this.noRecruits = true;
+      this.raidTroopers = 0;
+    }
+    if (this.raidTroopers == 0 || this.user.raids?.length >= 20) {
       this.buildTimeLeft();
       interval(60000)
         .pipe(takeUntil(this.destroyed$))
@@ -70,7 +78,7 @@ export class RaidComponent implements OnDestroy {
 
   onClick(event: MouseEvent) {
     event.stopPropagation();
-    if (this.armyStore.isOwner()) {
+    if (this.user) {
       this.fightService.createRaid().subscribe((result) => {
         console.log(result);
         if (result.raidId) {

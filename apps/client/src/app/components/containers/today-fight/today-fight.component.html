@@ -20,7 +20,7 @@
           <app-fight [user]="armyStore.army()!" [smallIcon]="true"></app-fight>
         }
         @case ("raid") {
-          <app-raid> </app-raid>
+          <app-raid [user]="armyStore.army()!"> </app-raid>
         }
         @default {
           <!-- infiltrate -->
