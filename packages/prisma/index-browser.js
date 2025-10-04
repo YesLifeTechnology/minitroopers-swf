@@ -176,7 +176,8 @@ exports.Prisma.TrooperScalarFieldEnum = {
   reloadSystem: 'reloadSystem',
   moveSystem: 'moveSystem',
   CBody: 'CBody',
-  CWeapon: 'CWeapon'
+  CWeapon: 'CWeapon',
+  selectedItems: 'selectedItems'
 };
 
 exports.Prisma.TrooperDayScalarFieldEnum = {

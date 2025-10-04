@@ -26,6 +26,10 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
 import { ArmyStore } from 'src/app/stores/army.store';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
+import {
+  InputSelectComponent,
+  SelectOption,
+} from '../../buttons/input-select/input-select.component';
 import { TrooperCellComponent } from '../trooper-cell/trooper-cell.component';
 
 const TROOPER_STATS_SKILL_ORDER = [
@@ -46,6 +50,7 @@ const TROOPER_STATS_SKILL_ORDER = [
     CommandButtonComponent,
     ReactiveFormsModule,
     TooltipDirective,
+    InputSelectComponent,
   ],
   templateUrl: './trooper-skills.component.html',
   styleUrl: './trooper-skills.component.scss',
@@ -57,8 +62,10 @@ export class TrooperSkillsComponent implements OnChanges {
   @Output() updatedTrooper: EventEmitter<Trooper> = new EventEmitter();
 
   public displayedSkills = TROOPER_STATS_SKILL_ORDER;
-
   public unlockedSkills: { [id: number]: boolean } = {};
+
+  public selectableItems: SelectOption[] = [];
+  public selectedItems: SelectOption[] = [];
 
   public updateForm: FormGroup = new FormGroup({
     CWeapon: new FormControl(null),
@@ -67,6 +74,7 @@ export class TrooperSkillsComponent implements OnChanges {
     targetType: new FormControl(0),
     moveSystem: new FormControl(1, Validators.required),
     name: new FormControl('', { validators: Validators.required }), //check allowed
+    selectedItems: new FormControl(null),
   });
 
   public updateAttributes: {
@@ -190,6 +198,41 @@ export class TrooperSkillsComponent implements OnChanges {
         .get('CWeapon')
         ?.setValue(this.updateAttributes[0].options[0].value);
     }
+
+    this.selectableItems = Object.entries(this.unlockedSkills).reduce(
+      (acc: SelectOption[], [key, value]) => {
+        const skill = Skills[parseInt(key)];
+        if (
+          skill &&
+          skill.cat.some((cat) => cat[0] === 'EQUIPMENT' && cat[1] === 11)
+        ) {
+          acc.push({ value: parseInt(key), label: skill.name });
+        }
+        return acc;
+      },
+      [],
+    );
+
+    const selectedItems = this.selectedTrooper.selectedItems;
+    this.selectedItems = [];
+
+    if (selectedItems && selectedItems.length > 0) {
+      this.updateForm
+        .get('selectedItems')
+        ?.setValue(this.selectedTrooper.selectedItems);
+    }
+
+    if (this.selectableItems.length > 3) {
+      this.selectedItems = this.selectableItems
+        .filter((item) => selectedItems.includes(item.value))
+        .map((item) => item.value);
+    }
+  }
+
+  onSelectableItemsChange(items: any[]) {
+    this.updateForm.get('selectedItems')?.setValue(items);
+    this.updateForm.markAsDirty();
+    // this.selectedItems = items;
   }
 
   payUpgrade() {
@@ -200,21 +243,6 @@ export class TrooperSkillsComponent implements OnChanges {
         !this.lock)
     ) {
       this.switchButton.emit(true);
-
-      // this.trooperService
-      //   .upgradeTrooper(this.selectedTrooper.id)
-      //   .pipe(take(1))
-      //   .subscribe((response) => {
-      //     if (response.troopers?.length) {
-      //       const trooperUpdated = response.troopers.find(
-      //         (x) => x.id == this.selectedTrooper.id,
-      //       );
-      //       if (trooperUpdated) {
-      //         this.updatedTrooper.emit(trooperUpdated);
-      //         this.switchButton.emit(true);
-      //       }
-      //     }
-      //   });
     }
   }
 
@@ -255,6 +283,7 @@ export class TrooperSkillsComponent implements OnChanges {
           if (response) {
             this.lock = false;
             this.updateForm.enable();
+            this.updateForm.markAsPristine();
             this.notificationService.notify('success', 'Saved');
             this.selectedTrooper = { ...this.selectedTrooper, ...values };
             this.armyStore.updateTrooper(this.selectedTrooper);

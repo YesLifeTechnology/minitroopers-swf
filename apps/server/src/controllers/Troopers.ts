@@ -38,6 +38,15 @@ const Troopers = {
         ) {
           throw new Error();
         }
+
+        if (
+          req.body.config.selectedItems != null &&
+          (typeof req.body.config.selectedItems != "object" ||
+            req.body.config.selectedItems.length > 3)
+        ) {
+          throw new Error();
+        }
+
         const user = await auth(prisma, req);
         if (!user) {
           throw new Error();
@@ -69,6 +78,7 @@ const Troopers = {
             targetSystem: req.body.config.targetSystem,
             targetType: 0, //req.body.config.targetType,
             moveSystem: req.body.config.moveSystem,
+            selectedItems: req.body.config.selectedItems,
           },
         });
 

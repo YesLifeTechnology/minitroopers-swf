@@ -83,20 +83,21 @@ model HistoryUser {
 }
 
 model Trooper {
-  id           String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt    DateTime @default(now()) @db.Timestamptz()
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String   @db.Uuid
-  name         String   @db.VarChar(255)
-  choices      Int[]
-  group        Int
-  seed         Int
-  targetSystem Int      @default(0)
-  targetType   Int      @default(0)
-  reloadSystem Int      @default(2)
-  moveSystem   Int      @default(1)
-  CBody        Int      @default(0)
-  CWeapon      Int? //null
+  id            String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz()
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String   @db.Uuid
+  name          String   @db.VarChar(255)
+  choices       Int[]
+  group         Int
+  seed          Int
+  targetSystem  Int      @default(0)
+  targetType    Int      @default(0)
+  reloadSystem  Int      @default(2)
+  moveSystem    Int      @default(1)
+  CBody         Int      @default(0)
+  CWeapon       Int? //null
+  selectedItems Int[]
 }
 
 model TrooperDay {

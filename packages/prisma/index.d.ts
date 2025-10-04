@@ -5315,6 +5315,7 @@ export namespace Prisma {
     moveSystem: number | null
     CBody: number | null
     CWeapon: number | null
+    selectedItems: number | null
   }
 
   export type TrooperSumAggregateOutputType = {
@@ -5327,6 +5328,7 @@ export namespace Prisma {
     moveSystem: number | null
     CBody: number | null
     CWeapon: number | null
+    selectedItems: number[]
   }
 
   export type TrooperMinAggregateOutputType = {
@@ -5373,6 +5375,7 @@ export namespace Prisma {
     moveSystem: number
     CBody: number
     CWeapon: number
+    selectedItems: number
     _all: number
   }
 
@@ -5387,6 +5390,7 @@ export namespace Prisma {
     moveSystem?: true
     CBody?: true
     CWeapon?: true
+    selectedItems?: true
   }
 
   export type TrooperSumAggregateInputType = {
@@ -5399,6 +5403,7 @@ export namespace Prisma {
     moveSystem?: true
     CBody?: true
     CWeapon?: true
+    selectedItems?: true
   }
 
   export type TrooperMinAggregateInputType = {
@@ -5445,6 +5450,7 @@ export namespace Prisma {
     moveSystem?: true
     CBody?: true
     CWeapon?: true
+    selectedItems?: true
     _all?: true
   }
 
@@ -5548,6 +5554,7 @@ export namespace Prisma {
     moveSystem: number
     CBody: number
     CWeapon: number | null
+    selectedItems: number[]
     _count: TrooperCountAggregateOutputType | null
     _avg: TrooperAvgAggregateOutputType | null
     _sum: TrooperSumAggregateOutputType | null
@@ -5583,6 +5590,7 @@ export namespace Prisma {
     moveSystem?: boolean
     CBody?: boolean
     CWeapon?: boolean
+    selectedItems?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trooper"]>
 
@@ -5600,6 +5608,7 @@ export namespace Prisma {
     moveSystem?: boolean
     CBody?: boolean
     CWeapon?: boolean
+    selectedItems?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trooper"]>
 
@@ -5617,6 +5626,7 @@ export namespace Prisma {
     moveSystem?: boolean
     CBody?: boolean
     CWeapon?: boolean
+    selectedItems?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trooper"]>
 
@@ -5634,9 +5644,10 @@ export namespace Prisma {
     moveSystem?: boolean
     CBody?: boolean
     CWeapon?: boolean
+    selectedItems?: boolean
   }
 
-  export type TrooperOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "userId" | "name" | "choices" | "group" | "seed" | "targetSystem" | "targetType" | "reloadSystem" | "moveSystem" | "CBody" | "CWeapon", ExtArgs["result"]["trooper"]>
+  export type TrooperOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "userId" | "name" | "choices" | "group" | "seed" | "targetSystem" | "targetType" | "reloadSystem" | "moveSystem" | "CBody" | "CWeapon" | "selectedItems", ExtArgs["result"]["trooper"]>
   export type TrooperInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5666,6 +5677,7 @@ export namespace Prisma {
       moveSystem: number
       CBody: number
       CWeapon: number | null
+      selectedItems: number[]
     }, ExtArgs["result"]["trooper"]>
     composites: {}
   }
@@ -6103,6 +6115,7 @@ export namespace Prisma {
     readonly moveSystem: FieldRef<"Trooper", 'Int'>
     readonly CBody: FieldRef<"Trooper", 'Int'>
     readonly CWeapon: FieldRef<"Trooper", 'Int'>
+    readonly selectedItems: FieldRef<"Trooper", 'Int[]'>
   }
     
 
@@ -10933,7 +10946,8 @@ export namespace Prisma {
     reloadSystem: 'reloadSystem',
     moveSystem: 'moveSystem',
     CBody: 'CBody',
-    CWeapon: 'CWeapon'
+    CWeapon: 'CWeapon',
+    selectedItems: 'selectedItems'
   };
 
   export type TrooperScalarFieldEnum = (typeof TrooperScalarFieldEnum)[keyof typeof TrooperScalarFieldEnum]
@@ -11444,6 +11458,7 @@ export namespace Prisma {
     moveSystem?: IntFilter<"Trooper"> | number
     CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
+    selectedItems?: IntNullableListFilter<"Trooper">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -11461,6 +11476,7 @@ export namespace Prisma {
     moveSystem?: SortOrder
     CBody?: SortOrder
     CWeapon?: SortOrderInput | SortOrder
+    selectedItems?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -11481,6 +11497,7 @@ export namespace Prisma {
     moveSystem?: IntFilter<"Trooper"> | number
     CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
+    selectedItems?: IntNullableListFilter<"Trooper">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
 
@@ -11498,6 +11515,7 @@ export namespace Prisma {
     moveSystem?: SortOrder
     CBody?: SortOrder
     CWeapon?: SortOrderInput | SortOrder
+    selectedItems?: SortOrder
     _count?: TrooperCountOrderByAggregateInput
     _avg?: TrooperAvgOrderByAggregateInput
     _max?: TrooperMaxOrderByAggregateInput
@@ -11522,6 +11540,7 @@ export namespace Prisma {
     moveSystem?: IntWithAggregatesFilter<"Trooper"> | number
     CBody?: IntWithAggregatesFilter<"Trooper"> | number
     CWeapon?: IntNullableWithAggregatesFilter<"Trooper"> | number | null
+    selectedItems?: IntNullableListFilter<"Trooper">
   }
 
   export type TrooperDayWhereInput = {
@@ -12069,6 +12088,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
     user: UserCreateNestedOneWithoutTroopersInput
   }
 
@@ -12086,6 +12106,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
   }
 
   export type TrooperUpdateInput = {
@@ -12101,6 +12122,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
     user?: UserUpdateOneRequiredWithoutTroopersNestedInput
   }
 
@@ -12118,6 +12140,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type TrooperCreateManyInput = {
@@ -12134,6 +12157,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
   }
 
   export type TrooperUpdateManyMutationInput = {
@@ -12149,6 +12173,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type TrooperUncheckedUpdateManyInput = {
@@ -12165,6 +12190,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type TrooperDayCreateInput = {
@@ -12924,6 +12950,7 @@ export namespace Prisma {
     moveSystem?: SortOrder
     CBody?: SortOrder
     CWeapon?: SortOrder
+    selectedItems?: SortOrder
   }
 
   export type TrooperAvgOrderByAggregateInput = {
@@ -12936,6 +12963,7 @@ export namespace Prisma {
     moveSystem?: SortOrder
     CBody?: SortOrder
     CWeapon?: SortOrder
+    selectedItems?: SortOrder
   }
 
   export type TrooperMaxOrderByAggregateInput = {
@@ -12978,6 +13006,7 @@ export namespace Prisma {
     moveSystem?: SortOrder
     CBody?: SortOrder
     CWeapon?: SortOrder
+    selectedItems?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13540,6 +13569,10 @@ export namespace Prisma {
     set: number[]
   }
 
+  export type TrooperCreateselectedItemsInput = {
+    set: number[]
+  }
+
   export type UserCreateNestedOneWithoutTroopersInput = {
     create?: XOR<UserCreateWithoutTroopersInput, UserUncheckedCreateWithoutTroopersInput>
     connectOrCreate?: UserCreateOrConnectWithoutTroopersInput
@@ -13557,6 +13590,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type TrooperUpdateselectedItemsInput = {
+    set?: number[]
+    push?: number | number[]
   }
 
   export type UserUpdateOneRequiredWithoutTroopersNestedInput = {
@@ -14108,6 +14146,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
   }
 
   export type TrooperUncheckedCreateWithoutUserInput = {
@@ -14123,6 +14162,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
   }
 
   export type TrooperCreateOrConnectWithoutUserInput = {
@@ -14408,6 +14448,7 @@ export namespace Prisma {
     moveSystem?: IntFilter<"Trooper"> | number
     CBody?: IntFilter<"Trooper"> | number
     CWeapon?: IntNullableFilter<"Trooper"> | number | null
+    selectedItems?: IntNullableListFilter<"Trooper">
   }
 
   export type HistoryUserUpsertWithWhereUniqueWithoutUserInput = {
@@ -15400,6 +15441,7 @@ export namespace Prisma {
     moveSystem?: number
     CBody?: number
     CWeapon?: number | null
+    selectedItems?: TrooperCreateselectedItemsInput | number[]
   }
 
   export type HistoryUserCreateManyUserInput = {
@@ -15536,6 +15578,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type TrooperUncheckedUpdateWithoutUserInput = {
@@ -15551,6 +15594,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type TrooperUncheckedUpdateManyWithoutUserInput = {
@@ -15566,6 +15610,7 @@ export namespace Prisma {
     moveSystem?: IntFieldUpdateOperationsInput | number
     CBody?: IntFieldUpdateOperationsInput | number
     CWeapon?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedItems?: TrooperUpdateselectedItemsInput | number[]
   }
 
   export type HistoryUserUpdateWithoutUserInput = {

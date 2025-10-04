@@ -264,6 +264,14 @@ export class TrooperSkill {
         Skills[skillId].type[1] === 2,
     );
   }
+
+  getItems(): number[] {
+    return this.Skills.filter((skillId) =>
+      Skills[skillId].cat.some(
+        (cat) => cat[0] === "EQUIPMENT" && cat[1] === 11,
+      ),
+    );
+  }
 }
 
 export type TrooperConfig = {
@@ -273,6 +281,7 @@ export type TrooperConfig = {
   targetType: number;
   moveSystem: number;
   name: string;
+  selectedItems?: number[];
 };
 
 export const getTrooperPref = (trooper: Trooper): TrooperConfig => {
@@ -322,5 +331,34 @@ export const getTrooperPref = (trooper: Trooper): TrooperConfig => {
   //   pref.targetType = TargetType.SPECIFIC_CLASS(skillToTarget);
   // }
 
+  if (trooper.selectedItems) {
+    pref.selectedItems = trooper.selectedItems;
+  }
+
   return pref;
+};
+
+export const getLeftOver = (trooper: Trooper): number[] => {
+  const trooperSkill = new TrooperSkill(trooper.seed, trooper.choices);
+
+  const allItems = trooperSkill.getItems();
+
+  let selectedItems = trooper.selectedItems ?? [];
+
+  if (allItems.length > 3) {
+    if (trooper.selectedItems?.length < 3) {
+      const manquants = allItems.filter(
+        (item) => !selectedItems.includes(item),
+      );
+
+      selectedItems = [
+        ...selectedItems,
+        ...manquants.slice(0, 3 - selectedItems.length),
+      ];
+    }
+
+    return allItems.filter((item) => !selectedItems?.includes(item));
+  }
+
+  return [];
 };

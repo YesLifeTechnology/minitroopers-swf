@@ -70,6 +70,23 @@
           </select>
         </div>
       }
+
+      <!-- [selectedValues]="selectedItems" -->
+      @if (selectableItems.length > 3) {
+        <div class="mb-2">
+          <label [for]="'selectedItems'" class="mr-4 block">
+            {{ "Selected items" }} :
+          </label>
+          <app-input-select
+            [options]="selectableItems"
+            [selectedValues]="selectedItems"
+            placeholder="Sélectionner vos items"
+            (selectionChange)="onSelectableItemsChange($event)"
+            [limit]="3"
+            [disabled]="updateForm.disabled"
+          ></app-input-select>
+        </div>
+      }
     </form>
     @if (isEditable) {
       <app-command-button

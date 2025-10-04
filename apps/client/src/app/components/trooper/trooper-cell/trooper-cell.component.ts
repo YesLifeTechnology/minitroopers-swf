@@ -9,6 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { Trooper, TrooperDay } from '@minitroopers/prisma';
+import { getLeftOver } from '@minitroopers/shared';
 import { TrooperService } from 'src/app/services/trooper.service';
 import { SkillsComponent } from '../skills/skills.component';
 
@@ -72,8 +73,10 @@ export class TrooperCellComponent implements AfterViewInit, OnChanges {
             targetSystem: (this.trooper as Trooper).targetSystem,
             targetType: (this.trooper as Trooper).targetType,
             moveSystem: (this.trooper as Trooper).moveSystem,
+            selectedItems: (this.trooper as Trooper).selectedItems,
           },
           this.trooper.choices,
+          getLeftOver(this.trooper as Trooper),
         );
       }
     }, 400);

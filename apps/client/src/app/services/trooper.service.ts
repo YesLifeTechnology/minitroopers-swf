@@ -4,10 +4,12 @@ import { Trooper } from '@minitroopers/prisma';
 import {
   BodyLoc,
   ClientMode,
+  getLeftOver,
   MoveSystem,
   objectObfuscator,
   ReloadSystem,
   Serializer,
+  SkillEnum,
   TargetSystem,
   TargetType,
   TrooperConfig,
@@ -86,6 +88,7 @@ export class TrooperService {
     name: string,
     pref: Partial<TrooperConfig>,
     choices: number[],
+    leftOver: number[],
   ) {
     container.innerHTML = '';
 
@@ -105,7 +108,14 @@ export class TrooperService {
 
     player.load({
       url: '/assets/swf/client_fr_edit.swf',
-      parameters: this.embededUrlTrooper(seed, groupColor, name, pref, choices),
+      parameters: this.embededUrlTrooper(
+        seed,
+        groupColor,
+        name,
+        pref,
+        choices,
+        leftOver,
+      ),
     });
   }
 
@@ -147,8 +157,9 @@ export class TrooperService {
     seed: number,
     group: number,
     name: string,
-    pref: Partial<TrooperConfig>,
+    pref: Partial<TrooperConfig & { leftOver: number[] }>,
     choices: number[] = [],
+    leftOver: number[] = [],
   ) {
     const data = {
       mode: ClientMode.NEW_TROOPER(
@@ -165,7 +176,12 @@ export class TrooperService {
               pref.moveSystem ?? 1,
             ),
             reloadSystem: ReloadSystem.DEFAULT,
-            leftOver: [],
+            leftOver: leftOver?.length
+              ? leftOver.map(
+                  (skillId) =>
+                    new SkillEnum(SkillEnum.__construct__[skillId], skillId),
+                )
+              : [],
             __CBody:
               pref.CBody == null
                 ? null
@@ -231,7 +247,10 @@ export class TrooperService {
                     trooper.moveSystem,
                   ),
             reloadSystem: ReloadSystem.DEFAULT,
-            leftOver: [],
+            leftOver: getLeftOver(trooper)?.map(
+              (skillId) =>
+                new SkillEnum(SkillEnum.__construct__[skillId], skillId),
+            ),
             __CBody:
               trooper.CBody == null
                 ? null
