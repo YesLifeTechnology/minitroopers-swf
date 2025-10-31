@@ -29,9 +29,12 @@ const Raids = {
           throw new Error();
         }
 
-        const affiliatedTroopers = await getRaidTroopers(prisma, user.armyName);
+        const { troopers, level } = await getRaidTroopers(
+          prisma,
+          user.armyName,
+        );
 
-        if (affiliatedTroopers?.length <= 0 || user.raids.length >= 20) {
+        if (troopers?.length <= 0 || user.raids.length >= 20) {
           throw new Error("No raid left");
         }
 
@@ -39,7 +42,7 @@ const Raids = {
           user,
           prisma,
           ruffle,
-          affiliatedTroopers,
+          troopers,
         );
 
         return res.send({

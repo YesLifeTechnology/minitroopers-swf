@@ -43,4 +43,8 @@ export class TodayFightComponent implements OnInit {
         break;
     }
   }
+
+  setRaidTitle(number: number) {
+    this.title = 'Raid ' + number;
+  }
 }

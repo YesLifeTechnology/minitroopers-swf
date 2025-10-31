@@ -1,5 +1,13 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, Input, OnChanges, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { PartialUserExtended } from '@minitroopers/shared';
 import { interval, Subject, takeUntil } from 'rxjs';
@@ -15,6 +23,7 @@ import { GoComponent } from '../go/go.component';
 })
 export class RaidComponent implements OnChanges, OnDestroy {
   @Input() user!: PartialUserExtended;
+  @Output() setTitle = new EventEmitter<number>();
 
   timeLeft: string = '';
   tryLeft: string = '';
@@ -22,6 +31,7 @@ export class RaidComponent implements OnChanges, OnDestroy {
   noRecruits: boolean = false;
 
   raidTroopers: number = 0;
+  raidLevel: number = 0;
 
   private fightService = inject(FightService);
 
@@ -34,9 +44,11 @@ export class RaidComponent implements OnChanges, OnDestroy {
   }
 
   loadAvailableTroopers() {
-    this.fightService.getTroopersRaid().subscribe((troopers) => {
+    this.fightService.getTroopersRaid().subscribe((raid) => {
       this.noRecruits = false;
-      this.raidTroopers = troopers.length;
+      this.raidTroopers = raid.troopers.length;
+      this.raidLevel = raid.level;
+      this.setTitle.emit(this.raidLevel);
       this.applyLogic();
     });
   }
@@ -83,7 +95,10 @@ export class RaidComponent implements OnChanges, OnDestroy {
         console.log(result);
         if (result.raidId) {
           this.router.navigate(['raid', result.raidId], {
-            state: { swfData: result.swfData },
+            state: {
+              swfData: result.swfData,
+              raidLevel: this.raidLevel,
+            },
           });
         }
       });

@@ -33,6 +33,7 @@ export class FightService {
     return this.http
       .get<{
         troopers: string[];
+        level: number;
       }>(environment.apiUrl + '/api/fight/getTroopersRaid', {
         params: new HttpParams({
           fromObject: {
@@ -41,9 +42,12 @@ export class FightService {
         }),
       })
       .pipe(
-        map((response) =>
-          response?.troopers?.length ? response.troopers : [],
-        ),
+        map((response) => {
+          return {
+            troopers: response?.troopers?.length ? response.troopers : [],
+            level: response?.level,
+          };
+        }),
       );
   }
 

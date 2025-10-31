@@ -20,7 +20,10 @@
           <app-fight [user]="armyStore.army()!" [smallIcon]="true"></app-fight>
         }
         @case ("raid") {
-          <app-raid [user]="armyStore.army()!"> </app-raid>
+          <app-raid
+            [user]="armyStore.army()!"
+            (setTitle)="setRaidTitle($event)"
+          ></app-raid>
         }
         @default {
           <!-- infiltrate -->

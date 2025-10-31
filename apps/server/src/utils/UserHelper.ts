@@ -262,5 +262,7 @@ export const getRaidTroopers = async (
     }
   }
 
-  return troopers;
+  const level = user.raids.length + 1;
+
+  return { troopers, level };
 };

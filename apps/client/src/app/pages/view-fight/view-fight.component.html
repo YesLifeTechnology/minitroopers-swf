@@ -9,6 +9,8 @@
       >
         @if (fightType == "war") {
           {{ userArmy | getArmyName }} vs {{ userOpponent | getArmyName }}
+        } @else if (fightType == "raid") {
+          Raid {{ raidLevel }}
         } @else {
           Mission
         }

@@ -158,8 +158,11 @@ const Fights = {
           throw new Error();
         }
 
-        const troopers = await getRaidTroopers(prisma, req.query.army);
-        return res.send({ troopers: troopers });
+        const { troopers, level } = await getRaidTroopers(
+          prisma,
+          req.query.army,
+        );
+        return res.send({ troopers: troopers, level: level });
       } catch (error: any) {
         return res.send({ status: "error", reason: error?.message });
       }

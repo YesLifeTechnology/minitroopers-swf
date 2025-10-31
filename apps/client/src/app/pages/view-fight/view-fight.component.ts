@@ -24,8 +24,9 @@ export class ViewFightComponent implements AfterViewInit {
 
   fight: Fight | undefined = undefined;
   loadingFight: boolean = false;
-  fightType: 'war' | 'mission' = 'war';
+  fightType: 'war' | 'mission' | 'raid' = 'war';
   savedSwfData: string | null = null;
+  raidLevel: string = '';
 
   userArmy: PartialUserExtended | undefined = undefined;
   userOpponent: PartialUserExtended | undefined = undefined;
@@ -40,7 +41,8 @@ export class ViewFightComponent implements AfterViewInit {
     const state = this.router.currentNavigation()?.extras.state;
 
     if (state && state['swfData']) {
-      this.fightType = 'mission';
+      this.fightType = 'raid';
+      this.raidLevel = state['raidLevel'];
       this.savedSwfData = state['swfData'];
     } else {
       const fightId = this.route.snapshot.params['warId'];
