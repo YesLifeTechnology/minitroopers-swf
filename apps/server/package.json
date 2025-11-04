@@ -5,7 +5,7 @@
     "lint": "eslint src/**/*.ts",
     "copy-bin": "copyfiles -u 1 src/bin/**/* dist",
     "start-dist": "npm run copy-bin && node ./dist/server.js",
-    "build": "tsc --build ./tsconfig.json && copy-bin",
+    "build": "tsc --build ./tsconfig.json && npm run copy-bin",
     "dev": "tsc-watch --build ./tsconfig.json --onSuccess \"npm run start-dist\""
   },
   "type": "module",
