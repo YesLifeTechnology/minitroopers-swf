@@ -8,7 +8,7 @@ generator client {
   provider        = "prisma-client-js"
   output          = "./"
   previewFeatures = ["nativeDistinct", "relationJoins"]
-  binaryTargets   = ["native"]
+  binaryTargets   = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
