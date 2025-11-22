@@ -215,7 +215,7 @@ const generateBattleDataExterminate = (user: UserExtended) => {
       // Second parameter: attacking army (0 for left, 1 for right)
       0,
     ),
-    gfx: `http://localhost:4200/assets/swf/army.swf`,
+    gfx: `https://minitroopers.io/assets/swf/army.swf`,
   };
 
   const obfuscatedData = objectObfuscator(data);

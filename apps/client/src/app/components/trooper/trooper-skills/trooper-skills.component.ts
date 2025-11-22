@@ -248,7 +248,7 @@ export class TrooperSkillsComponent implements OnChanges {
 
   share() {
     const url =
-      'https://minitroopers.com/' +
+      'https://minitroopers.io/' +
       this.armyStore.currentArmyName() +
       '/' +
       this.selectedTrooper.id;

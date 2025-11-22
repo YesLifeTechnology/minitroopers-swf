@@ -181,7 +181,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.availabilityState = 'loading';
         if (value && value != '' && value.length > 3 && this.army?.valid) {
           this.createdUrl =
-            'https://minitroopers.com/' +
+            'https://minitroopers.io/' +
             value
               .trim()
               .replace(/[^a-zA-Z ]/g, '')

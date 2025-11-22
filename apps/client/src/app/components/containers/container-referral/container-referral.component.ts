@@ -23,7 +23,7 @@ export class ContainerReferralComponent implements OnInit {
   }
 
   buildLinks(armyName: string) {
-    this.referralLink = 'https://minitroopers.com/invite/' + armyName;
+    this.referralLink = 'https://minitroopers.io/invite/' + armyName;
 
     this.twitterLink =
       'https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&text=%23minitroopers%20Rejoins%20mon%20arm%C3%A9e%20!!&url=' +
