@@ -78,7 +78,7 @@ const Troopers = {
             targetSystem: req.body.config.targetSystem,
             targetType: 0, //req.body.config.targetType,
             moveSystem: req.body.config.moveSystem,
-            selectedItems: req.body.config.selectedItems,
+            selectedItems: req.body.config.selectedItems ?? [],
           },
         });
 
