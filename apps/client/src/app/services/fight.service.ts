@@ -131,8 +131,8 @@ export class FightService {
     const ruffle = (window as any).RufflePlayer.newest();
     const player = ruffle.createPlayer();
 
-    player.style.height = '440px';
-    player.style.width = '720px';
+    player.style.width = 720 + 'px';
+    player.style.height = 440 + 'px';
 
     player.config = {
       allowScriptAccess: true,

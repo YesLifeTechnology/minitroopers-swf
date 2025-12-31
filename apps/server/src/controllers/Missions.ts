@@ -59,7 +59,7 @@ const Missions = {
 
   getMission: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      console.log(req.query.missionId);
+      // console.log(req.query.missionId);
       const missionId = req.query.missionId;
 
       if (!missionId || typeof missionId !== "string") {

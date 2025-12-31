@@ -1,8 +1,6 @@
-@media (max-width: 600px) {
-  .debug-title {
-    white-space: normal;
-    width: 100%;
-    text-align: center;
-    top: -37px;
+:host {
+  #insert {
+    height: calc(100% - 50px);
+    width: calc(100% - 20px);
   }
 }
