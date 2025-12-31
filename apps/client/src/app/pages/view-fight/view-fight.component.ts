@@ -61,6 +61,10 @@ export class ViewFightComponent implements AfterViewInit {
                   this.element.nativeElement,
                   response.data,
                 );
+
+                setTimeout(() => {
+                  this.updateScale();
+                }, 300);
               }
 
               this.loadingFight = false;
@@ -79,6 +83,10 @@ export class ViewFightComponent implements AfterViewInit {
                   this.element.nativeElement,
                   response.data,
                 );
+
+                setTimeout(() => {
+                  this.updateScale();
+                }, 300);
               }
 
               this.loadingFight = false;
@@ -94,7 +102,28 @@ export class ViewFightComponent implements AfterViewInit {
         this.element.nativeElement,
         this.savedSwfData,
       );
+
+      setTimeout(() => {
+        this.updateScale();
+      }, 300);
     }
+  }
+
+  updateScale() {
+    if (
+      !this.element ||
+      !this.element.nativeElement ||
+      !this.element.nativeElement.firstElementChild
+    ) {
+      return;
+    }
+
+    const containerWidth = this.element.nativeElement.offsetWidth;
+    const scale = containerWidth / 720;
+    const content = this.element.nativeElement.firstElementChild as HTMLElement;
+
+    content.style.transform = `scale(${scale})`;
+    content.style.transformOrigin = 'top left';
   }
 
   onReturn(event: MouseEvent) {

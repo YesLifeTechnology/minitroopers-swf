@@ -92,7 +92,7 @@ export class RaidComponent implements OnChanges, OnDestroy {
     event.stopPropagation();
     if (this.user) {
       this.fightService.createRaid().subscribe((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.raidId) {
           this.router.navigate(['raid', result.raidId], {
             state: {
