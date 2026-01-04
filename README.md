@@ -19,7 +19,7 @@ This is the repository for Minitroopers !
 
 - Fork this project
 
-- Make sure your NodeJS version are up to date (v22.1x.x)
+- Make sure your NodeJS version are up to date (v22)
 
 - Setup your local Postgres databases (minitroopers + [eternaltwin](https://gitlab.com/eternaltwin/eternaltwin/-/blob/master/docs/db.md))
 
@@ -27,9 +27,11 @@ This is the repository for Minitroopers !
 
 - Copy `eternaltwin.toml.example` to `eternaltwin.toml` and adapt the variables
 
+- Edit `apps/client/environments` for production
+
 - Install dependencies: `npm install`
 
-- Run db migration with `npm run prisma` (additional for windows only : then manually copy content from /prisma/package.reference.json to /prisma/package.json)
+- Run db migration with `npm run prisma` (additional for windows only : then manually copy all content from /prisma/package.reference.json to /prisma/package.json)
 
 - Start etwin local `npm run eternaltwin:start`
 
@@ -42,14 +44,15 @@ This is the repository for Minitroopers !
 ## File Structure
 
 ```
-├── apps                    
-│       ├── client              # Frontend Angular
-│       └── server              # Backend ExpressJS
-│  
-├── packages                
-│       ├── prisma              # Prisma types definitions for both front and back end
-│       └── shared              # Shared resources for both front and back end
-│   
-└── node_modules            # Node modules
+.
+├── apps
+│   ├── client        # Frontend (Angular)
+│   └── server        # Backend (ExpressJS)
+│
+├── packages
+│   ├── prisma        # Prisma type definitions (shared)
+│   └── shared        # Shared resources (frontend & backend)
+│
+└── node_modules      # Node modules
 
 ```
