@@ -43,7 +43,7 @@ This is the repository for Minitroopers !
 
 ## File Structure
 
-```
+```text
 .
 ├── apps
 │   ├── client        # Frontend (Angular)
@@ -54,5 +54,4 @@ This is the repository for Minitroopers !
 │   └── shared        # Shared resources (frontend & backend)
 │
 └── node_modules      # Node modules
-
 ```
