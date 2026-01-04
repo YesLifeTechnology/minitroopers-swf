@@ -1,43 +1,37 @@
 // @ts-check
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
-// const angular = require("angular-eslint");
+const angularTemplateParser = require("@angular-eslint/template-parser");
+const angularTemplatePlugin = require("@angular-eslint/eslint-plugin-template");
 
 module.exports = tseslint.config(
+  // ===== TypeScript =====
   {
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
-      // ...angular.configs.tsRecommended,
     ],
-    // processor: angular.processInlineTemplates,
     rules: {
-      // "@angular-eslint/directive-selector": [
-      //   "error",
-      //   {
-      //     type: "attribute",
-      //     prefix: "app",
-      //     style: "camelCase",
-      //   },
-      // ],
-      // "@angular-eslint/component-selector": [
-      //   "error",
-      //   {
-      //     type: "element",
-      //     prefix: "app",
-      //     style: "kebab-case",
-      //   },
-      // ],
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
+
+  // ===== Angular HTML templates =====
   {
     files: ["**/*.html"],
-    extends: [
-      // ...angular.configs.templateRecommended,
-      // ...angular.configs.templateAccessibility,
-    ],
-    rules: {},
+    languageOptions: {
+      parser: angularTemplateParser, // ✅ objet, pas string
+    },
+    plugins: {
+      "@angular-eslint/template": angularTemplatePlugin, // ✅ objet, pas tableau
+    },
+    rules: {
+      // règles explicites (pas de spread)
+      "@angular-eslint/template/banana-in-box": "error",
+      "@angular-eslint/template/eqeqeq": "error",
+      "@angular-eslint/template/no-negated-async": "error",
+    },
   },
 );

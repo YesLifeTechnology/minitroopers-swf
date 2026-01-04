@@ -20,6 +20,8 @@ const forbiddenName: string[] = [
   "admin",
   "api",
   "army",
+  "discord",
+  "eternaltwin",
   "false",
   "invite",
   "maintenance",

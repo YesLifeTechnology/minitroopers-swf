@@ -11,8 +11,23 @@ import {
   UserExtended,
 } from "@minitroopers/shared";
 import { Request } from "express";
+import jwt from "jsonwebtoken";
+import Env from "../Env.js";
 
 export const auth = async (prisma: PrismaClient, request: Request) => {
+  if (
+    request.headers.authorization &&
+    request.headers.authorization.startsWith("Bearer")
+  ) {
+    return authJWT(prisma, request);
+  } else if (request.headers.authorization) {
+    return authEternal(prisma, request);
+  }
+
+  throw new Error("You are not logged in");
+};
+
+export const authEternal = async (prisma: PrismaClient, request: Request) => {
   const {
     headers: { authorization },
   } = request;
@@ -32,6 +47,44 @@ export const auth = async (prisma: PrismaClient, request: Request) => {
     throw new Error("Invalid authorization header content");
   }
 
+  return afterauth(prisma, request, id, token);
+};
+
+export const authJWT = async (prisma: PrismaClient, req: Request) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+
+      const decoded = jwt.verify(token, Env.SESSION_SECRET) as jwt.JwtPayload;
+
+      const userId = decoded.userId;
+
+      if (!userId || !token || userId === "null" || token === "null") {
+        throw new Error("Invalid authorization header content");
+      }
+
+      return afterauth(prisma, req, userId, token);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      throw new Error("Invalid authorization header");
+    }
+  }
+
+  throw new Error("You are not logged in");
+};
+
+const afterauth = async (
+  prisma: PrismaClient,
+  request: Request,
+  id: string,
+  token: string,
+) => {
   const user = await prisma.user.findFirst({
     where: {
       id,
@@ -246,7 +299,7 @@ export const getRaidTroopers = async (
     throw new Error();
   }
 
-  let troopers: string[] = [];
+  const troopers: string[] = [];
 
   const troopersInGraveyard = user.raids.map((x) => x.graveyard).flat();
   if (!troopersInGraveyard.includes(user.troopers[0].id)) {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, effect, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -83,11 +83,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     '#A55DC6',
   ];
 
-  public lockSubmit: boolean = false;
+  public lockSubmit = false;
 
   public referralUser: PartialUserExtended | undefined = undefined;
 
-  private checkAvailability$: Subject<string> = new Subject();
+  private checkAvailability$ = new Subject<string>();
 
   private backendService = inject(BackendService);
   public authService = inject(AuthService);
@@ -95,7 +95,15 @@ export class SignupComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   public authStore = inject(AuthStore);
 
-  private destroyed$: Subject<void> = new Subject();
+  private destroyed$ = new Subject<void>();
+
+  constructor() {
+    effect(() => {
+      if (this.authStore.isUserLoggedIn()) {
+        this.signupForm.enable();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.backendService
@@ -104,6 +112,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       .subscribe((troopers: TrooperDay[]) => {
         this.displayedTroopers = troopers;
       });
+
+    this.init();
 
     let referralArmy: string = this.route.snapshot.params['army'];
 
@@ -127,8 +137,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (!referralArmy && this.authStore.hasTroopers()) {
       this.router.navigate(['/' + this.authStore.armyName()]);
     } else if (
-      this.authStore.isAuthenticated() == false ||
-      (this.authStore.isAuthenticated() &&
+      this.authStore.isUserLoggedIn() == false ||
+      (this.authStore.isUserLoggedIn() &&
         referralArmy &&
         referralArmy?.toLowerCase() == this.authStore.armyName()?.toLowerCase())
     ) {
@@ -153,9 +163,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.router.navigate(['/' + user.armyName]);
           }
         });
-
-      this.init();
-    } else if (!this.authStore.isAuthenticated()) {
+    } else if (!this.authStore.isUserLoggedIn()) {
       this.authStore.login(true);
     }
   }
@@ -199,6 +207,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authService.loginFromEternal();
   }
 
+  loginWithDiscord(): void {
+    this.authService.loginFromDiscord();
+  }
+
   createArmy() {
     if (
       !this.trooper?.value ||
@@ -236,7 +248,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 }
 
-export const PrefixArmy: { [key: number]: string } = {
+export const PrefixArmy: Record<number, string> = {
   0: 'de',
   1: "d'",
   2: 'du',

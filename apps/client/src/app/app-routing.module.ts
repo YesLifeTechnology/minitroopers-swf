@@ -7,6 +7,7 @@ import { signupGuard } from './guards/signup.guard';
 import { AddComponent } from './pages/add/add.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ArmyComponent } from './pages/army/army.component';
+import { ConfirmDiscordComponent } from './pages/confirm-discord/confirm-discord.component';
 import { HqComponent } from './pages/hq/hq.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { OpponentsComponent } from './pages/opponents/opponents.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
     component: SignupComponent,
   },
   { path: 'maintenance', component: MaintenanceComponent },
+  {
+    path: 'confirm-discord',
+    component: ConfirmDiscordComponent,
+  },
   {
     path: 'oauth/callback',
     canActivate: [signupGuard],

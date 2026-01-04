@@ -12,6 +12,11 @@ const Env = {
   ETWIN_CLIENT_SECRET: process.env.ETWIN_CLIENT_SECRET ?? "dev",
 
   DEBUG_QUERIES: process.env.DEBUG_QUERIES ?? true,
+
+  DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID ?? "",
+  DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET ?? "",
+
+  SESSION_SECRET: process.env.SESSION_SECRET ?? "",
 };
 
 export default Env;

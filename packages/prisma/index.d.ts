@@ -11187,23 +11187,23 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: UuidFilter<"User"> | string
+    id?: StringFilter<"User"> | string
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastConnexion?: DateTimeFilter<"User"> | Date | string
     admin?: BoolFilter<"User"> | boolean
-    connexionToken?: UuidFilter<"User"> | string
+    connexionToken?: StringFilter<"User"> | string
     gold?: IntFilter<"User"> | number
     power?: IntFilter<"User"> | number
     armyName?: StringFilter<"User"> | string
     armyUrl?: StringFilter<"User"> | string
     prefix?: IntFilter<"User"> | number
     color?: IntFilter<"User"> | number
-    sponsoredById?: UuidNullableFilter<"User"> | string | null
+    sponsoredById?: StringNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
-    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentArmy?: StringNullableFilter<"User"> | string | null
     infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -11260,17 +11260,17 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastConnexion?: DateTimeFilter<"User"> | Date | string
     admin?: BoolFilter<"User"> | boolean
-    connexionToken?: UuidFilter<"User"> | string
+    connexionToken?: StringFilter<"User"> | string
     gold?: IntFilter<"User"> | number
     power?: IntFilter<"User"> | number
     armyName?: StringFilter<"User"> | string
     armyUrl?: StringFilter<"User"> | string
     prefix?: IntFilter<"User"> | number
     color?: IntFilter<"User"> | number
-    sponsoredById?: UuidNullableFilter<"User"> | string | null
+    sponsoredById?: StringNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
-    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentArmy?: StringNullableFilter<"User"> | string | null
     infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -11318,23 +11318,23 @@ export namespace Prisma {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"User"> | string
+    id?: StringWithAggregatesFilter<"User"> | string
     lang?: EnumLangWithAggregatesFilter<"User"> | $Enums.Lang
     name?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastConnexion?: DateTimeWithAggregatesFilter<"User"> | Date | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
-    connexionToken?: UuidWithAggregatesFilter<"User"> | string
+    connexionToken?: StringWithAggregatesFilter<"User"> | string
     gold?: IntWithAggregatesFilter<"User"> | number
     power?: IntWithAggregatesFilter<"User"> | number
     armyName?: StringWithAggregatesFilter<"User"> | string
     armyUrl?: StringWithAggregatesFilter<"User"> | string
     prefix?: IntWithAggregatesFilter<"User"> | number
     color?: IntWithAggregatesFilter<"User"> | number
-    sponsoredById?: UuidNullableWithAggregatesFilter<"User"> | string | null
+    sponsoredById?: StringNullableWithAggregatesFilter<"User"> | string | null
     referralGold?: IntWithAggregatesFilter<"User"> | number
     ratsCount?: IntWithAggregatesFilter<"User"> | number
-    infiltrationOpponentArmy?: UuidNullableWithAggregatesFilter<"User"> | string | null
+    infiltrationOpponentArmy?: StringNullableWithAggregatesFilter<"User"> | string | null
     infiltrationOpponentDate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -11345,8 +11345,8 @@ export namespace Prisma {
     AND?: ipAddressUserWhereInput | ipAddressUserWhereInput[]
     OR?: ipAddressUserWhereInput[]
     NOT?: ipAddressUserWhereInput | ipAddressUserWhereInput[]
-    id?: UuidFilter<"ipAddressUser"> | string
-    userId?: UuidFilter<"ipAddressUser"> | string
+    id?: StringFilter<"ipAddressUser"> | string
+    userId?: StringFilter<"ipAddressUser"> | string
     ip?: StringFilter<"ipAddressUser"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -11363,7 +11363,7 @@ export namespace Prisma {
     AND?: ipAddressUserWhereInput | ipAddressUserWhereInput[]
     OR?: ipAddressUserWhereInput[]
     NOT?: ipAddressUserWhereInput | ipAddressUserWhereInput[]
-    userId?: UuidFilter<"ipAddressUser"> | string
+    userId?: StringFilter<"ipAddressUser"> | string
     ip?: StringFilter<"ipAddressUser"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
@@ -11381,8 +11381,8 @@ export namespace Prisma {
     AND?: ipAddressUserScalarWhereWithAggregatesInput | ipAddressUserScalarWhereWithAggregatesInput[]
     OR?: ipAddressUserScalarWhereWithAggregatesInput[]
     NOT?: ipAddressUserScalarWhereWithAggregatesInput | ipAddressUserScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"ipAddressUser"> | string
-    userId?: UuidWithAggregatesFilter<"ipAddressUser"> | string
+    id?: StringWithAggregatesFilter<"ipAddressUser"> | string
+    userId?: StringWithAggregatesFilter<"ipAddressUser"> | string
     ip?: StringWithAggregatesFilter<"ipAddressUser"> | string
   }
 
@@ -11390,11 +11390,11 @@ export namespace Prisma {
     AND?: HistoryUserWhereInput | HistoryUserWhereInput[]
     OR?: HistoryUserWhereInput[]
     NOT?: HistoryUserWhereInput | HistoryUserWhereInput[]
-    id?: UuidFilter<"HistoryUser"> | string
+    id?: StringFilter<"HistoryUser"> | string
     ts?: DateTimeFilter<"HistoryUser"> | Date | string
     type?: EnumHistoryTypeFilter<"HistoryUser"> | $Enums.HistoryType
     options?: JsonNullableFilter<"HistoryUser">
-    userId?: UuidFilter<"HistoryUser"> | string
+    userId?: StringFilter<"HistoryUser"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -11415,7 +11415,7 @@ export namespace Prisma {
     ts?: DateTimeFilter<"HistoryUser"> | Date | string
     type?: EnumHistoryTypeFilter<"HistoryUser"> | $Enums.HistoryType
     options?: JsonNullableFilter<"HistoryUser">
-    userId?: UuidFilter<"HistoryUser"> | string
+    userId?: StringFilter<"HistoryUser"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
 
@@ -11434,20 +11434,20 @@ export namespace Prisma {
     AND?: HistoryUserScalarWhereWithAggregatesInput | HistoryUserScalarWhereWithAggregatesInput[]
     OR?: HistoryUserScalarWhereWithAggregatesInput[]
     NOT?: HistoryUserScalarWhereWithAggregatesInput | HistoryUserScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"HistoryUser"> | string
+    id?: StringWithAggregatesFilter<"HistoryUser"> | string
     ts?: DateTimeWithAggregatesFilter<"HistoryUser"> | Date | string
     type?: EnumHistoryTypeWithAggregatesFilter<"HistoryUser"> | $Enums.HistoryType
     options?: JsonNullableWithAggregatesFilter<"HistoryUser">
-    userId?: UuidWithAggregatesFilter<"HistoryUser"> | string
+    userId?: StringWithAggregatesFilter<"HistoryUser"> | string
   }
 
   export type TrooperWhereInput = {
     AND?: TrooperWhereInput | TrooperWhereInput[]
     OR?: TrooperWhereInput[]
     NOT?: TrooperWhereInput | TrooperWhereInput[]
-    id?: UuidFilter<"Trooper"> | string
+    id?: StringFilter<"Trooper"> | string
     createdAt?: DateTimeFilter<"Trooper"> | Date | string
-    userId?: UuidFilter<"Trooper"> | string
+    userId?: StringFilter<"Trooper"> | string
     name?: StringFilter<"Trooper"> | string
     choices?: IntNullableListFilter<"Trooper">
     group?: IntFilter<"Trooper"> | number
@@ -11486,7 +11486,7 @@ export namespace Prisma {
     OR?: TrooperWhereInput[]
     NOT?: TrooperWhereInput | TrooperWhereInput[]
     createdAt?: DateTimeFilter<"Trooper"> | Date | string
-    userId?: UuidFilter<"Trooper"> | string
+    userId?: StringFilter<"Trooper"> | string
     name?: StringFilter<"Trooper"> | string
     choices?: IntNullableListFilter<"Trooper">
     group?: IntFilter<"Trooper"> | number
@@ -11527,9 +11527,9 @@ export namespace Prisma {
     AND?: TrooperScalarWhereWithAggregatesInput | TrooperScalarWhereWithAggregatesInput[]
     OR?: TrooperScalarWhereWithAggregatesInput[]
     NOT?: TrooperScalarWhereWithAggregatesInput | TrooperScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Trooper"> | string
+    id?: StringWithAggregatesFilter<"Trooper"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Trooper"> | Date | string
-    userId?: UuidWithAggregatesFilter<"Trooper"> | string
+    userId?: StringWithAggregatesFilter<"Trooper"> | string
     name?: StringWithAggregatesFilter<"Trooper"> | string
     choices?: IntNullableListFilter<"Trooper">
     group?: IntWithAggregatesFilter<"Trooper"> | number
@@ -11547,7 +11547,7 @@ export namespace Prisma {
     AND?: TrooperDayWhereInput | TrooperDayWhereInput[]
     OR?: TrooperDayWhereInput[]
     NOT?: TrooperDayWhereInput | TrooperDayWhereInput[]
-    id?: UuidFilter<"TrooperDay"> | string
+    id?: StringFilter<"TrooperDay"> | string
     name?: StringFilter<"TrooperDay"> | string
     seed?: IntFilter<"TrooperDay"> | number
     choices?: IntNullableListFilter<"TrooperDay">
@@ -11586,7 +11586,7 @@ export namespace Prisma {
     AND?: TrooperDayScalarWhereWithAggregatesInput | TrooperDayScalarWhereWithAggregatesInput[]
     OR?: TrooperDayScalarWhereWithAggregatesInput[]
     NOT?: TrooperDayScalarWhereWithAggregatesInput | TrooperDayScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"TrooperDay"> | string
+    id?: StringWithAggregatesFilter<"TrooperDay"> | string
     name?: StringWithAggregatesFilter<"TrooperDay"> | string
     seed?: IntWithAggregatesFilter<"TrooperDay"> | number
     choices?: IntNullableListFilter<"TrooperDay">
@@ -11596,8 +11596,8 @@ export namespace Prisma {
     AND?: FightWhereInput | FightWhereInput[]
     OR?: FightWhereInput[]
     NOT?: FightWhereInput | FightWhereInput[]
-    id?: UuidFilter<"Fight"> | string
-    userId?: UuidFilter<"Fight"> | string
+    id?: StringFilter<"Fight"> | string
+    userId?: StringFilter<"Fight"> | string
     ts?: DateTimeFilter<"Fight"> | Date | string
     userName?: StringFilter<"Fight"> | string
     userPrefix?: IntFilter<"Fight"> | number
@@ -11626,7 +11626,7 @@ export namespace Prisma {
     AND?: FightWhereInput | FightWhereInput[]
     OR?: FightWhereInput[]
     NOT?: FightWhereInput | FightWhereInput[]
-    userId?: UuidFilter<"Fight"> | string
+    userId?: StringFilter<"Fight"> | string
     ts?: DateTimeFilter<"Fight"> | Date | string
     userName?: StringFilter<"Fight"> | string
     userPrefix?: IntFilter<"Fight"> | number
@@ -11658,8 +11658,8 @@ export namespace Prisma {
     AND?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
     OR?: FightScalarWhereWithAggregatesInput[]
     NOT?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Fight"> | string
-    userId?: UuidWithAggregatesFilter<"Fight"> | string
+    id?: StringWithAggregatesFilter<"Fight"> | string
+    userId?: StringWithAggregatesFilter<"Fight"> | string
     ts?: DateTimeWithAggregatesFilter<"Fight"> | Date | string
     userName?: StringWithAggregatesFilter<"Fight"> | string
     userPrefix?: IntWithAggregatesFilter<"Fight"> | number
@@ -11673,8 +11673,8 @@ export namespace Prisma {
     AND?: MissionWhereInput | MissionWhereInput[]
     OR?: MissionWhereInput[]
     NOT?: MissionWhereInput | MissionWhereInput[]
-    id?: UuidFilter<"Mission"> | string
-    userId?: UuidFilter<"Mission"> | string
+    id?: StringFilter<"Mission"> | string
+    userId?: StringFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
     missionInputSWFData?: StringFilter<"Mission"> | string
@@ -11697,7 +11697,7 @@ export namespace Prisma {
     AND?: MissionWhereInput | MissionWhereInput[]
     OR?: MissionWhereInput[]
     NOT?: MissionWhereInput | MissionWhereInput[]
-    userId?: UuidFilter<"Mission"> | string
+    userId?: StringFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
     missionInputSWFData?: StringFilter<"Mission"> | string
@@ -11721,8 +11721,8 @@ export namespace Prisma {
     AND?: MissionScalarWhereWithAggregatesInput | MissionScalarWhereWithAggregatesInput[]
     OR?: MissionScalarWhereWithAggregatesInput[]
     NOT?: MissionScalarWhereWithAggregatesInput | MissionScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Mission"> | string
-    userId?: UuidWithAggregatesFilter<"Mission"> | string
+    id?: StringWithAggregatesFilter<"Mission"> | string
+    userId?: StringWithAggregatesFilter<"Mission"> | string
     ts?: DateTimeWithAggregatesFilter<"Mission"> | Date | string
     type?: EnumMissionTypeWithAggregatesFilter<"Mission"> | $Enums.MissionType
     missionInputSWFData?: StringWithAggregatesFilter<"Mission"> | string
@@ -11733,8 +11733,8 @@ export namespace Prisma {
     AND?: RaidWhereInput | RaidWhereInput[]
     OR?: RaidWhereInput[]
     NOT?: RaidWhereInput | RaidWhereInput[]
-    id?: UuidFilter<"Raid"> | string
-    userId?: UuidFilter<"Raid"> | string
+    id?: StringFilter<"Raid"> | string
+    userId?: StringFilter<"Raid"> | string
     ts?: DateTimeFilter<"Raid"> | Date | string
     result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
     graveyard?: StringNullableListFilter<"Raid">
@@ -11755,7 +11755,7 @@ export namespace Prisma {
     AND?: RaidWhereInput | RaidWhereInput[]
     OR?: RaidWhereInput[]
     NOT?: RaidWhereInput | RaidWhereInput[]
-    userId?: UuidFilter<"Raid"> | string
+    userId?: StringFilter<"Raid"> | string
     ts?: DateTimeFilter<"Raid"> | Date | string
     result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
     graveyard?: StringNullableListFilter<"Raid">
@@ -11777,8 +11777,8 @@ export namespace Prisma {
     AND?: RaidScalarWhereWithAggregatesInput | RaidScalarWhereWithAggregatesInput[]
     OR?: RaidScalarWhereWithAggregatesInput[]
     NOT?: RaidScalarWhereWithAggregatesInput | RaidScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Raid"> | string
-    userId?: UuidWithAggregatesFilter<"Raid"> | string
+    id?: StringWithAggregatesFilter<"Raid"> | string
+    userId?: StringWithAggregatesFilter<"Raid"> | string
     ts?: DateTimeWithAggregatesFilter<"Raid"> | Date | string
     result?: EnumFightResultWithAggregatesFilter<"Raid"> | $Enums.FightResult
     graveyard?: StringNullableListFilter<"Raid">
@@ -12442,25 +12442,6 @@ export namespace Prisma {
     graveyard?: RaidUpdategraveyardInput | string[]
   }
 
-  export type UuidFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidFilter<$PrismaModel> | string
-  }
-
-  export type EnumLangFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12474,6 +12455,13 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type EnumLangFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -12503,7 +12491,7 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type UuidNullableFilter<$PrismaModel = never> = {
+  export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12511,8 +12499,11 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -12696,31 +12687,6 @@ export namespace Prisma {
     ratsCount?: SortOrder
   }
 
-  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type EnumLangWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumLangFilter<$PrismaModel>
-    _max?: NestedEnumLangFilter<$PrismaModel>
-  }
-
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12737,6 +12703,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12777,7 +12753,7 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12785,8 +12761,11 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
@@ -13673,24 +13652,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRaidsInput, UserUpdateWithoutRaidsInput>, UserUncheckedUpdateWithoutRaidsInput>
   }
 
-  export type NestedUuidFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidFilter<$PrismaModel> | string
-  }
-
-  export type NestedEnumLangFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -13703,6 +13664,13 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedEnumLangFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -13732,7 +13700,7 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -13740,7 +13708,10 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -13752,30 +13723,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedEnumLangWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumLangFilter<$PrismaModel>
-    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13793,6 +13740,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -13844,7 +13801,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -13852,7 +13809,10 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
@@ -13867,20 +13827,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14392,23 +14338,23 @@ export namespace Prisma {
     AND?: UserScalarWhereInput | UserScalarWhereInput[]
     OR?: UserScalarWhereInput[]
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
-    id?: UuidFilter<"User"> | string
+    id?: StringFilter<"User"> | string
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     lastConnexion?: DateTimeFilter<"User"> | Date | string
     admin?: BoolFilter<"User"> | boolean
-    connexionToken?: UuidFilter<"User"> | string
+    connexionToken?: StringFilter<"User"> | string
     gold?: IntFilter<"User"> | number
     power?: IntFilter<"User"> | number
     armyName?: StringFilter<"User"> | string
     armyUrl?: StringFilter<"User"> | string
     prefix?: IntFilter<"User"> | number
     color?: IntFilter<"User"> | number
-    sponsoredById?: UuidNullableFilter<"User"> | string | null
+    sponsoredById?: StringNullableFilter<"User"> | string | null
     referralGold?: IntFilter<"User"> | number
     ratsCount?: IntFilter<"User"> | number
-    infiltrationOpponentArmy?: UuidNullableFilter<"User"> | string | null
+    infiltrationOpponentArmy?: StringNullableFilter<"User"> | string | null
     infiltrationOpponentDate?: DateTimeNullableFilter<"User"> | Date | string | null
     infiltrationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
     exterminationUnlockAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14435,9 +14381,9 @@ export namespace Prisma {
     AND?: TrooperScalarWhereInput | TrooperScalarWhereInput[]
     OR?: TrooperScalarWhereInput[]
     NOT?: TrooperScalarWhereInput | TrooperScalarWhereInput[]
-    id?: UuidFilter<"Trooper"> | string
+    id?: StringFilter<"Trooper"> | string
     createdAt?: DateTimeFilter<"Trooper"> | Date | string
-    userId?: UuidFilter<"Trooper"> | string
+    userId?: StringFilter<"Trooper"> | string
     name?: StringFilter<"Trooper"> | string
     choices?: IntNullableListFilter<"Trooper">
     group?: IntFilter<"Trooper"> | number
@@ -14471,11 +14417,11 @@ export namespace Prisma {
     AND?: HistoryUserScalarWhereInput | HistoryUserScalarWhereInput[]
     OR?: HistoryUserScalarWhereInput[]
     NOT?: HistoryUserScalarWhereInput | HistoryUserScalarWhereInput[]
-    id?: UuidFilter<"HistoryUser"> | string
+    id?: StringFilter<"HistoryUser"> | string
     ts?: DateTimeFilter<"HistoryUser"> | Date | string
     type?: EnumHistoryTypeFilter<"HistoryUser"> | $Enums.HistoryType
     options?: JsonNullableFilter<"HistoryUser">
-    userId?: UuidFilter<"HistoryUser"> | string
+    userId?: StringFilter<"HistoryUser"> | string
   }
 
   export type ipAddressUserUpsertWithWhereUniqueWithoutUserInput = {
@@ -14498,8 +14444,8 @@ export namespace Prisma {
     AND?: ipAddressUserScalarWhereInput | ipAddressUserScalarWhereInput[]
     OR?: ipAddressUserScalarWhereInput[]
     NOT?: ipAddressUserScalarWhereInput | ipAddressUserScalarWhereInput[]
-    id?: UuidFilter<"ipAddressUser"> | string
-    userId?: UuidFilter<"ipAddressUser"> | string
+    id?: StringFilter<"ipAddressUser"> | string
+    userId?: StringFilter<"ipAddressUser"> | string
     ip?: StringFilter<"ipAddressUser"> | string
   }
 
@@ -14523,8 +14469,8 @@ export namespace Prisma {
     AND?: FightScalarWhereInput | FightScalarWhereInput[]
     OR?: FightScalarWhereInput[]
     NOT?: FightScalarWhereInput | FightScalarWhereInput[]
-    id?: UuidFilter<"Fight"> | string
-    userId?: UuidFilter<"Fight"> | string
+    id?: StringFilter<"Fight"> | string
+    userId?: StringFilter<"Fight"> | string
     ts?: DateTimeFilter<"Fight"> | Date | string
     userName?: StringFilter<"Fight"> | string
     userPrefix?: IntFilter<"Fight"> | number
@@ -14554,8 +14500,8 @@ export namespace Prisma {
     AND?: MissionScalarWhereInput | MissionScalarWhereInput[]
     OR?: MissionScalarWhereInput[]
     NOT?: MissionScalarWhereInput | MissionScalarWhereInput[]
-    id?: UuidFilter<"Mission"> | string
-    userId?: UuidFilter<"Mission"> | string
+    id?: StringFilter<"Mission"> | string
+    userId?: StringFilter<"Mission"> | string
     ts?: DateTimeFilter<"Mission"> | Date | string
     type?: EnumMissionTypeFilter<"Mission"> | $Enums.MissionType
     missionInputSWFData?: StringFilter<"Mission"> | string
@@ -14582,8 +14528,8 @@ export namespace Prisma {
     AND?: RaidScalarWhereInput | RaidScalarWhereInput[]
     OR?: RaidScalarWhereInput[]
     NOT?: RaidScalarWhereInput | RaidScalarWhereInput[]
-    id?: UuidFilter<"Raid"> | string
-    userId?: UuidFilter<"Raid"> | string
+    id?: StringFilter<"Raid"> | string
+    userId?: StringFilter<"Raid"> | string
     ts?: DateTimeFilter<"Raid"> | Date | string
     result?: EnumFightResultFilter<"Raid"> | $Enums.FightResult
     graveyard?: StringNullableListFilter<"Raid">

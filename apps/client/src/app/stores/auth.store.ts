@@ -16,6 +16,7 @@ interface AuthState {
   referralGold: number;
   loading: boolean;
   error: string | null;
+  isUserLoggedIn: boolean;
 }
 
 const initialState: AuthState = {
@@ -24,6 +25,7 @@ const initialState: AuthState = {
   referralGold: 0,
   loading: false,
   error: null,
+  isUserLoggedIn: false,
 };
 
 export const AuthStore = signalStore(
@@ -34,45 +36,50 @@ export const AuthStore = signalStore(
   })),
   withMethods(
     (store, authService = inject(AuthService), router = inject(Router)) => ({
-      async login(redirect: boolean = false) {
-        patchState(store, (state) => ({ loading: true, error: null }));
+      async login(redirect = false) {
+        patchState(store, () => ({ loading: true, error: null }));
         try {
           const user = await authService.signIn();
           if (user) {
-            patchState(store, (state) => ({
+            patchState(store, () => ({
               armyName: user.armyName,
               hasTroopers: !!user.troopers?.length,
               referralGold: user.referralGold,
               loading: false,
+              isUserLoggedIn: true,
             }));
 
             if (redirect && user.troopers?.length) {
               router.navigate(['/' + user.armyName]);
             }
           } else {
-            patchState(store, (state) => ({
+            patchState(store, () => ({
               error: 'Login failed',
               loading: false,
+              isUserLoggedIn: false,
             }));
           }
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
-          patchState(store, (state) => ({
+          patchState(store, () => ({
             error: 'Login failed',
             loading: false,
+            isUserLoggedIn: false,
           }));
         }
       },
       setUser(user: UserExtended) {
-        patchState(store, (state) => ({
+        patchState(store, () => ({
           armyName: user.armyName,
           hasTroopers: !!user.troopers?.length,
           referralGold: user.referralGold,
           loading: false,
           error: null,
+          isUserLoggedIn: true,
         }));
       },
       logout() {
-        patchState(store, (state) => ({ ...initialState }));
+        patchState(store, () => ({ ...initialState }));
         authService.disconnect();
       },
     }),

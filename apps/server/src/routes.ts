@@ -19,6 +19,9 @@ const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
   app.get("/api/oauth/redirect", OAuth.redirect);
   app.get("/api/oauth/token", OAuth.token(prisma));
 
+  // Discord
+  app.get("/api/oauth/discord", OAuth.redirectDiscord(prisma));
+
   // Utils
   app.get(
     "/api/util/checkNameAvailability",
@@ -30,7 +33,8 @@ const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
 
   // User
   app.post("/api/user/create", Users.create(prisma));
-  app.get("/api/user/signin", Users.signin(prisma));
+  app.get("/api/user/signin/eternal", Users.signin(prisma));
+  app.get("/api/user/signin/jwt", Users.signinJWT(prisma));
   app.get("/api/user/get", Users.get(prisma));
   app.post("/api/user/unlockMission", Users.unlockMission(prisma));
 

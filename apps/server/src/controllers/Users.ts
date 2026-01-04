@@ -5,7 +5,7 @@ import {
   getReferralPrice,
 } from "@minitroopers/shared";
 import { Request, Response } from "express";
-import { auth, IncludeAllUserData } from "../utils/UserHelper.js";
+import { auth, authJWT, IncludeAllUserData } from "../utils/UserHelper.js";
 
 const Users = {
   create: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -170,6 +170,16 @@ const Users = {
       res.send({ status: "error" });
     }
   },
+  signinJWT: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await authJWT(prisma, req);
+
+      res.send(user);
+    } catch (error) {
+      console.error(error);
+      res.send({ status: "error" });
+    }
+  },
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
       if (!req.query.army || typeof req.query.army != "string") {
@@ -228,7 +238,7 @@ const Users = {
         }
         const missionType: MissionType = req.body.missionType;
 
-        let data: any = {
+        const data: any = {
           gold: {
             decrement: BuyingMissionCost,
           },
