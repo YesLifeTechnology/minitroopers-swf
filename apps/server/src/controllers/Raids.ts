@@ -11,6 +11,7 @@ import {
   UserExtended,
 } from "@minitroopers/shared";
 import { Request, Response } from "express";
+import Env from "../Env.js";
 import { Ruffle } from "../utils/Ruffle.js";
 import {
   auth,
@@ -205,7 +206,7 @@ const generateBattleDataRaid = async (
       // Second parameter: attacking army (0 for left, 1 for right)
       0,
     ),
-    gfx: `https://minitroopers.io/assets/swf/army.swf`,
+    gfx: Env.SELF_URL + `assets/swf/army.swf`,
   };
 
   const obfuscatedData = objectObfuscator(data);

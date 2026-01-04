@@ -3,13 +3,11 @@
   [class.allowHover]="!disabledForm"
   [class.selected]="selected"
   [class.minified]="!withSkills"
-  >
+>
   <div #insert class="h-[71px]"></div>
 
-  @if (withSkills) {
-    <div
-      class="flex justify-evenly rounded-b-[4px] bg-[#66749e] py-[2px]"
-      >
+  @if (withSkills && secondSkill !== null) {
+    <div class="flex justify-evenly rounded-b-[4px] bg-[#66749e] py-[2px]">
       <div>
         <app-skills
           [skillId]="firstSkill"

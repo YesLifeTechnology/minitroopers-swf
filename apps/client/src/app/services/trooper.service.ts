@@ -208,7 +208,7 @@ export class TrooperService {
         },
         group,
       ),
-      gfx: 'https://minitroopers.io/assets/swf/mini.swf',
+      gfx: environment.assetsUrl + 'assets/swf/mini.swf',
     };
 
     // Obfuscate the data
@@ -282,7 +282,7 @@ export class TrooperService {
         xmax: col,
         ymax,
       }),
-      gfx: 'https://minitroopers.io/assets/swf/mini.swf',
+      gfx: environment.assetsUrl + 'assets/swf/mini.swf',
     };
 
     // Obfuscate the data

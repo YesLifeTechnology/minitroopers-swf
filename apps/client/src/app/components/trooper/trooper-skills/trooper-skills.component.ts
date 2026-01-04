@@ -25,6 +25,7 @@ import { TooltipDirective } from 'src/app/directives/tooltip.directive';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TrooperService } from 'src/app/services/trooper.service';
 import { ArmyStore } from 'src/app/stores/army.store';
+import { environment } from 'src/environments/environment';
 import { CommandButtonComponent } from '../../buttons/command-button/command-button.component';
 import {
   InputSelectComponent,
@@ -248,7 +249,7 @@ export class TrooperSkillsComponent implements OnChanges {
 
   share() {
     const url =
-      'https://minitroopers.io/' +
+      environment.inviteUrl +
       this.armyStore.currentArmyName() +
       '/' +
       this.selectedTrooper.id;

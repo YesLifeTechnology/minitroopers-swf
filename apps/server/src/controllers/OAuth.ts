@@ -97,7 +97,7 @@ const OAuth = {
           redirect_uri: DISCORD_REDIRECT_URI,
         });
 
-        console.log(params);
+        // console.log(params);
 
         const tokenResponse = await axios.post(
           "https://discord.com/api/oauth2/token",

@@ -17,7 +17,7 @@ export class ConfirmDiscordComponent {
 
   ngOnInit() {
     const code = this.route.snapshot.queryParamMap.get('code');
-    console.log(code);
+    // console.log(code);
     if (code) {
       this.authService.getFromTokenDiscord(code).subscribe(() => {
         this.router.navigate(['/']);
