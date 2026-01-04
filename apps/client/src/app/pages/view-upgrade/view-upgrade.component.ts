@@ -14,7 +14,7 @@ import { ArmyStore } from 'src/app/stores/army.store';
 })
 export class ViewUpgradeComponent implements OnDestroy {
   public prefixs = PrefixArmy;
-  public displaySkill: boolean = true;
+  public displaySkill = true;
 
   public selectedTrooper = signal<Trooper | undefined>(undefined);
 

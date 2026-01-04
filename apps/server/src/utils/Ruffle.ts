@@ -72,6 +72,8 @@ export class Ruffle {
         }
       };
 
+      console.log(flashvars);
+
       const args = [
         SWFPATH,
         "-P",
