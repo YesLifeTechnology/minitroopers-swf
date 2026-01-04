@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Trooper } from '@minitroopers/prisma';
 import { TrooperChoiceComponent } from 'src/app/components/trooper/trooper-choice/trooper-choice.component';
 import { TrooperSkillsComponent } from 'src/app/components/trooper/trooper-skills/trooper-skills.component';
+import { PrefixArmy } from 'src/app/constants/prefix-army';
 import { ArmyStore } from 'src/app/stores/army.store';
-import { PrefixArmy } from '../signup/signup.component';
-
 @Component({
   selector: 'app-view-upgrade',
   imports: [TrooperSkillsComponent, TrooperChoiceComponent],
