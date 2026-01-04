@@ -215,6 +215,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authService.loginFromDiscord();
   }
 
+  loginWithTwitch(): void {
+    this.authService.loginFromTwitch();
+  }
+
   createArmy() {
     if (
       !this.trooper?.value ||

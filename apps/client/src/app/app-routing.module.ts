@@ -8,6 +8,7 @@ import { AddComponent } from './pages/add/add.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ArmyComponent } from './pages/army/army.component';
 import { ConfirmDiscordComponent } from './pages/confirm-discord/confirm-discord.component';
+import { ConfirmTwitchComponent } from './pages/confirm-twitch/confirm-twitch.component';
 import { HqComponent } from './pages/hq/hq.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { OpponentsComponent } from './pages/opponents/opponents.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'confirm-discord',
     component: ConfirmDiscordComponent,
+  },
+  {
+    path: 'confirm-twitch',
+    component: ConfirmTwitchComponent,
   },
   {
     path: 'oauth/callback',

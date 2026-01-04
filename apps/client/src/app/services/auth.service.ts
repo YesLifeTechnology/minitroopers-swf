@@ -35,6 +35,21 @@ export class AuthService {
     window.location.href = discordUrl;
   }
 
+  private clientIdTwitch = 'it1i0u33zou5km2f62hx6ffwhmd8jm';
+  private redirectUriTwitch = encodeURIComponent(
+    'http://localhost:4200/confirm-twitch',
+  );
+
+  loginFromTwitch() {
+    const twitchAuthUrl =
+      `https://id.twitch.tv/oauth2/authorize` +
+      `?client_id=${this.clientIdTwitch}` +
+      `&redirect_uri=${this.redirectUriTwitch}` +
+      `&response_type=code` +
+      `&scope=user:read:email`;
+    window.location.href = twitchAuthUrl;
+  }
+
   signIn(): Promise<UserExtended | null> {
     return new Promise<UserExtended | null>((resolve) => {
       const userId = localStorage.getItem('user');
@@ -133,6 +148,38 @@ export class AuthService {
 
     return this.http
       .get<UserExtended>(environment.apiUrl + '/api/oauth/discord', {
+        params: queryParams,
+      })
+      .pipe(
+        tap((response) => {
+          if (response) {
+            this.languageService.setLanguage(response.lang);
+            localStorage.setItem('user', response.id);
+            localStorage.setItem('loginType', 'jwt');
+            localStorage.setItem('token', response.connexionToken);
+            localStorage.setItem(
+              'expires',
+              Date.now() + 24 * 7 * 60 * 60 * 1000 + '',
+            );
+          }
+        }),
+        catchError(() => {
+          this.notificationService.notify(
+            'error',
+            'Connection failed. Please try again.',
+          );
+          this.router.navigate(['/']);
+          return of(null);
+        }),
+      );
+  }
+
+  getFromTokenTwitch(code: string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('code', code);
+
+    return this.http
+      .get<UserExtended>(environment.apiUrl + '/api/oauth/twitch', {
         params: queryParams,
       })
       .pipe(

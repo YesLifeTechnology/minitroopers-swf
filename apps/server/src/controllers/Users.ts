@@ -131,7 +131,7 @@ const Users = {
           color: req.body.color,
           power: 5,
           sponsoredById: refArmy?.id,
-          gold: 99999, //debug DEV
+          gold: 9999, //debug DEV
           troopers: {
             create: {
               name: existingTodayTrooper.name,

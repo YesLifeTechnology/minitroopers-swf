@@ -21,6 +21,10 @@ const DISCORD_CLIENT_ID = Env.DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = Env.DISCORD_CLIENT_SECRET;
 const DISCORD_REDIRECT_URI = "http://localhost:4200/confirm-discord";
 
+const TWITCH_CLIENT_ID = Env.TWITCH_CLIENT_ID;
+const TWITCH_CLIENT_SECRET = Env.TWITCH_CLIENT_SECRET;
+const TWITCH_REDIRECT_URI = "http://localhost:4200/confirm-twitch";
+
 const OAuth = {
   redirect: (req: Request, res: Response) => {
     try {
@@ -116,7 +120,10 @@ const OAuth = {
         // Ici, vous devriez créer un JWT ou une session pour votre utilisateur
         console.log(userResponse.data.id);
 
-        const { id: discordId, username } = userResponse.data;
+        // eslint-disable-next-line prefer-const
+        let { id: discordId, username } = userResponse.data;
+
+        discordId = "discord_" + discordId;
 
         const appToken = jwt.sign({ userId: discordId }, Env.SESSION_SECRET, {
           expiresIn: "24d",
@@ -153,6 +160,91 @@ const OAuth = {
         // Fetch user data
         const user = await prisma.user.findFirst({
           where: { id: discordId, connexionToken: tokenAccessToken },
+          include: IncludeAllUserData(),
+        });
+        res.send(user);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Erreur lors de l'authentification");
+      }
+    },
+  redirectTwitch:
+    (prisma: PrismaClient) => async (req: Request, res: Response) => {
+      const { code } = req.query;
+
+      if (!code) return res.status(400).send("Code non fourni");
+
+      try {
+        const tokenParams = new URLSearchParams({
+          client_id: TWITCH_CLIENT_ID,
+          client_secret: TWITCH_CLIENT_SECRET,
+          code: code as string,
+          grant_type: "authorization_code",
+          redirect_uri: TWITCH_REDIRECT_URI,
+        });
+
+        // console.log(params);
+
+        const tokenResponse = await axios.post(
+          "https://id.twitch.tv/oauth2/token",
+          tokenParams,
+        );
+        const { access_token } = tokenResponse.data;
+
+        const userResponse = await axios.get(
+          "https://api.twitch.tv/helix/users",
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Client-Id": TWITCH_CLIENT_ID,
+            },
+          },
+        );
+
+        // Ici, vous devriez créer un JWT ou une session pour votre utilisateur
+        console.log(userResponse.data.id);
+
+        const twitchUser = userResponse.data.data[0];
+        // eslint-disable-next-line prefer-const
+        let { id: twitchId, display_name: twitchName } = twitchUser;
+
+        twitchId = "twitch_" + twitchId;
+
+        const appToken = jwt.sign({ userId: twitchId }, Env.SESSION_SECRET, {
+          expiresIn: "24d",
+        });
+
+        const tokenAccessToken = appToken;
+
+        const existingUser = await prisma.user.findFirst({
+          where: { id: twitchId },
+        });
+        // If user does not exist, create it
+        if (!existingUser) {
+          await prisma.user.create({
+            data: {
+              id: twitchId,
+              connexionToken: tokenAccessToken,
+              name: twitchName,
+              armyName: "",
+              armyUrl: "",
+            },
+            select: { id: true },
+          });
+        } else {
+          // If user exists, update it
+          await prisma.user.update({
+            where: { id: twitchId },
+            data: {
+              name: twitchName,
+              connexionToken: tokenAccessToken,
+            },
+            select: { id: true },
+          });
+        }
+        // Fetch user data
+        const user = await prisma.user.findFirst({
+          where: { id: twitchId, connexionToken: tokenAccessToken },
           include: IncludeAllUserData(),
         });
         res.send(user);

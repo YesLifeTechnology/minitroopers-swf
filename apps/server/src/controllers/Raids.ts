@@ -206,7 +206,7 @@ const generateBattleDataRaid = async (
       // Second parameter: attacking army (0 for left, 1 for right)
       0,
     ),
-    gfx: Env.SELF_URL + `assets/swf/army.swf`,
+    gfx: Env.SELF_URL + `/assets/swf/army.swf`,
   };
 
   const obfuscatedData = objectObfuscator(data);

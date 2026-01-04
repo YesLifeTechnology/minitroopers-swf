@@ -10,9 +10,9 @@ import { environment } from 'src/environments/environment';
   styleUrl: './container-referral.component.scss',
 })
 export class ContainerReferralComponent implements OnInit {
-  referralLink: string = '';
-  nextGoldReferral: number = 0;
-  twitterLink: string = '';
+  referralLink = '';
+  nextGoldReferral = 0;
+  twitterLink = '';
 
   private authStore = inject(AuthStore);
 
@@ -32,8 +32,7 @@ export class ContainerReferralComponent implements OnInit {
   }
 
   twitterCliked() {
-    // stats
-    // copy
+    window.open(this.twitterLink, '_blank');
   }
 
   discordCliked() {

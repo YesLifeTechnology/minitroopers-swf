@@ -21,6 +21,8 @@ const initRoutes = (app: Express, prisma: PrismaClient, ruffle: Ruffle) => {
 
   // Discord
   app.get("/api/oauth/discord", OAuth.redirectDiscord(prisma));
+  // Twitch
+  app.get("/api/oauth/twitch", OAuth.redirectTwitch(prisma));
 
   // Utils
   app.get(

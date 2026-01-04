@@ -43,7 +43,7 @@ This is the repository for Minitroopers !
 
 ## File Structure
 
-```
+```text
 .
 ├── apps
 │   ├── client        # Frontend (Angular)

@@ -6,7 +6,7 @@
 >
   <div #insert class="h-[71px]"></div>
 
-  @if (withSkills && secondSkill !== null) {
+  @if (withSkills && firstSkill !== undefined && secondSkill !== undefined) {
     <div class="flex justify-evenly rounded-b-[4px] bg-[#66749e] py-[2px]">
       <div>
         <app-skills
