@@ -17,6 +17,10 @@ const Env = {
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET ?? "",
 
   SESSION_SECRET: process.env.SESSION_SECRET ?? "",
+
+  SWF_PATH: process.env.SWF_PATH ?? "",
+  MAX_CONCURRENT: process.env.MAX_CONCURRENT ?? 20,
+  TIMEOUT: process.env.TIMEOUT ?? 35000,
 };
 
 export default Env;

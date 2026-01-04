@@ -1,28 +1,42 @@
 import { FightResult } from "@minitroopers/prisma/client";
-import { spawn } from "child_process";
+import { ChildProcess, spawn } from "child_process";
+import os from "os";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-
-const SWFPATH =
-  "C:/Users/fanba/Documents/minitroopers-swf/apps/client/src/assets/swf/client_fr_edit.swf";
-const MAX_CONCURRENT = 20;
-const TIMEOUT = 35000;
+import Env from "../Env.js";
 
 export class Ruffle {
+  isWindows = os.platform() === "win32";
+
+  SWFPATH = Env.SWF_PATH;
+  MAX_CONCURRENT = Number(Env.MAX_CONCURRENT);
+  TIMEOUT = Number(Env.TIMEOUT);
+
   runningProcesses = 0;
   queue: Array<(value: boolean) => void> = [];
 
-  constructor() {}
-
   async waitForSlot() {
     return new Promise((resolve) => {
-      if (this.runningProcesses < MAX_CONCURRENT) {
+      if (this.runningProcesses < this.MAX_CONCURRENT) {
         this.runningProcesses++;
         resolve(true);
       } else {
         this.queue.push(resolve);
       }
     });
+  }
+
+  killProcess(pid: number) {
+    console.log("Killing process", pid);
+    try {
+      if (this.isWindows) {
+        process.kill(pid);
+      } else {
+        process.kill(-pid);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   releaseSlot() {
@@ -52,6 +66,8 @@ export class Ruffle {
       let timeoutId: NodeJS.Timeout | undefined = undefined;
       let slotReleased = false;
 
+      let child: ChildProcess;
+
       const safeReleaseSlot = () => {
         if (!slotReleased) {
           slotReleased = true;
@@ -62,7 +78,10 @@ export class Ruffle {
       const checkResults = () => {
         if (battleResult !== null && graveyard !== null) {
           clearTimeout(timeoutId);
-          child.kill();
+          if (child?.pid) {
+            this.killProcess(child.pid);
+          }
+
           safeReleaseSlot();
           const result = battleResult ? FightResult.lose : FightResult.win;
           resolve({
@@ -72,91 +91,125 @@ export class Ruffle {
         }
       };
 
-      console.log(flashvars);
+      if (this.isWindows) {
+        const args = [
+          this.SWFPATH,
+          "-P",
+          decodeURIComponent(flashvars),
+          "--dummy-external-interface",
+        ];
 
-      const args = [
-        SWFPATH,
-        "-P",
-        decodeURIComponent(flashvars),
-        // "-g dx12",
-        // "--no-gui",
-        // "--no-avm2-optimizer",
-        "--dummy-external-interface",
-      ];
+        console.log(args);
 
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = dirname(__filename);
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = dirname(__filename);
 
-      const rufflePath = join(
-        __dirname,
-        "..",
-        "bin",
-        process.platform === "win32" ? "ruffle_desktop.exe" : "ruffle_desktop",
-      );
+        const rufflePath = join(
+          __dirname,
+          "..",
+          "bin",
+          process.platform === "win32"
+            ? "ruffle_desktop.exe"
+            : "ruffle_desktop",
+        );
 
-      // Spawn the Ruffle process
-      const child = spawn(rufflePath, args);
+        child = spawn(rufflePath, args);
+      } else {
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = dirname(__filename);
+
+        const ruffleArgs = [
+          "-a",
+          join(
+            __dirname,
+            "..",
+            "bin",
+            process.platform === "win32"
+              ? "ruffle_desktop.exe"
+              : "ruffle_desktop",
+          ),
+          this.SWFPATH,
+          "-P",
+          decodeURIComponent(flashvars),
+          "--dummy-external-interface",
+        ];
+
+        const xvfbCmd = "xvfb-run";
+
+        child = spawn(xvfbCmd, ruffleArgs, { detached: true });
+      }
 
       // Set timeout
       timeoutId = setTimeout(() => {
-        child.kill();
+        if (child?.pid) {
+          this.killProcess(child.pid);
+        }
         safeReleaseSlot();
         reject(new Error("Battle simulation timed"));
-      }, TIMEOUT);
+      }, this.TIMEOUT);
 
-      child.stdout.on("data", (data) => {
-        const output = data.toString();
-        const lines = output.split("\n");
+      if (child.stdout) {
+        child.stdout.on("data", (data) => {
+          const output = data.toString();
+          const lines = output.split("\n");
 
-        for (const line of lines) {
-          // console.log(line);
-          // Look for battle result lines
-          if (line.includes("battleResult")) {
-            const listMatch = line.match(/List\(\[(.*?)\]\)/);
-            if (listMatch) {
-              const content = listMatch[1]; // "Number(5.0), Number(6.0)"
+          for (const line of lines) {
+            // console.log(line);
+            // Look for battle result lines
+            if (line.includes("battleResult")) {
+              const listMatch = line.match(/List\(\[(.*?)\]\)/);
+              if (listMatch) {
+                const content = listMatch[1]; // "Number(5.0), Number(6.0)"
 
-              const numMatches = content.match(/Number\(([\d.]+)\)/g);
-              if (!numMatches) {
-                graveyard = [];
-              } else {
-                graveyard = numMatches.map((n: string) =>
-                  parseFloat(n.match(/[\d.]+/)![0]),
-                );
-              }
+                const numMatches = content.match(/Number\(([\d.]+)\)/g);
+                if (!numMatches) {
+                  graveyard = [];
+                } else {
+                  graveyard = numMatches.map((n: string) =>
+                    parseFloat(n.match(/[\d.]+/)![0]),
+                  );
+                }
 
-              checkResults();
-            } else {
-              const number = line.match(/Number\(([\d.]+)\)/);
-              if (number) {
-                battleResult = parseInt(number[1]);
                 checkResults();
+              } else {
+                const number = line.match(/Number\(([\d.]+)\)/);
+                if (number) {
+                  battleResult = parseInt(number[1]);
+                  checkResults();
+                }
               }
             }
           }
-        }
-      });
+        });
+      }
 
-      child.stderr.on("data", (data) => {
-        const output = data.toString();
-        if (
-          output.includes("ERROR") ||
-          output.includes("Error") ||
-          output.includes("error")
-        ) {
-          console.error("Ruffle error: " + output);
-        }
-      });
+      if (child.stderr) {
+        child.stderr.on("data", (data) => {
+          const output = data.toString();
+          if (
+            output.includes("ERROR") ||
+            output.includes("Error") ||
+            output.includes("error")
+          ) {
+            console.error("Ruffle error: " + output);
+          }
+        });
+      }
 
       child.on("error", (err) => {
         clearTimeout(timeoutId);
-        child.kill();
+        if (child?.pid) {
+          this.killProcess(child.pid);
+        }
         safeReleaseSlot();
         reject(new Error(`Failed to start Ruffle process: ${err.message}`));
       });
 
       child.on("exit", (code) => {
         clearTimeout(timeoutId);
+        if (child?.pid) {
+          this.killProcess(child.pid);
+        }
         if (code !== 0 && battleResult === null) {
           safeReleaseSlot();
           reject(new Error(`Ruffle process exited with code ${code}`));
@@ -164,7 +217,9 @@ export class Ruffle {
       });
 
       process.on("exit", () => {
-        child.kill();
+        if (child?.pid) {
+          this.killProcess(child.pid);
+        }
         safeReleaseSlot();
       });
     });
