@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { PartialUserExtended } from '@minitroopers/shared';
-import { PrefixArmy } from '../pages/signup/signup.component';
+import { PrefixArmy } from '../constants/prefix-army';
 
 @Pipe({
   standalone: true,

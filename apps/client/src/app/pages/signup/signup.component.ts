@@ -17,9 +17,12 @@ import { Subject, debounceTime, switchMap, take, takeUntil } from 'rxjs';
 import { ContainerBlueLargeComponent } from 'src/app/components/containers/container-blue-large/container-blue-large.component';
 import { ContainerBlueComponent } from 'src/app/components/containers/container-blue/container-blue.component';
 import { ChooseTrooperComponent } from 'src/app/components/trooper/choose-trooper/choose-trooper.component';
+import { PrefixArmy } from 'src/app/constants/prefix-army';
+import { GetArmyNamePipe } from 'src/app/pipes/getArmyName.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { AuthStore } from 'src/app/stores/auth.store';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -29,6 +32,7 @@ import { AuthStore } from 'src/app/stores/auth.store';
     ContainerBlueComponent,
     ContainerBlueLargeComponent,
     ChooseTrooperComponent,
+    GetArmyNamePipe,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -189,7 +193,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.availabilityState = 'loading';
         if (value && value != '' && value.length > 3 && this.army?.valid) {
           this.createdUrl =
-            'https://minitroopers.io/' +
+            environment.inviteUrl +
             value
               .trim()
               .replace(/[^a-zA-Z ]/g, '')
@@ -247,12 +251,3 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 }
-
-export const PrefixArmy: Record<number, string> = {
-  0: 'de',
-  1: "d'",
-  2: 'du',
-  3: 'de la',
-  4: 'des',
-  5: ' ',
-};
